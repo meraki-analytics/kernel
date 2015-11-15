@@ -1,2 +1,2 @@
 # kernel
-Standalone Riot API proxy server for building applications
+Riot API proxy server
