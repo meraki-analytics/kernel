@@ -25,7 +25,7 @@ def get_value(typename, key, region=""):
     return json.loads(cached) if cached else None
 
 def get_values(typename, keys, region=""):
-    return list(map(get_value, keys))
+    return list(map(lambda key: get_value(typename, key, region), keys))
 
 def get_all_values(typename, region=""):
     keys = get_meta_data(typename, "all", region)

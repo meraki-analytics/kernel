@@ -1,4 +1,4 @@
-import bottle
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -50,11 +50,3 @@ def get(region, url, params):
             return get(request, params, static)
         else:
             raise e
-
-def forward_errors(function):
-    def wrapped(*args, **kwargs):
-        try:
-            return function(*args, **kwargs)
-        except urllib.error.HTTPError as e:
-            bottle.abort(e.code)
-    return wrapped
