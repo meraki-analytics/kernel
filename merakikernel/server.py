@@ -2,6 +2,7 @@ import configparser
 import importlib
 import argparse
 import bottle
+import os
 
 import merakikernel.rediscache
 import merakikernel.requests
@@ -29,19 +30,23 @@ class Server(object):
         config.read(self.conf)
 
         # Set API key and rate limits
-        merakikernel.requests.api_key = config["rates"]["api-key"]
-        merakikernel.requests.print_calls = config["rates"].getboolean("print-calls")
-        merakikernel.requests.retry_on_exceed = config["rates"].getboolean("retry-on-exceed")
-        limits = list(map(_parse_limit, config["rates"]["limits"].split("\n")))
-        if len(limits) > 1:
-            merakikernel.requests.rate_limiter = merakikernel.rates.MultiRateLimiter(*limits)
-        else:
-            merakikernel.requests.rate_limiter = merakikernel.rates.SingleRateLimiter(limits[0][0], limits[0][1])
+        merakikernel.requests.api_key = config["rates"].get("api-key", os.environ.get("API_KEY", ""))
+        merakikernel.requests.print_calls = config["rates"].getboolean("print-calls", False)
+        
+        try:
+            limits = list(map(_parse_limit, config["rates"]["limits"].split("\n")))
+            if len(limits) > 1:
+                merakikernel.requests.rate_limiter = merakikernel.rates.MultiRateLimiter(*limits)
+            else:
+                merakikernel.requests.rate_limiter = merakikernel.rates.SingleRateLimiter(limits[0][0], limits[0][1])
+        except KeyError:
+            # No rate limits specified - don't manage rate limit automatically
+            merakikernel.requests.rate_limiter = None
 
-        # Load the APIs specified in the config file
-        for api in config["apis"]:
-            if config["apis"].getboolean(api):
-                importlib.import_module("merakikernel.{}api".format(api))
+        # Load the bottle modules specified in the config file
+        for module in config["modules"]:
+            if config["modules"].getboolean(module):
+                importlib.import_module(module)
 
         # Set configurable cache timeouts (and convert from minutes to seconds)
         timeouts = {}
@@ -57,10 +62,10 @@ class Server(object):
 def main():
     # Set program arguments
     parser = argparse.ArgumentParser(description="Meraki Kernel Server")
-    parser.add_argument("--conf", type=str, required=True, help="path to the kernel configuration file")
+    parser.add_argument("-config", type=str, required=True, help="path to the kernel configuration file")
     args = parser.parse_args()
 
-    server = Server(args.conf)
+    server = Server(args.config)
     server.run()
 
 if __name__ == "__main__":

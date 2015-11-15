@@ -13,7 +13,6 @@ except ImportError:
 api_key = ""
 rate_limiter = None
 print_calls = False
-retry_on_exceed = True
 
 def _executeRequest(url):
     """Executes an HTTP GET request and returns the result in a string
@@ -42,7 +41,7 @@ def get(region, url, params):
         return json.loads(content)
     except urllib.error.HTTPError as e:
         # Reset rate limiter and retry on 429 (rate limit exceeded)
-        if retry_on_exceed and e.code == 429 and rate_limiter:
+        if e.code == 429 and rate_limiter:
             retry_after = 1
             if e.headers["Retry-After"]:
                 retry_after += int(e.headers["Retry-After"])

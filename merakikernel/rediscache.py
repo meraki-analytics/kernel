@@ -39,19 +39,25 @@ def get_meta_data(typename, key, region=""):
     return json.loads(cached) if cached else None
 
 def put_value(typename, key, value, region=""):
-    redis_key = _get_redis_key(typename, key, region)
-    redis_value = json.dumps(value)
     try:
         timeout = timeouts[typename]
-        session.setex(redis_key, timeout, redis_value)
     except KeyError:
+        # Don't cache if no timeout is provided
+        return
+
+    redis_key = _get_redis_key(typename, key, region)
+    redis_value = json.dumps(value)
+    if timeout > 0:
+        session.setex(redis_key, timeout, redis_value)
+    else:
         session.set(redis_key, redis_value)
 
 def put_values(typename, keys, values, region="", all_values=False):
     try:
         timeout = timeouts[typename]
     except KeyError:
-        timeout = 0
+        # Don't cache if no timeout is provided
+        return
 
     if all_values:
         put_meta_data(typename, "all", keys, region)
@@ -59,13 +65,18 @@ def put_values(typename, keys, values, region="", all_values=False):
     for i in range(len(keys)):
         redis_key = _get_redis_key(typename, keys[i], region)
         redis_value = json.dumps(values[i])
-        session.setex(redis_key, timeout, redis_value) if timeout else session.set(redis_key, redis_value)
+        session.setex(redis_key, timeout, redis_value) if timeout > 0 else session.set(redis_key, redis_value)
 
 def put_meta_data(typename, key, value, region=""):
-    redis_key = _get_redis_key_meta(typename, key, region)
-    redis_value = json.dumps(value)
     try:
         timeout = timeouts[typename]
-        session.setex(redis_key, timeout, redis_value)
     except KeyError:
+        # Don't cache if no timeout is provided
+        return
+
+    redis_key = _get_redis_key_meta(typename, key, region)
+    redis_value = json.dumps(value)
+    if timeout > 0:
+        session.setex(redis_key, timeout, redis_value)
+    else:
         session.set(redis_key, redis_value)
