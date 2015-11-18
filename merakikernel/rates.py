@@ -9,11 +9,11 @@ class SingleRateLimiter(object):
         seconds_per_epoch    int    the number of seconds per epoch
         """
         self.seconds_per_epoch = seconds_per_epoch
-        self.semaphore = threading.Semaphore(calls_per_epoch)
-        self.lock = threading.Lock()
-        self.current = 0
-        self.limit = calls_per_epoch
-        self.resetter = None
+        self.semaphore         = threading.Semaphore(calls_per_epoch)
+        self.lock              = threading.Lock()
+        self.current           = 0
+        self.limit             = calls_per_epoch
+        self.resetter          = None
 
     def call(self, method=None, *args):
         """Calls a function when the rate limit allows (first come first serve)

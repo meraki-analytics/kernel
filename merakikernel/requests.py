@@ -1,18 +1,14 @@
 import urllib.error
 import urllib.parse
 import urllib.request
+import ujson
+import zlib
 
 import merakikernel.rates
 
-try:
-    # ujson is faster for lots of small encodes/decodes (http://artem.krylysov.com/blog/2015/09/29/benchmark-python-json-libraries/)
-    import ujson as json
-except ImportError:
-    import json
-
-api_key = ""
+api_key      = ""
 rate_limiter = None
-print_calls = False
+print_calls  = False
 
 def _executeRequest(url):
     """Executes an HTTP GET request and returns the result in a string
@@ -24,21 +20,23 @@ def _executeRequest(url):
 
     response = None
     try:
-        response = urllib.request.urlopen(url)
-        content = response.read().decode(encoding="UTF-8")
-        return content
+        request = urllib.request.Request(url)
+        request.add_header("Accept-Encoding", "gzip")
+        response = urllib.request.urlopen(request)
+        content = response.read()
+        content = zlib.decompress(content, zlib.MAX_WBITS | 16)
+        return ujson.loads(content)
     finally:
         if(response): 
             response.close()
 
-def get(region, url, params):
+def get(region, url, params, global_server=False):
     params["api_key"] = api_key
     encoded_params = urllib.parse.urlencode(params)
-    request = "https://{}.api.pvp.net{}?{}".format(region, url, encoded_params)
+    request = "https://{}.api.pvp.net{}?{}".format(region if not global_server else "global", url, encoded_params)
 
     try:
-        content = rate_limiter.call(_executeRequest, request) if rate_limiter else _executeRequest(request)
-        return json.loads(content)
+        return rate_limiter.call(_executeRequest, request) if rate_limiter and not global_server else _executeRequest(request)
     except urllib.error.HTTPError as e:
         # Reset rate limiter and retry on 429 (rate limit exceeded)
         if e.code == 429 and rate_limiter:

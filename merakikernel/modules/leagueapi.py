@@ -4,7 +4,7 @@ import merakikernel.rediscache
 import merakikernel.requests
 import merakikernel.common
 
-_leagues_typename = "Leagues"
+_leagues_typename        = "Leagues"
 _league_entries_typename = "LeagueEntries"
 
 @bottle.route("/api/lol/<region>/v2.5/league/by-summoner/<summonerIds>", method="GET")

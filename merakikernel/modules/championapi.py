@@ -6,7 +6,7 @@ import merakikernel.requests
 import merakikernel.common
 
 _status_typename = "ChampionStatus"
-_meta_lock = threading.Lock()  # Make sure a race condition doesn't unsync the metadata values
+_meta_lock       = threading.Lock()  # Make sure a local race condition doesn't unsync the metadata values
 
 def _wrap_statuses(statuses):
     return {
@@ -16,12 +16,8 @@ def _wrap_statuses(statuses):
 @bottle.route("/api/lol/<region>/v1.2/champion", method="GET")
 @merakikernel.common.forward_errors
 def champion(region):
-    # Get params
     params = dict(bottle.request.query)
-    try:
-        free_to_play = params["freeToPlay"].lower() == "true"
-    except KeyError:
-        free_to_play = False
+    free_to_play = params.get("freeToPlay", "false").lower() == "true"
 
     # Check for cached values
     with _meta_lock:

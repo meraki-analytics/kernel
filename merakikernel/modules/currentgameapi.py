@@ -5,7 +5,7 @@ import merakikernel.requests
 import merakikernel.common
 
 _current_game_typename = "CurrentGame"
-_platform_regions = {
+_platform_regions      = {
 	"BR1": "br",
 	"EUN1": "eune",
 	"EUW1": "euw",

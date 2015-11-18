@@ -30,7 +30,7 @@ class Server(object):
         config.read(self.conf)
 
         # Set API key and rate limits
-        merakikernel.requests.api_key = config["rates"].get("api-key", os.environ.get("API_KEY", ""))
+        merakikernel.requests.api_key     = config["rates"].get("api-key", os.environ.get("API_KEY", ""))
         merakikernel.requests.print_calls = config["rates"].getboolean("print-calls", False)
         
         try:

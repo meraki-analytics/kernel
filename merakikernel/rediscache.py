@@ -1,11 +1,6 @@
 import functools
 import redis
-
-try:
-    # ujson is faster for lots of small encodes/decodes (http://artem.krylysov.com/blog/2015/09/29/benchmark-python-json-libraries/)
-    import ujson as json
-except ImportError:
-    import json
+import ujson
 
 session  = None
 timeouts = {}
@@ -22,7 +17,7 @@ def _get_redis_key_meta(typename, key, region=""):
 
 def get_value(typename, key, region=""):
     cached = session.get(_get_redis_key(typename, key, region))
-    return json.loads(cached) if cached else None
+    return ujson.loads(cached) if cached else None
 
 def get_values(typename, keys, region=""):
     return list(map(lambda key: get_value(typename, key, region), keys))
@@ -32,11 +27,11 @@ def get_all_values(typename, region=""):
     if not keys:
         return None
     # Assumes that the meta list entry will always expire before the entries it references
-    return [json.loads(session.get(_get_redis_key(typename, key, region))) for key in keys]
+    return [ujson.loads(session.get(_get_redis_key(typename, key, region))) for key in keys]
 
 def get_meta_data(typename, key, region=""):
     cached = session.get(_get_redis_key_meta(typename, key, region))
-    return json.loads(cached) if cached else None
+    return ujson.loads(cached) if cached else None
 
 def put_value(typename, key, value, region=""):
     try:
@@ -46,7 +41,7 @@ def put_value(typename, key, value, region=""):
         return
 
     redis_key = _get_redis_key(typename, key, region)
-    redis_value = json.dumps(value)
+    redis_value = ujson.dumps(value)
     if timeout > 0:
         session.setex(redis_key, timeout, redis_value)
     else:
@@ -64,7 +59,7 @@ def put_values(typename, keys, values, region="", all_values=False):
 
     for i in range(len(keys)):
         redis_key = _get_redis_key(typename, keys[i], region)
-        redis_value = json.dumps(values[i])
+        redis_value = ujson.dumps(values[i])
         session.setex(redis_key, timeout, redis_value) if timeout > 0 else session.set(redis_key, redis_value)
 
 def put_meta_data(typename, key, value, region=""):
@@ -75,7 +70,7 @@ def put_meta_data(typename, key, value, region=""):
         return
 
     redis_key = _get_redis_key_meta(typename, key, region)
-    redis_value = json.dumps(value)
+    redis_value = ujson.dumps(value)
     if timeout > 0:
         session.setex(redis_key, timeout, redis_value)
     else:
