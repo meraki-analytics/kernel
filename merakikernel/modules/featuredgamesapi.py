@@ -11,21 +11,22 @@ _featured_games_typename = "FeaturedGames"
 # Riot servers as well without any effect on the response you'd normally get.
 
 @bottle.route("/observer-mode/rest/featured", method="GET")
-@merakikernel.common.forward_errors
+@merakikernel.common.riot_endpoint
 def featured_games():
-	params = dict(bottle.request.query)
-	try:
-		region = params["region"].lower()
-	except KeyError:
-		bottle.abort(400, "No region parameter specified!")
+    params = dict(bottle.request.query)
+    try:
+        region = params["region"].lower()
+    except KeyError:
+        bottle.abort(400, "No region parameter specified!")
 
-	games = merakikernel.rediscache.get_value(_featured_games_typename, "", region)
-	if games:
-		return games
+    games = merakikernel.rediscache.get_value(_featured_games_typename, "", region)
+    
+    if games:
+        return games
 
-	url = "/observer-mode/rest/featured"
-	games = merakikernel.requests.get(region, url, params)
+    url   = "/observer-mode/rest/featured"
+    games = merakikernel.requests.get(region, url, params)
 
-	merakikernel.rediscache.put_value(_featured_games_typename, "", games, region)
+    merakikernel.rediscache.put_value(_featured_games_typename, "", games, region)
 
-	return games
+    return games
