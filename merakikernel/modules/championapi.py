@@ -10,6 +10,7 @@ def _wrap_statuses(statuses):
     return {
         "champions": statuses
     }
+    
 
 @bottle.route("/api/lol/<region>/v1.2/champion", method="GET")
 @merakikernel.common.riot_endpoint
