@@ -30,10 +30,13 @@ def _executeRequest(url):
         if(response): 
             response.close()
 
-def get(region, url, params, global_server=False):
-    params["api_key"] = api_key
-    encoded_params = urllib.parse.urlencode(params)
-    request = "https://{}.api.pvp.net{}?{}".format(region if not global_server else "global", url, encoded_params)
+def get(region, url, params, global_server=False, status_endpoint=False):
+    if not status_endpoint:
+        params["api_key"] = api_key
+        encoded_params = urllib.parse.urlencode(params)
+        request = "https://{}.api.pvp.net{}?{}".format(region if not global_server else "global", url, encoded_params)
+    else:
+        request = "http://status.leagueoflegends.com{}".format(url)
 
     try:
         return rate_limiter.call(_executeRequest, request) if rate_limiter and not global_server else _executeRequest(request)

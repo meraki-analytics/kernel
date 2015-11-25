@@ -1,5 +1,4 @@
 import bottle
-import ujson
 
 import merakikernel.rediscache
 import merakikernel.requests
