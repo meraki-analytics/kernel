@@ -7,7 +7,7 @@ import merakikernel.common
 _leagues_typename        = "Leagues"
 _league_entries_typename = "LeagueEntries"
 
-@bottle.route("/api/lol/<region>/v2.5/league/by-summoner/<summonerIds>", method="GET")
+@bottle.get("/api/lol/<region>/v2.5/league/by-summoner/<summonerIds>")
 @merakikernel.common.riot_endpoint
 def leagues_summoner(region, summonerIds):
     region = region.lower()
@@ -39,7 +39,7 @@ def leagues_summoner(region, summonerIds):
     return {ids[i]: leagues[i] for i in range(len(ids)) if leagues[i]}
 
 
-@bottle.route("/api/lol/<region>/v2.5/league/by-summoner/<summonerIds>/entry", method="GET")
+@bottle.get("/api/lol/<region>/v2.5/league/by-summoner/<summonerIds>/entry")
 @merakikernel.common.riot_endpoint
 def league_entries_summoner(region, summonerIds):
     region = region.lower()
@@ -71,7 +71,7 @@ def league_entries_summoner(region, summonerIds):
     return {ids[i]: leagues[i] for i in range(len(ids)) if leagues[i]}
 
 
-@bottle.route("/api/lol/<region>/v2.5/league/by-team/<teamIds>", method="GET")
+@bottle.get("/api/lol/<region>/v2.5/league/by-team/<teamIds>")
 @merakikernel.common.riot_endpoint
 def leagues_team(region, teamIds):
     region = region.lower()
@@ -103,7 +103,7 @@ def leagues_team(region, teamIds):
     return {ids[i]: leagues[i] for i in range(len(ids)) if leagues[i]}
 
 
-@bottle.route("/api/lol/<region>/v2.5/league/by-team/<teamIds>/entry", method="GET")
+@bottle.get("/api/lol/<region>/v2.5/league/by-team/<teamIds>/entry")
 @merakikernel.common.riot_endpoint
 def league_entries_team(region, teamIds):
     region = region.lower()
@@ -135,7 +135,7 @@ def league_entries_team(region, teamIds):
     return {ids[i]: leagues[i] for i in range(len(ids)) if leagues[i]}
 
 
-@bottle.route("/api/lol/<region>/v2.5/league/challenger", method="GET")
+@bottle.get("/api/lol/<region>/v2.5/league/challenger")
 @merakikernel.common.riot_endpoint
 def challenger(region):
     params = dict(bottle.request.query)
@@ -154,7 +154,7 @@ def challenger(region):
     return challenger
 
 
-@bottle.route("/api/lol/<region>/v2.5/league/master", method="GET")
+@bottle.get("/api/lol/<region>/v2.5/league/master")
 @merakikernel.common.riot_endpoint
 def master(region):
     params = dict(bottle.request.query)

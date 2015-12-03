@@ -19,7 +19,7 @@ _platform_regions      = {
     "PBE1": "pbe"
 }
 
-@bottle.route("/observer-mode/rest/consumer/getSpectatorGameInfo/<platformId>/<summonerId>", method="GET")
+@bottle.get("/observer-mode/rest/consumer/getSpectatorGameInfo/<platformId>/<summonerId>")
 @merakikernel.common.riot_endpoint
 def current_game(platformId, summonerId):
     region = _platform_regions[platformId.upper()]

@@ -6,7 +6,7 @@ import merakikernel.common
 
 _recent_games_typename = "RecentGames"
 
-@bottle.route("/api/lol/<region>/v1.3/game/by-summoner/<summonerId>/recent", method="GET")
+@bottle.get("/api/lol/<region>/v1.3/game/by-summoner/<summonerId>/recent")
 @merakikernel.common.riot_endpoint
 def recent_games(region, summonerId):
     region = region.lower()

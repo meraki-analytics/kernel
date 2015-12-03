@@ -10,7 +10,7 @@ _featured_games_typename = "FeaturedGames"
 # per server, kernel takes the region as a GET parameter. You can safely send this parameter to the
 # Riot servers as well without any effect on the response you'd normally get.
 
-@bottle.route("/observer-mode/rest/featured", method="GET")
+@bottle.get("/observer-mode/rest/featured")
 @merakikernel.common.riot_endpoint
 def featured_games():
     params = dict(bottle.request.query)

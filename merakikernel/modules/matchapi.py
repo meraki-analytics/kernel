@@ -6,7 +6,7 @@ import merakikernel.common
 
 _match_typename = "Match"
 
-@bottle.route("/api/lol/<region>/v2.2/match/<matchId>", method="GET")
+@bottle.get("/api/lol/<region>/v2.2/match/<matchId>")
 @merakikernel.common.riot_endpoint
 def match(region, matchId):
     params           = dict(bottle.request.query)

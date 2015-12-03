@@ -7,7 +7,7 @@ import merakikernel.common
 _ranked_stats_typename = "RankedStats"
 _stats_typename        = "Stats"
 
-@bottle.route("/api/lol/<region>/v1.3/stats/by-summoner/<summonerId>/ranked", method="GET")
+@bottle.get("/api/lol/<region>/v1.3/stats/by-summoner/<summonerId>/ranked")
 @merakikernel.common.riot_endpoint
 def ranked_stats(region, summonerId):
     params = dict(bottle.request.query)
@@ -26,7 +26,7 @@ def ranked_stats(region, summonerId):
     return stats
 
 
-@bottle.route("/api/lol/<region>/v1.3/stats/by-summoner/<summonerId>/summary", method="GET")
+@bottle.get("/api/lol/<region>/v1.3/stats/by-summoner/<summonerId>/summary")
 @merakikernel.common.riot_endpoint
 def stats(region, summonerId):
     params = dict(bottle.request.query)

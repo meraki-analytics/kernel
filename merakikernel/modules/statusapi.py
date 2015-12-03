@@ -8,7 +8,7 @@ _shards_typename        = "Shards"
 _shard_status_typename  = "ShardStatus"
 
 
-@bottle.route("/shards", method="GET")
+@bottle.get("/shards")
 @merakikernel.common.riot_endpoint
 def shards():
     shards = merakikernel.rediscache.get_value(_shards_typename, "", "")
@@ -24,7 +24,7 @@ def shards():
     return shards
 
 
-@bottle.route("/shards/<region>", method="GET")
+@bottle.get("/shards/<region>")
 @merakikernel.common.riot_endpoint
 def shard_status(region):
     region = region.lower()

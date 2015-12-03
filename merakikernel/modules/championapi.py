@@ -12,7 +12,7 @@ def _wrap_statuses(statuses):
     }
     
 
-@bottle.route("/api/lol/<region>/v1.2/champion", method="GET")
+@bottle.get("/api/lol/<region>/v1.2/champion")
 @merakikernel.common.riot_endpoint
 def champion(region):
     region       = region.lower()
@@ -46,7 +46,7 @@ def champion(region):
     return statuses
 
 
-@bottle.route("/api/lol/<region>/v1.2/champion/<id>", method="GET")
+@bottle.get("/api/lol/<region>/v1.2/champion/<id>")
 @merakikernel.common.riot_endpoint
 def champion_id(region, id):
     region = region.lower()
