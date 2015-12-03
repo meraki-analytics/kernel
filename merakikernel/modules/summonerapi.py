@@ -129,7 +129,7 @@ def summoner_runes(region, summonerIds):
             loc.append(i)
 
     if missing:
-        url           = "/api/lol/{}/v1.4/summoner/{}/runes".format(region, ",".join(missing))
+        url       = "/api/lol/{}/v1.4/summoner/{}/runes".format(region, ",".join(missing))
         new_runes = merakikernel.requests.get(region, url, dict(bottle.request.query))
 
         for i in range(len(missing)):
@@ -144,6 +144,8 @@ def summoner_runes(region, summonerIds):
 @bottle.get("/api/lol/<region>/v1.4/summoner/<summonerIds>/name")
 @merakikernel.common.riot_endpoint
 def summoner_names(region, summonerIds):
+    # Summoner Name endpoint is currently cached entirely separately from Summoner endpoints to allow for different expiration times for each.
+    # I feel this satisfies more use cases than trying to combine the caches.
     region       = region.lower()
     summoner_ids = summonerIds.split(",")
 
@@ -161,7 +163,7 @@ def summoner_names(region, summonerIds):
             loc.append(i)
 
     if missing:
-        url           = "/api/lol/{}/v1.4/summoner/{}/name".format(region, ",".join(missing))
+        url       = "/api/lol/{}/v1.4/summoner/{}/name".format(region, ",".join(missing))
         new_names = merakikernel.requests.get(region, url, dict(bottle.request.query))
 
         for i in range(len(missing)):
