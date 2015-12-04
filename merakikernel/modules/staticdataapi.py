@@ -36,7 +36,7 @@ _champ_data_options = {
 }
 
 def _get_champion_meta(region, params):
-    return "{}|{}|{}".format(region.lower(), params.get("version", ""), params.get("locale", ""))
+    return "|".join([region.lower(), params.get("version", ""), params.get("locale", "")])
 
 def _wrap_champions(champions, data_by_id, version, all_data):
     champion_list = {
@@ -169,7 +169,7 @@ _item_data_options = {
 }
 
 def _get_item_meta(region, params):
-    return "{}|{}|{}".format(region.lower(), params.get("version", ""), params.get("locale", ""))
+    return "|".join([region.lower(), params.get("version", ""), params.get("locale", "")])
 
 def _wrap_items(items, version, basic, groups=None, tree=None):
     item_list = {
@@ -292,7 +292,7 @@ def item_id(region, id):
 ######################
 
 def _get_language_meta(region, params):
-    return "{}|{}|{}".format(region.lower(), params.get("version", ""), params.get("locale", ""))
+    return "|".join([region.lower(), params.get("version", ""), params.get("locale", "")])
 
 
 @bottle.get("/api/lol/static-data/<region>/v1.2/language-strings")
@@ -342,7 +342,7 @@ def languages(region):
 ################
 
 def _get_maps_meta(region, params):
-    return "{}|{}|{}".format(region.lower(), params.get("version", ""), params.get("locale", ""))
+    return "|".join([region.lower(), params.get("version", ""), params.get("locale", "")])
 
 
 @bottle.get("/api/lol/static-data/<region>/v1.2/map")
@@ -379,7 +379,7 @@ _mastery_data_options = {
 }
 
 def _get_mastery_meta(region, params):
-    return "{}|{}|{}".format(region.lower(), params.get("version", ""), params.get("locale", ""))
+    return "|".join([region.lower(), params.get("version", ""), params.get("locale", "")])
 
 def _wrap_masteries(masteries, version, tree=None):
     mastery_list = {
@@ -524,7 +524,7 @@ _rune_data_options = {
 }
 
 def _get_rune_meta(region, params):
-    return "{}|{}|{}".format(region.lower(), params.get("version", ""), params.get("locale", ""))
+    return "|".join([region.lower(), params.get("version", ""), params.get("locale", "")])
 
 def _wrap_runes(runes, version, basic=None):
     rune_list = {
@@ -660,7 +660,7 @@ _spell_data_options = {
 }
 
 def _get_summoner_spell_meta(region, params):
-    return "{}|{}|{}".format(region.lower(), params.get("version", ""), params.get("locale", ""))
+    return "|".join([region.lower(), params.get("version", ""), params.get("locale", "")])
 
 def _wrap_summoner_spells(summoner_spells, data_by_id, version):
     summoner_spell_list = {
