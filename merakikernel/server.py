@@ -8,26 +8,6 @@ import merakikernel.rediscache
 import merakikernel.requests
 import merakikernel.rates
 
-class EnableCors(object):
-    name = "enable_cors"
-    api = 2
-
-    def apply(self, fn, context):
-        def _enable_cors(*args, **kwargs):
-            bottle.response.headers["Access-Control-Allow-Origin"] = bottle.request.headers.get("Origin", "*")
-            bottle.response.headers["Access-Control-Allow-Methods"] = "PUT, GET, POST, DELETE, OPTIONS"
-            bottle.response.headers["Access-Control-Allow-Headers"] = bottle.request.headers.get("Access-Control-Request-Headers", "Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token")
-            
-            try:
-                del bottle.response.headers["Server"]
-            except KeyError:
-                pass
-
-            if bottle.request.method != "OPTIONS":
-                return fn(*args, **kwargs)
-
-        return _enable_cors
-
 def _call_with_config_kwargs(function, config, config_header):
     try:
         kwargs = dict(config[config_header])
@@ -38,6 +18,13 @@ def _call_with_config_kwargs(function, config, config_header):
 def _parse_limit(limit_string):
     limit = limit_string.split("/")
     return (int(limit[0]), int(limit[1]))
+
+@bottle.hook("after_request")
+def delete_server_header():
+    try:
+        bottle.response.headers["Server"] = ""
+    except KeyError:
+        pass
 
 
 class Server(object):
@@ -77,10 +64,7 @@ class Server(object):
 
         # Open redis connection and start the server
         _call_with_config_kwargs(merakikernel.rediscache.connect, config, "redis-py")
-
-        app = bottle.app()
-        app.install(EnableCors())
-        _call_with_config_kwargs(app.run, config, "bottle")
+        _call_with_config_kwargs(bottle.run, config, "bottle")
 
 
 def main():
