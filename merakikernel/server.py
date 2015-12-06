@@ -21,10 +21,7 @@ def _parse_limit(limit_string):
 
 @bottle.hook("after_request")
 def delete_server_header():
-    try:
-        bottle.response.headers["Server"] = ""
-    except KeyError:
-        pass
+    bottle.response.headers["Server"] = ""
 
 
 class Server(object):

@@ -10,7 +10,7 @@ def summoner_teams(region, summonerIds, params={}):
 
     # 10 summoners max
     if len(summoner_ids) > 10:
-        raise ValueError()
+        raise ValueError("Can only get up to 10 summoners' teams at once.")
 
     team_ids = merakikernel.rediscache.get_type_data(_team_typename, summoner_ids, region)
 
@@ -47,7 +47,7 @@ def team(region, teamIds, params={}):
 
     # 10 teams max
     if len(team_ids) > 10:
-        raise ValueError()
+        raise ValueError("Can only get up to 10 teams at once.")
 
     teams = merakikernel.rediscache.get_values(_team_typename, team_ids, region)
 

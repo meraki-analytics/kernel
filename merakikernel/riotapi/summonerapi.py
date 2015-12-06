@@ -14,7 +14,7 @@ def summoners_by_name(region, summonerNames, params={}):
 
     # 40 summoners max
     if len(names) > 40:
-        raise ValueError()
+        raise ValueError("Can only get up to 40 summoners at once.")
 
     summoner_ids = merakikernel.rediscache.get_type_data(_summoner_typename, names, region)
     summoners    = merakikernel.rediscache.get_values(_summoner_typename, summoner_ids, region)
@@ -47,7 +47,7 @@ def summoners_by_id(region, summonerIds, params={}):
 
     # 40 summoners max
     if len(summoner_ids) > 40:
-        raise ValueError()
+        raise ValueError("Can only get up to 40 summoners at once.")
 
     summoners = merakikernel.rediscache.get_values(_summoner_typename, summoner_ids, region)
 
@@ -78,7 +78,7 @@ def summoner_masteries(region, summonerIds, params={}):
 
     # 40 summoners max
     if len(summoner_ids) > 40:
-        raise ValueError()
+        raise ValueError("Can only get masteries for up to 40 summoners at once.")
 
     masteries = merakikernel.rediscache.get_values(_summoner_masteries_typename, summoner_ids, region)
 
@@ -108,7 +108,7 @@ def summoner_runes(region, summonerIds, params={}):
 
     # 40 summoners max
     if len(summoner_ids) > 40:
-        raise ValueError()
+        raise ValueError("Can only get runes for up to 40 summoners at once.")
 
     runes = merakikernel.rediscache.get_values(_summoner_runes_typename, summoner_ids, region)
 
@@ -140,7 +140,7 @@ def summoner_names(region, summonerIds, params={}):
 
     # 40 summoners max
     if len(summoner_ids) > 40:
-        raise ValueError()
+        raise ValueError("Can only get names for up to 40 summoners at once.")
 
     names = merakikernel.rediscache.get_values(_summoner_name_typename, summoner_ids, region)
 

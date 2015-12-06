@@ -11,7 +11,7 @@ def leagues_summoner(region, summonerIds, params={}):
 
     # 10 summoners max
     if len(ids) > 10:
-        raise ValueError()
+        raise ValueError("Can only get leagues for up to 10 summoners at once.")
 
     leagues = merakikernel.rediscache.get_values(_leagues_typename, ids, region)
 
@@ -41,7 +41,7 @@ def league_entries_summoner(region, summonerIds, params={}):
 
     # 10 summoners max
     if len(ids) > 10:
-        raise ValueError()
+        raise ValueError("Can only get leagues for up to 10 summoners at once.")
 
     leagues = merakikernel.rediscache.get_values(_league_entries_typename, ids, region)
 
@@ -71,7 +71,7 @@ def leagues_team(region, teamIds, params={}):
 
     # 10 teams max
     if len(ids) > 10:
-        raise ValueError()
+        raise ValueError("Can only get leagues for up to 10 teams at once.")
 
     leagues = merakikernel.rediscache.get_values(_leagues_typename, ids, region)
 
@@ -101,7 +101,7 @@ def league_entries_team(region, teamIds, params={}):
 
     # 10 teams max
     if len(ids) > 10:
-        raise ValueError()
+        raise ValueError("Can only get league entries for up to 10 teams at once.")
 
     leagues = merakikernel.rediscache.get_values(_league_entries_typename, ids, region)
 
