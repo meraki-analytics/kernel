@@ -11,7 +11,8 @@ def riot_endpoint(function):
 
         if bottle.request.method != "OPTIONS":
             try:
-                response = ujson.dumps(function(*args, **kwargs))
+                response = function(*args, **kwargs)
+                response = ujson.dumps(response) if not isinstance(response, str) else response
 
                 if "gzip" in bottle.request.headers["Accept-Encoding"]:
                     gzip_compressor = zlib.compressobj(9, zlib.DEFLATED, zlib.MAX_WBITS | 16)
@@ -26,7 +27,8 @@ def riot_endpoint(function):
 
 def compressed_json(function):
     def wrapped(*args, **kwargs):
-        response = ujson.dumps(function(*args, **kwargs))
+        response = function(*args, **kwargs)
+        response = ujson.dumps(response) if not isinstance(response, str) else response
 
         if "gzip" in bottle.request.headers["Accept-Encoding"]:
             gzip_compressor = zlib.compressobj(9, zlib.DEFLATED, zlib.MAX_WBITS | 16)
