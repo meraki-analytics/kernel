@@ -7,13 +7,13 @@ import merakikernel.common
 # Champion Endpoints #
 ######################
 
-@bottle.get("/api/lol/static-data/<region>/v1.2/champion")
+@bottle.route("/api/lol/static-data/<region>/v1.2/champion", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def champion(region):
     return merakikernel.riotapi.staticdataapi.champion(region, dict(bottle.request.query))
 
 
-@bottle.get("/api/lol/static-data/<region>/v1.2/champion/<id>")
+@bottle.route("/api/lol/static-data/<region>/v1.2/champion/<id>", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def champion_id(region, id):
     return merakikernel.riotapi.staticdataapi.champion_id(region, id, dict(bottle.request.query))
@@ -22,13 +22,13 @@ def champion_id(region, id):
 # Item Endpoints #
 ##################
 
-@bottle.get("/api/lol/static-data/<region>/v1.2/item")
+@bottle.route("/api/lol/static-data/<region>/v1.2/item", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def item(region):
     return merakikernel.riotapi.staticdataapi.item(region, dict(bottle.request.query))
 
 
-@bottle.get("/api/lol/static-data/<region>/v1.2/item/<id>")
+@bottle.route("/api/lol/static-data/<region>/v1.2/item/<id>", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def item_id(region, id):
     return merakikernel.riotapi.staticdataapi.item_id(region, id, dict(bottle.request.query))
@@ -37,13 +37,13 @@ def item_id(region, id):
 # Language Endpoints #
 ######################
 
-@bottle.get("/api/lol/static-data/<region>/v1.2/language-strings")
+@bottle.route("/api/lol/static-data/<region>/v1.2/language-strings", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def language_strings(region):
     return merakikernel.riotapi.staticdataapi.language_strings(region, dict(bottle.request.query))
 
 
-@bottle.get("/api/lol/static-data/<region>/v1.2/languages")
+@bottle.route("/api/lol/static-data/<region>/v1.2/languages", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def languages(region):
     return merakikernel.riotapi.staticdataapi.languages(region, dict(bottle.request.query))
@@ -52,7 +52,7 @@ def languages(region):
 # Map Endpoint #
 ################
 
-@bottle.get("/api/lol/static-data/<region>/v1.2/map")
+@bottle.route("/api/lol/static-data/<region>/v1.2/map", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def maps(region):
     return merakikernel.riotapi.staticdataapi.maps(region, dict(bottle.request.query))
@@ -61,13 +61,13 @@ def maps(region):
 # Mastery Endpoints #
 #####################
 
-@bottle.get("/api/lol/static-data/<region>/v1.2/mastery")
+@bottle.route("/api/lol/static-data/<region>/v1.2/mastery", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def mastery(region):
     return merakikernel.riotapi.staticdataapi.mastery(region, dict(bottle.request.query))
 
 
-@bottle.get("/api/lol/static-data/<region>/v1.2/mastery/<id>")
+@bottle.route("/api/lol/static-data/<region>/v1.2/mastery/<id>", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def mastery_id(region, id):
     return merakikernel.riotapi.staticdataapi.mastery_id(region, id, dict(bottle.request.query))
@@ -76,7 +76,7 @@ def mastery_id(region, id):
 # Realm Endpoint #
 ##################
 
-@bottle.get("/api/lol/static-data/<region>/v1.2/realm")
+@bottle.route("/api/lol/static-data/<region>/v1.2/realm", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def realm(region):
     return merakikernel.riotapi.staticdataapi.realm(region, dict(bottle.request.query))
@@ -85,13 +85,13 @@ def realm(region):
 # Rune Endpoints #
 ##################
 
-@bottle.get("/api/lol/static-data/<region>/v1.2/rune")
+@bottle.route("/api/lol/static-data/<region>/v1.2/rune", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def rune(region):
     return merakikernel.riotapi.staticdataapi.rune(region, dict(bottle.request.query))
 
 
-@bottle.get("/api/lol/static-data/<region>/v1.2/rune/<id>")
+@bottle.route("/api/lol/static-data/<region>/v1.2/rune/<id>", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def rune_id(region, id):
     return merakikernel.riotapi.staticdataapi.rune_id(region, id, dict(bottle.request.query))
@@ -100,13 +100,13 @@ def rune_id(region, id):
 # Summoner Spell Endpoints #
 ############################
 
-@bottle.get("/api/lol/static-data/<region>/v1.2/summoner-spell")
+@bottle.route("/api/lol/static-data/<region>/v1.2/summoner-spell", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def summoner_spell(region):
     return merakikernel.riotapi.staticdataapi.summoner_spell(region, dict(bottle.request.query))
 
 
-@bottle.get("/api/lol/static-data/<region>/v1.2/summoner-spell/<id>")
+@bottle.route("/api/lol/static-data/<region>/v1.2/summoner-spell/<id>", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def summoner_spell_id(region, id):
     return merakikernel.riotapi.staticdataapi.summoner_spell_id(region, id, dict(bottle.request.query))
@@ -115,7 +115,7 @@ def summoner_spell_id(region, id):
 # Versions Endpoint #
 #####################
 
-@bottle.get("/api/lol/static-data/<region>/v1.2/versions")
+@bottle.route("/api/lol/static-data/<region>/v1.2/versions", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def versions(region):
     return merakikernel.riotapi.staticdataapi.versions(region, dict(bottle.request.query))

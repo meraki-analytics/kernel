@@ -3,7 +3,7 @@ import bottle
 import merakikernel.riotapi.teamapi
 import merakikernel.common
 
-@bottle.get("/api/lol/<region>/v2.4/team/by-summoner/<summonerIds>")
+@bottle.route("/api/lol/<region>/v2.4/team/by-summoner/<summonerIds>", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def summoner_teams(region, summonerIds):
     try:
@@ -12,7 +12,7 @@ def summoner_teams(region, summonerIds):
         bottle.abort(400)
 
 
-@bottle.get("/api/lol/<region>/v2.4/team/<teamIds>")
+@bottle.route("/api/lol/<region>/v2.4/team/<teamIds>", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def team(region, teamIds):
     try:

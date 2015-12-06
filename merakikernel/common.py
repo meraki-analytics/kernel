@@ -44,7 +44,7 @@ def enable_cors(function, origin="*"):
         bottle.response.headers["Access-Control-Allow-Headers"] = bottle.request.headers.get("Access-Control-Request-Headers", "Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token")
 
         if bottle.request.method != "OPTIONS":
-            return fn(*args, **kwargs)
+            return function(*args, **kwargs)
 
     return _enable_cors
 

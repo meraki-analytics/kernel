@@ -3,7 +3,7 @@ import bottle
 import merakikernel.riotapi.summonerapi
 import merakikernel.common
 
-@bottle.get("/api/lol/<region>/v1.4/summoner/by-name/<summonerNames>")
+@bottle.route("/api/lol/<region>/v1.4/summoner/by-name/<summonerNames>", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def summoners_by_name(region, summonerNames):
     try:
@@ -12,7 +12,7 @@ def summoners_by_name(region, summonerNames):
         bottle.abort(400)
 
 
-@bottle.get("/api/lol/<region>/v1.4/summoner/<summonerIds>")
+@bottle.route("/api/lol/<region>/v1.4/summoner/<summonerIds>", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def summoners_by_id(region, summonerIds):
     try:
@@ -21,7 +21,7 @@ def summoners_by_id(region, summonerIds):
         bottle.abort(400)
 
 
-@bottle.get("/api/lol/<region>/v1.4/summoner/<summonerIds>/masteries")
+@bottle.route("/api/lol/<region>/v1.4/summoner/<summonerIds>/masteries", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def summoner_masteries(region, summonerIds):
     try:
@@ -30,7 +30,7 @@ def summoner_masteries(region, summonerIds):
         bottle.abort(400)
 
 
-@bottle.get("/api/lol/<region>/v1.4/summoner/<summonerIds>/runes")
+@bottle.route("/api/lol/<region>/v1.4/summoner/<summonerIds>/runes", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def summoner_runes(region, summonerIds):
     try:
@@ -39,7 +39,7 @@ def summoner_runes(region, summonerIds):
         bottle.abort(400)
 
 
-@bottle.get("/api/lol/<region>/v1.4/summoner/<summonerIds>/name")
+@bottle.route("/api/lol/<region>/v1.4/summoner/<summonerIds>/name", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def summoner_names(region, summonerIds):
     try:

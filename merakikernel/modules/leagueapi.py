@@ -3,7 +3,7 @@ import bottle
 import merakikernel.riotapi.leagueapi
 import merakikernel.common
 
-@bottle.get("/api/lol/<region>/v2.5/league/by-summoner/<summonerIds>")
+@bottle.route("/api/lol/<region>/v2.5/league/by-summoner/<summonerIds>", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def leagues_summoner(region, summonerIds):
     try:
@@ -12,7 +12,7 @@ def leagues_summoner(region, summonerIds):
         bottle.abort(400)
 
 
-@bottle.get("/api/lol/<region>/v2.5/league/by-summoner/<summonerIds>/entry")
+@bottle.route("/api/lol/<region>/v2.5/league/by-summoner/<summonerIds>/entry", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def league_entries_summoner(region, summonerIds):
     try:
@@ -21,7 +21,7 @@ def league_entries_summoner(region, summonerIds):
         bottle.abort(400)
 
 
-@bottle.get("/api/lol/<region>/v2.5/league/by-team/<teamIds>")
+@bottle.route("/api/lol/<region>/v2.5/league/by-team/<teamIds>", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def leagues_team(region, teamIds):
     try:
@@ -30,7 +30,7 @@ def leagues_team(region, teamIds):
         bottle.abort(400)
 
 
-@bottle.get("/api/lol/<region>/v2.5/league/by-team/<teamIds>/entry")
+@bottle.route("/api/lol/<region>/v2.5/league/by-team/<teamIds>/entry", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def league_entries_team(region, teamIds):
     try:
@@ -39,13 +39,13 @@ def league_entries_team(region, teamIds):
         bottle.abort(400)
 
 
-@bottle.get("/api/lol/<region>/v2.5/league/challenger")
+@bottle.route("/api/lol/<region>/v2.5/league/challenger", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def challenger(region):
     return merakikernel.riotapi.leagueapi.challenger(region, dict(bottle.request.query))
 
 
-@bottle.get("/api/lol/<region>/v2.5/league/master")
+@bottle.route("/api/lol/<region>/v2.5/league/master", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def master(region):
     return merakikernel.riotapi.leagueapi.master(region, dict(bottle.request.query))
