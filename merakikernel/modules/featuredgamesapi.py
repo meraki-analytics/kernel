@@ -1,6 +1,6 @@
 import bottle
 
-import merakikernel.apiproxy.featuredgamesapi
+import merakikernel.riotapi.featuredgamesapi
 import merakikernel.common
 
 # Special note - since the featured games endpoint doesn't take region as an argument and is served
@@ -13,6 +13,6 @@ def featured_games():
     params = dict(bottle.request.query)
     try:
         region = params["region"].lower()
-        return merakikernel.apiproxy.featuredgamesapi.featured_games(region, params)
+        return merakikernel.riotapi.featuredgamesapi.featured_games(region, params)
     except KeyError:
         bottle.abort(400, "No region parameter specified!")

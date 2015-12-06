@@ -1,13 +1,13 @@
 import bottle
 
-import merakikernel.apiproxy.summonerapi
+import merakikernel.riotapi.summonerapi
 import merakikernel.common
 
 @bottle.get("/api/lol/<region>/v1.4/summoner/by-name/<summonerNames>")
 @merakikernel.common.riot_endpoint
 def summoners_by_name(region, summonerNames):
     try:
-        return merakikernel.apiproxy.summonerapi.summoners_by_name(region, summonerNames, dict(bottle.request.query))
+        return merakikernel.riotapi.summonerapi.summoners_by_name(region, summonerNames, dict(bottle.request.query))
     except ValueError:
         bottle.abort(400)
 
@@ -16,7 +16,7 @@ def summoners_by_name(region, summonerNames):
 @merakikernel.common.riot_endpoint
 def summoners_by_id(region, summonerIds):
     try:
-        return merakikernel.apiproxy.summonerapi.summoners_by_id(region, summonerIds, dict(bottle.request.query))
+        return merakikernel.riotapi.summonerapi.summoners_by_id(region, summonerIds, dict(bottle.request.query))
     except ValueError:
         bottle.abort(400)
 
@@ -25,7 +25,7 @@ def summoners_by_id(region, summonerIds):
 @merakikernel.common.riot_endpoint
 def summoner_masteries(region, summonerIds):
     try:
-        return merakikernel.apiproxy.summonerapi.summoner_masteries(region, summonerIds, dict(bottle.request.query))
+        return merakikernel.riotapi.summonerapi.summoner_masteries(region, summonerIds, dict(bottle.request.query))
     except ValueError:
         bottle.abort(400)
 
@@ -34,7 +34,7 @@ def summoner_masteries(region, summonerIds):
 @merakikernel.common.riot_endpoint
 def summoner_runes(region, summonerIds):
     try:
-        return merakikernel.apiproxy.summonerapi.summoner_runes(region, summonerIds, dict(bottle.request.query))
+        return merakikernel.riotapi.summonerapi.summoner_runes(region, summonerIds, dict(bottle.request.query))
     except ValueError:
         bottle.abort(400)
 
@@ -43,6 +43,6 @@ def summoner_runes(region, summonerIds):
 @merakikernel.common.riot_endpoint
 def summoner_names(region, summonerIds):
     try:
-        return merakikernel.apiproxy.summonerapi.summoner_names(region, summonerIds, dict(bottle.request.query))
+        return merakikernel.riotapi.summonerapi.summoner_names(region, summonerIds, dict(bottle.request.query))
     except ValueError:
         bottle.abort(400)

@@ -1,9 +1,9 @@
 import bottle
 
-import merakikernel.apiproxy.gameapi
+import merakikernel.riotapi.gameapi
 import merakikernel.common
 
 @bottle.get("/api/lol/<region>/v1.3/game/by-summoner/<summonerId>/recent")
 @merakikernel.common.riot_endpoint
 def recent_games(region, summonerId):
-    return merakikernel.apiproxy.gameapi.recent_games(region, summonerId, dict(bottle.request.query))
+    return merakikernel.riotapi.gameapi.recent_games(region, summonerId, dict(bottle.request.query))
