@@ -17,6 +17,9 @@ if not __KERNEL_CASSIOPEIA__:
     from . import championbindings
     championbindings.patch_api()
 
+    from . import championmasterybindings
+    championmasterybindings.patch_api()
+
     from . import currentgamebindings
     currentgamebindings.patch_api()
 
