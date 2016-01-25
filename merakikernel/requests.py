@@ -24,8 +24,11 @@ def _executeRequest(url):
         request.add_header("Accept-Encoding", "gzip")
         response = urllib.request.urlopen(request)
         content = response.read()
-        content = zlib.decompress(content, zlib.MAX_WBITS | 16)
-        return ujson.loads(content)
+        if content:
+            content = zlib.decompress(content, zlib.MAX_WBITS | 16)
+            return ujson.loads(content)
+        else:
+            return None
     finally:
         if(response):
             response.close()
