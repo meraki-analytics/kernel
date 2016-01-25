@@ -3,6 +3,7 @@ import bottle
 import merakikernel.riotapi.statusapi
 import merakikernel.common
 
+
 @bottle.route("/shards", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def shards():

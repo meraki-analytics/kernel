@@ -3,9 +3,11 @@ import cassiopeia.type.dto.champion
 import cassiopeia.dto.championapi
 import cassiopeia.dto.requests
 
+
 def get_champion_status(id_):
     region = cassiopeia.dto.requests.region
     return cassiopeia.type.dto.champion.Champion(merakikernel.riotapi.championapi.champion_id(region, str(id_)))
+
 
 def get_champion_statuses(freeToPlay=False):
     region = cassiopeia.dto.requests.region

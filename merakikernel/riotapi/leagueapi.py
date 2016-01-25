@@ -1,13 +1,14 @@
 import merakikernel.rediscache
 import merakikernel.requests
 
-_leagues_typename        = "Leagues"
+
+_leagues_typename = "Leagues"
 _league_entries_typename = "LeagueEntries"
 
 
 def leagues_summoner(region, summonerIds, params={}):
     region = region.lower()
-    ids    = summonerIds.split(",")
+    ids = summonerIds.split(",")
 
     # 10 summoners max
     if len(ids) > 10:
@@ -16,14 +17,14 @@ def leagues_summoner(region, summonerIds, params={}):
     leagues = merakikernel.rediscache.get_values(_leagues_typename, ids, region)
 
     missing = []
-    loc     = []
+    loc = []
     for i in range(len(ids)):
         if not leagues[i]:
             missing.append(ids[i])
             loc.append(i)
 
     if missing:
-        url         = "/api/lol/{}/v2.5/league/by-summoner/{}".format(region, ",".join(missing))
+        url = "/api/lol/{}/v2.5/league/by-summoner/{}".format(region, ",".join(missing))
         new_leagues = merakikernel.requests.get(region, url, params)
 
         for i in range(len(missing)):
@@ -37,7 +38,7 @@ def leagues_summoner(region, summonerIds, params={}):
 
 def league_entries_summoner(region, summonerIds, params={}):
     region = region.lower()
-    ids    = summonerIds.split(",")
+    ids = summonerIds.split(",")
 
     # 10 summoners max
     if len(ids) > 10:
@@ -46,14 +47,14 @@ def league_entries_summoner(region, summonerIds, params={}):
     leagues = merakikernel.rediscache.get_values(_league_entries_typename, ids, region)
 
     missing = []
-    loc     = []
+    loc = []
     for i in range(len(ids)):
         if not leagues[i]:
             missing.append(ids[i])
             loc.append(i)
 
     if missing:
-        url         = "/api/lol/{}/v2.5/league/by-summoner/{}/entry".format(region, ",".join(missing))
+        url = "/api/lol/{}/v2.5/league/by-summoner/{}/entry".format(region, ",".join(missing))
         new_leagues = merakikernel.requests.get(region, url, params)
 
         for i in range(len(missing)):
@@ -67,7 +68,7 @@ def league_entries_summoner(region, summonerIds, params={}):
 
 def leagues_team(region, teamIds, params={}):
     region = region.lower()
-    ids    = teamIds.split(",")
+    ids = teamIds.split(",")
 
     # 10 teams max
     if len(ids) > 10:
@@ -76,14 +77,14 @@ def leagues_team(region, teamIds, params={}):
     leagues = merakikernel.rediscache.get_values(_leagues_typename, ids, region)
 
     missing = []
-    loc     = []
+    loc = []
     for i in range(len(ids)):
         if not leagues[i]:
             missing.append(ids[i])
             loc.append(i)
 
     if missing:
-        url         = "/api/lol/{}/v2.5/league/by-team/{}".format(region, ",".join(missing))
+        url = "/api/lol/{}/v2.5/league/by-team/{}".format(region, ",".join(missing))
         new_leagues = merakikernel.requests.get(region, url, params)
 
         for i in range(len(missing)):
@@ -97,7 +98,7 @@ def leagues_team(region, teamIds, params={}):
 
 def league_entries_team(region, teamIds, params={}):
     region = region.lower()
-    ids    = teamIds.split(",")
+    ids = teamIds.split(",")
 
     # 10 teams max
     if len(ids) > 10:
@@ -106,14 +107,14 @@ def league_entries_team(region, teamIds, params={}):
     leagues = merakikernel.rediscache.get_values(_league_entries_typename, ids, region)
 
     missing = []
-    loc     = []
+    loc = []
     for i in range(len(ids)):
         if not leagues[i]:
             missing.append(ids[i])
             loc.append(i)
 
     if missing:
-        url         = "/api/lol/{}/v2.5/league/by-team/{}/entry".format(region, ",".join(missing))
+        url = "/api/lol/{}/v2.5/league/by-team/{}/entry".format(region, ",".join(missing))
         new_leagues = merakikernel.requests.get(region, url, params)
 
         for i in range(len(missing)):
@@ -133,7 +134,7 @@ def challenger(region, params={}):
     if challenger:
         return challenger
 
-    url        = "/api/lol/{}/v2.5/league/challenger".format(region)
+    url = "/api/lol/{}/v2.5/league/challenger".format(region)
     challenger = merakikernel.requests.get(region, url, params)
 
     merakikernel.rediscache.put_value(_leagues_typename, "challenger", challenger, meta)
@@ -145,11 +146,11 @@ def master(region, params={}):
     meta = "{}|{}".format(region.lower(), params.get("type", ""))
 
     master = merakikernel.rediscache.get_value(_leagues_typename, "master", meta)
-    
+
     if master:
         return master
 
-    url    = "/api/lol/{}/v2.5/league/master".format(region)
+    url = "/api/lol/{}/v2.5/league/master".format(region)
     master = merakikernel.requests.get(region, url, params)
 
     merakikernel.rediscache.put_value(_leagues_typename, "master", master, meta)

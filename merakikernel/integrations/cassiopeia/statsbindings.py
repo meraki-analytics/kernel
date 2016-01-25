@@ -3,6 +3,7 @@ import cassiopeia.type.dto.stats
 import cassiopeia.dto.statsapi
 import cassiopeia.dto.requests
 
+
 def get_ranked_stats(summoner_id, season=None):
     region = cassiopeia.dto.requests.region
 
@@ -11,6 +12,7 @@ def get_ranked_stats(summoner_id, season=None):
         params["season"] = season
 
     return cassiopeia.type.dto.stats.RankedStats(merakikernel.riotapi.statsapi.ranked_stats(region, str(summoner_id), params))
+
 
 def get_stats(summoner_id, season=None):
     region = cassiopeia.dto.requests.region

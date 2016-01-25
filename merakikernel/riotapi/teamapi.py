@@ -5,7 +5,7 @@ _team_typename = "Team"
 
 
 def summoner_teams(region, summonerIds, params={}):
-    region       = region.lower()
+    region = region.lower()
     summoner_ids = summonerIds.split(",")
 
     # 10 summoners max
@@ -14,7 +14,7 @@ def summoner_teams(region, summonerIds, params={}):
 
     team_ids = merakikernel.rediscache.get_type_data(_team_typename, summoner_ids, region)
 
-    teams   = {}
+    teams = {}
     missing = []
     for i in range(len(summoner_ids)):
         if team_ids[i]:
@@ -23,7 +23,7 @@ def summoner_teams(region, summonerIds, params={}):
             missing.append(summoner_ids[i])
 
     if missing:
-        url       = "/api/lol/{}/v2.4/team/by-summoner/{}".format(region, ",".join(missing))
+        url = "/api/lol/{}/v2.4/team/by-summoner/{}".format(region, ",".join(missing))
         new_teams = merakikernel.requests.get(region, url, params)
 
         teams.update(new_teams)
@@ -42,7 +42,7 @@ def summoner_teams(region, summonerIds, params={}):
 
 
 def team(region, teamIds, params={}):
-    region   = region.lower()
+    region = region.lower()
     team_ids = teamIds.split(",")
 
     # 10 teams max
@@ -52,14 +52,14 @@ def team(region, teamIds, params={}):
     teams = merakikernel.rediscache.get_values(_team_typename, team_ids, region)
 
     missing = []
-    loc     = []
+    loc = []
     for i in range(len(team_ids)):
         if not teams[i]:
             missing.append(team_ids[i])
             loc.append(i)
 
     if missing:
-        url       = "/api/lol/{}/v2.4/team/{}".format(region, ",".join(missing))
+        url = "/api/lol/{}/v2.4/team/{}".format(region, ",".join(missing))
         new_teams = merakikernel.requests.get(region, url, params)
 
         for i in range(len(missing)):
@@ -67,5 +67,5 @@ def team(region, teamIds, params={}):
 
         unzipped = [list(t) for t in zip(*new_teams.items())]
         merakikernel.rediscache.put_values(_team_typename, unzipped[0], unzipped[1], region)
-        
+
     return {team_ids[i]: teams[i] for i in range(len(teams)) if teams[i]}

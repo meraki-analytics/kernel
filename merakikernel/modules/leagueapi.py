@@ -3,6 +3,7 @@ import bottle
 import merakikernel.riotapi.leagueapi
 import merakikernel.common
 
+
 @bottle.route("/api/lol/<region>/v2.5/league/by-summoner/<summonerIds>", method=["GET", "OPTIONS"])
 @merakikernel.common.riot_endpoint
 def leagues_summoner(region, summonerIds):

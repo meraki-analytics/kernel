@@ -3,6 +3,7 @@ import bottle
 import ujson
 import zlib
 
+
 def riot_endpoint(function):
     def wrapped(*args, **kwargs):
         bottle.response.headers["Access-Control-Allow-Origin"] = bottle.request.headers.get("Origin", "*")
@@ -25,6 +26,7 @@ def riot_endpoint(function):
                 bottle.abort(e.code)
     return wrapped
 
+
 def compressed_json(function):
     def wrapped(*args, **kwargs):
         response = function(*args, **kwargs)
@@ -39,6 +41,7 @@ def compressed_json(function):
         return response
     return wrapped
 
+
 def enable_cors(function, origin="*"):
     def _enable_cors(*args, **kwargs):
         bottle.response.headers["Access-Control-Allow-Origin"] = bottle.request.headers.get("Origin", "*") if origin == "*" else origin
@@ -49,6 +52,7 @@ def enable_cors(function, origin="*"):
             return function(*args, **kwargs)
 
     return _enable_cors
+
 
 def standardize_name(name):
     return name.replace(" ", "").lower()

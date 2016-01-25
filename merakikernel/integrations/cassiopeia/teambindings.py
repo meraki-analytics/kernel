@@ -3,6 +3,7 @@ import cassiopeia.type.dto.team
 import cassiopeia.dto.teamapi
 import cassiopeia.dto.requests
 
+
 def get_teams_by_summoner_id(summoner_ids):
     region = cassiopeia.dto.requests.region
     summoner_ids = ",".join([str(id_) for id_ in summoner_ids]) if isinstance(summoner_ids, list) else str(summoner_ids)
@@ -12,6 +13,7 @@ def get_teams_by_summoner_id(summoner_ids):
         response[id_] = [cassiopeia.type.dto.team.Team(team) for team in teams]
 
     return response
+
 
 def get_teams_by_id(team_ids):
     region = cassiopeia.dto.requests.region

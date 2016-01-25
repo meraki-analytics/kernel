@@ -2,7 +2,7 @@ import merakikernel.rediscache
 import merakikernel.requests
 
 _ranked_stats_typename = "RankedStats"
-_stats_typename        = "Stats"
+_stats_typename = "Stats"
 
 
 def ranked_stats(region, summonerId, params={}):
@@ -13,7 +13,7 @@ def ranked_stats(region, summonerId, params={}):
     if stats:
         return stats
 
-    url   = "/api/lol/{}/v1.3/stats/by-summoner/{}/ranked".format(region, summonerId)
+    url = "/api/lol/{}/v1.3/stats/by-summoner/{}/ranked".format(region, summonerId)
     stats = merakikernel.requests.get(region, url, params)
 
     merakikernel.rediscache.put_value(_ranked_stats_typename, summonerId, stats, meta)
@@ -29,7 +29,7 @@ def stats(region, summonerId, params={}):
     if stats:
         return stats
 
-    url   = "/api/lol/{}/v1.3/stats/by-summoner/{}/summary".format(region, summonerId)
+    url = "/api/lol/{}/v1.3/stats/by-summoner/{}/summary".format(region, summonerId)
     stats = merakikernel.requests.get(region, url, params)
 
     merakikernel.rediscache.put_value(_stats_typename, summonerId, stats, meta)

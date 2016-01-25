@@ -7,6 +7,7 @@ import cassiopeia.dto.requests
 # Champion Endpoints #
 ######################
 
+
 def get_champion(id_):
     region = cassiopeia.dto.requests.region
 
@@ -15,6 +16,7 @@ def get_champion(id_):
         params["locale"] = cassiopeia.dto.staticdataapi._locale
 
     return cassiopeia.type.dto.staticdata.Champion(merakikernel.riotapi.staticdataapi.champion_id(region, id_, params))
+
 
 def get_champions():
     region = cassiopeia.dto.requests.region
@@ -29,6 +31,7 @@ def get_champions():
 # Item Endpoints #
 ##################
 
+
 def get_item(id_):
     region = cassiopeia.dto.requests.region
 
@@ -37,6 +40,7 @@ def get_item(id_):
         params["locale"] = cassiopeia.dto.staticdataapi._locale
 
     return cassiopeia.type.dto.staticdata.Item(merakikernel.riotapi.staticdataapi.item_id(region, id_, params))
+
 
 def get_items():
     region = cassiopeia.dto.requests.region
@@ -51,6 +55,7 @@ def get_items():
 # Language Endpoints #
 ######################
 
+
 def get_language_strings():
     region = cassiopeia.dto.requests.region
 
@@ -60,6 +65,7 @@ def get_language_strings():
 
     return cassiopeia.type.dto.staticdata.LanguageStrings(merakikernel.riotapi.staticdataapi.language_strings(region, params))
 
+
 def get_languages():
     region = cassiopeia.dto.requests.region
     return merakikernel.riotapi.staticdataapi.languages(region)
@@ -67,6 +73,7 @@ def get_languages():
 ################
 # Map Endpoint #
 ################
+
 
 def get_maps():
     region = cassiopeia.dto.requests.region
@@ -81,6 +88,7 @@ def get_maps():
 # Mastery Endpoints #
 #####################
 
+
 def get_mastery(id_):
     region = cassiopeia.dto.requests.region
 
@@ -89,6 +97,7 @@ def get_mastery(id_):
         params["locale"] = cassiopeia.dto.staticdataapi._locale
 
     return cassiopeia.type.dto.staticdata.Mastery(merakikernel.riotapi.staticdataapi.mastery_id(region, id_, params))
+
 
 def get_masteries():
     region = cassiopeia.dto.requests.region
@@ -103,6 +112,7 @@ def get_masteries():
 # Realm Endpoint #
 ##################
 
+
 def get_realm():
     region = cassiopeia.dto.requests.region
     return cassiopeia.type.dto.staticdata.Realm(merakikernel.riotapi.staticdataapi.realm(region))
@@ -110,6 +120,7 @@ def get_realm():
 ##################
 # Rune Endpoints #
 ##################
+
 
 def get_rune(id_):
     region = cassiopeia.dto.requests.region
@@ -119,6 +130,7 @@ def get_rune(id_):
         params["locale"] = cassiopeia.dto.staticdataapi._locale
 
     return cassiopeia.type.dto.staticdata.Rune(merakikernel.riotapi.staticdataapi.rune_id(region, id_, params))
+
 
 def get_runes():
     region = cassiopeia.dto.requests.region
@@ -133,6 +145,7 @@ def get_runes():
 # Summoner Spell Endpoints #
 ############################
 
+
 def get_summoner_spell(id_):
     region = cassiopeia.dto.requests.region
 
@@ -141,6 +154,7 @@ def get_summoner_spell(id_):
         params["locale"] = cassiopeia.dto.staticdataapi._locale
 
     return cassiopeia.type.dto.staticdata.SummonerSpell(merakikernel.riotapi.staticdataapi.summoner_spell_id(region, id_, params))
+
 
 def get_summoner_spells():
     region = cassiopeia.dto.requests.region
@@ -154,6 +168,7 @@ def get_summoner_spells():
 #####################
 # Versions Endpoint #
 #####################
+
 
 def get_versions():
     region = cassiopeia.dto.requests.region

@@ -3,6 +3,7 @@ import cassiopeia.type.dto.league
 import cassiopeia.dto.leagueapi
 import cassiopeia.dto.requests
 
+
 def get_leagues_by_summoner(summoner_ids):
     region = cassiopeia.dto.requests.region
     summoner_ids = ",".join([str(id_) for id_ in summoner_ids]) if isinstance(summoner_ids, list) else str(summoner_ids)
@@ -13,6 +14,7 @@ def get_leagues_by_summoner(summoner_ids):
             leagues[i] = cassiopeia.type.dto.league.League(league)
 
     return response
+
 
 def get_league_entries_by_summoner(summoner_ids):
     region = cassiopeia.dto.requests.region
@@ -25,6 +27,7 @@ def get_league_entries_by_summoner(summoner_ids):
 
     return response
 
+
 def get_leagues_by_team(team_ids):
     region = cassiopeia.dto.requests.region
     team_ids = ",".join(team_ids) if isinstance(team_ids, list) else team_ids
@@ -34,6 +37,7 @@ def get_leagues_by_team(team_ids):
         response[id_] = [cassiopeia.type.dto.league.League(league) for league in leagues]
 
     return response
+
 
 def get_league_entries_by_team(team_ids):
     region = cassiopeia.dto.requests.region
@@ -45,9 +49,11 @@ def get_league_entries_by_team(team_ids):
 
     return response
 
+
 def get_challenger(queue_type):
     region = cassiopeia.dto.requests.region
     return cassiopeia.type.dto.league.League(merakikernel.riotapi.leagueapi.challenger(region, {"type": queue_type}))
+
 
 def get_master(queue_type):
     region = cassiopeia.dto.requests.region

@@ -3,6 +3,7 @@ try:
 except NameError:
     __KERNEL_CASSIOPEIA__ = False
 
+
 if not __KERNEL_CASSIOPEIA__:
     import cassiopeia.dto.requests
     cassiopeia.dto.requests.rate_limiter = None
@@ -10,7 +11,7 @@ if not __KERNEL_CASSIOPEIA__:
     import cassiopeia.type.api.store
     import cassiopeia.core.requests
     import cassiopeia.type.core.common
-    cassiopeia.core.requests.data_store  = cassiopeia.type.api.store.VoidDataStore()
+    cassiopeia.core.requests.data_store = cassiopeia.type.api.store.VoidDataStore()
     cassiopeia.core.requests.load_policy = cassiopeia.type.core.common.LoadPolicy.lazy
 
     from . import championbindings

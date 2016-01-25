@@ -8,6 +8,7 @@ import merakikernel.rediscache
 import merakikernel.requests
 import merakikernel.rates
 
+
 def _call_with_config_kwargs(function, config, config_header):
     try:
         kwargs = dict(config[config_header])
@@ -15,9 +16,11 @@ def _call_with_config_kwargs(function, config, config_header):
         kwargs = {}
     function(**kwargs)
 
+
 def _parse_limit(limit_string):
     limit = limit_string.split("/")
     return (int(limit[0]), int(limit[1]))
+
 
 @bottle.hook("after_request")
 def delete_server_header():
@@ -35,9 +38,9 @@ class Server(object):
         config.read(self.conf)
 
         # Set API key and rate limits
-        merakikernel.requests.api_key     = config["rates"].get("api-key", os.environ.get("API_KEY", ""))
+        merakikernel.requests.api_key = config["rates"].get("api-key", os.environ.get("API_KEY", ""))
         merakikernel.requests.print_calls = config["rates"].getboolean("print-calls", False)
-        
+
         try:
             limits = list(map(_parse_limit, config["rates"]["limits"].split("\n")))
             if len(limits) > 1:
@@ -72,6 +75,7 @@ def main():
 
     server = Server(args.config)
     server.run()
+
 
 if __name__ == "__main__":
     main()

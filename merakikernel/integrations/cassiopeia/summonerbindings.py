@@ -3,6 +3,7 @@ import cassiopeia.type.dto.summoner
 import cassiopeia.dto.summonerapi
 import cassiopeia.dto.requests
 
+
 def get_summoners_by_name(summoner_names):
     region = cassiopeia.dto.requests.region
     summoner_names = ",".join(summoner_names) if isinstance(summoner_names, list) else summoner_names
@@ -12,6 +13,7 @@ def get_summoners_by_name(summoner_names):
         response[name] = cassiopeia.type.dto.summoner.Summoner(summoner)
 
     return response
+
 
 def get_summoners_by_id(summoner_ids):
     region = cassiopeia.dto.requests.region
@@ -23,6 +25,7 @@ def get_summoners_by_id(summoner_ids):
 
     return response
 
+
 def get_summoner_masteries(summoner_ids):
     region = cassiopeia.dto.requests.region
     summoner_ids = ",".join([str(id_) for id_ in summoner_ids]) if isinstance(summoner_ids, list) else str(summoner_ids)
@@ -33,11 +36,13 @@ def get_summoner_masteries(summoner_ids):
 
     return response
 
+
 def get_summoner_names(summoner_ids):
     region = cassiopeia.dto.requests.region
     summoner_ids = ",".join([str(id_) for id_ in summoner_ids]) if isinstance(summoner_ids, list) else str(summoner_ids)
 
     return merakikernel.riotapi.summonerapi.summoner_names(region, summoner_ids)
+
 
 def get_summoner_runes(summoner_ids):
     region = cassiopeia.dto.requests.region

@@ -3,8 +3,10 @@ import cassiopeia.type.dto.status
 import cassiopeia.dto.statusapi
 import cassiopeia.dto.requests
 
+
 def get_shards():
     return [cassiopeia.type.dto.status.Shard(shard) for shard in merakikernel.riotapi.statusapi.shards()]
+
 
 def get_shard():
     region = cassiopeia.dto.requests.region

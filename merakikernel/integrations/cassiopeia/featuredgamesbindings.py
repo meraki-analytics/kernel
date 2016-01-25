@@ -3,6 +3,7 @@ import cassiopeia.type.dto.featuredgames
 import cassiopeia.dto.featuredgamesapi
 import cassiopeia.dto.requests
 
+
 def get_featured_games():
     region = cassiopeia.dto.requests.region
     return cassiopeia.type.dto.featuredgames.FeaturedGames(merakikernel.riotapi.featuredgamesapi.featured_games(region))

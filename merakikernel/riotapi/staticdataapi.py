@@ -1,21 +1,20 @@
 import merakikernel.rediscache
 import merakikernel.requests
 
-_champion_typename        = "Champion"
-_item_typename            = "Item"
+_champion_typename = "Champion"
+_item_typename = "Item"
 _language_string_typename = "LanguageStrings"
-_languages_typename       = "Languages"
-_maps_typename            = "Maps"
-_mastery_typename         = "Mastery"
-_realm_typename           = "Realm"
-_rune_typename            = "Rune"
-_summoner_spell_typename  = "SummonerSpell"
-_versions_typename        = "Versions"
+_languages_typename = "Languages"
+_maps_typename = "Maps"
+_mastery_typename = "Mastery"
+_realm_typename = "Realm"
+_rune_typename = "Rune"
+_summoner_spell_typename = "SummonerSpell"
+_versions_typename = "Versions"
 
 ######################
 # Champion Endpoints #
 ######################
-
 _champ_data_options = {
     "allytips",
     "blurb",
@@ -32,8 +31,10 @@ _champ_data_options = {
     "tags"
 }
 
+
 def _get_champion_meta(region, params):
     return "|".join([region.lower(), params.get("version", ""), params.get("locale", "")])
+
 
 def _wrap_champions(champions, data_by_id, version, all_data):
     champion_list = {
@@ -55,9 +56,9 @@ def champion(region, params={}):
         champ_data = {"all"}
 
     # See if we have the champions cached with the required champData fields
-    meta_data   = _get_champion_meta(region, params)
+    meta_data = _get_champion_meta(region, params)
     stored_data = merakikernel.rediscache.get_type_datum(_champion_typename, "data", meta_data)
-    champions   = merakikernel.rediscache.get_all_values(_champion_typename, meta_data)
+    champions = merakikernel.rediscache.get_all_values(_champion_typename, meta_data)
     try:
         version = params["version"]
     except KeyError:
@@ -65,7 +66,7 @@ def champion(region, params={}):
     stored_data = set(stored_data) if stored_data is not None else stored_data
 
     if champions:
-        all_stored = stored_data == {"all"} 
+        all_stored = stored_data == {"all"}
         if all_stored and champ_data == {"all"}:
             return _wrap_champions(champions, data_by_id, version, all_stored)
         elif stored_data == {"all"} or champ_data.issubset(stored_data):
@@ -79,11 +80,11 @@ def champion(region, params={}):
             return _wrap_champions(champions, data_by_id, version, all_stored)
 
     # Make request to Riot
-    url       = "/api/lol/static-data/{}/v1.2/champion".format(region)
+    url = "/api/lol/static-data/{}/v1.2/champion".format(region)
     champions = merakikernel.requests.get(region, url, params, True)
 
     # Cache results
-    keys   = []
+    keys = []
     values = []
     for champion in champions["data"].values():
         keys.append(champion["id"])
@@ -106,13 +107,13 @@ def champion_id(region, id, params={}):
         champ_data = {"all"}
 
     # See if we have the champion cached with the required champData fields
-    meta_data   = _get_champion_meta(region, params)
+    meta_data = _get_champion_meta(region, params)
     stored_data = merakikernel.rediscache.get_type_datum(_champion_typename, id, meta_data)
-    champion    = merakikernel.rediscache.get_value(_champion_typename, id, meta_data)
+    champion = merakikernel.rediscache.get_value(_champion_typename, id, meta_data)
     stored_data = set(stored_data) if stored_data is not None else stored_data
 
     if champion:
-        all_stored = stored_data == {"all"} 
+        all_stored = stored_data == {"all"}
         if all_stored and champ_data == {"all"}:
             return champion
         elif all_stored or champ_data.issubset(stored_data):
@@ -125,7 +126,7 @@ def champion_id(region, id, params={}):
             return champion
 
     # Make request to Riot
-    url      = "/api/lol/static-data/{}/v1.2/champion/{}".format(region, id)
+    url = "/api/lol/static-data/{}/v1.2/champion/{}".format(region, id)
     champion = merakikernel.requests.get(region, url, params, True)
 
     # Cache results
@@ -137,7 +138,6 @@ def champion_id(region, id, params={}):
 ##################
 # Item Endpoints #
 ##################
-
 _item_data_options = {
     "colloq",
     "consumeOnFull",
@@ -159,8 +159,10 @@ _item_data_options = {
     "tags"
 }
 
+
 def _get_item_meta(region, params):
     return "|".join([region.lower(), params.get("version", ""), params.get("locale", "")])
+
 
 def _wrap_items(items, version, basic, groups=None, tree=None):
     item_list = {
@@ -177,20 +179,20 @@ def _wrap_items(items, version, basic, groups=None, tree=None):
 
 
 def item(region, params={}):
-    item_data  = params.get("itemListData", "")
-    item_data  = set(item_data.split(",")) if item_data else set()
+    item_data = params.get("itemListData", "")
+    item_data = set(item_data.split(",")) if item_data else set()
     add_groups = "groups" in item_data or "all" in item_data
-    add_tree   = "tree" in item_data or "all" in item_data
+    add_tree = "tree" in item_data or "all" in item_data
     if _item_data_options.issubset(item_data | {"groups", "tree"}) or "all" in item_data:
         item_data = {"all"}
 
     # See if we have the items cached with the required itemListData fields
-    meta_data   = _get_item_meta(region, params)
+    meta_data = _get_item_meta(region, params)
     stored_data = merakikernel.rediscache.get_type_datum(_item_typename, "data", meta_data)
-    basic       = merakikernel.rediscache.get_type_datum(_item_typename, "basic", meta_data)
-    groups      = merakikernel.rediscache.get_type_datum(_item_typename, "groups", meta_data) if add_groups else None
-    tree        = merakikernel.rediscache.get_type_datum(_item_typename, "tree", meta_data) if add_tree else None
-    items       = merakikernel.rediscache.get_all_values(_item_typename, meta_data)
+    basic = merakikernel.rediscache.get_type_datum(_item_typename, "basic", meta_data)
+    groups = merakikernel.rediscache.get_type_datum(_item_typename, "groups", meta_data) if add_groups else None
+    tree = merakikernel.rediscache.get_type_datum(_item_typename, "tree", meta_data) if add_tree else None
+    items = merakikernel.rediscache.get_all_values(_item_typename, meta_data)
     try:
         version = params["version"]
     except KeyError:
@@ -198,7 +200,7 @@ def item(region, params={}):
     stored_data = set(stored_data) if stored_data is not None else stored_data
 
     if items and (not add_groups or groups) and (not add_tree or tree):
-        all_stored = stored_data == {"all"} 
+        all_stored = stored_data == {"all"}
         if all_stored and item_data == {"all"}:
             return _wrap_items(items, version, basic, groups, tree)
         elif stored_data == {"all"} or item_data.issubset(stored_data):
@@ -212,11 +214,11 @@ def item(region, params={}):
             return _wrap_items(items, version, basic, groups, tree)
 
     # Make request to Riot
-    url   = "/api/lol/static-data/{}/v1.2/item".format(region)
+    url = "/api/lol/static-data/{}/v1.2/item".format(region)
     items = merakikernel.requests.get(region, url, params, True)
 
     # Cache results
-    keys   = []
+    keys = []
     values = []
     for item in items["data"].values():
         keys.append(item["id"])
@@ -244,13 +246,13 @@ def item_id(region, id, params={}):
         item_data = {"all"}
 
     # See if we have the item cached with the required itemData fields
-    meta_data   = _get_item_meta(region, params)
+    meta_data = _get_item_meta(region, params)
     stored_data = merakikernel.rediscache.get_type_datum(_item_typename, id, meta_data)
-    item        = merakikernel.rediscache.get_value(_item_typename, id, meta_data)
+    item = merakikernel.rediscache.get_value(_item_typename, id, meta_data)
     stored_data = set(stored_data) if stored_data is not None else stored_data
 
     if item:
-        all_stored = stored_data == {"all"} 
+        all_stored = stored_data == {"all"}
         if all_stored and item_data == {"all"}:
             return item
         elif all_stored or item_data.issubset(stored_data):
@@ -263,7 +265,7 @@ def item_id(region, id, params={}):
             return item
 
     # Make request to Riot
-    url  = "/api/lol/static-data/{}/v1.2/item/{}".format(region, id)
+    url = "/api/lol/static-data/{}/v1.2/item/{}".format(region, id)
     item = merakikernel.requests.get(region, url, params, True)
 
     # Cache results
@@ -272,24 +274,24 @@ def item_id(region, id, params={}):
 
     return item
 
+
 ######################
 # Language Endpoints #
 ######################
-
 def _get_language_meta(region, params):
     return "|".join([region.lower(), params.get("version", ""), params.get("locale", "")])
 
 
 def language_strings(region, params={}):
     # See if we have the language strings cached
-    meta_data        = _get_item_meta(region, params)
+    meta_data = _get_item_meta(region, params)
     language_strings = merakikernel.rediscache.get_value(_language_string_typename, "", meta_data)
 
     if language_strings:
         return language_strings
 
     # Make request to Riot
-    url              = "/api/lol/static-data/{}/v1.2/language-strings".format(region)
+    url = "/api/lol/static-data/{}/v1.2/language-strings".format(region)
     language_strings = merakikernel.requests.get(region, url, params, True)
 
     # Cache results
@@ -308,7 +310,7 @@ def languages(region, params={}):
         return languages
 
     # Make request to Riot
-    url       = "/api/lol/static-data/{}/v1.2/languages".format(region)
+    url = "/api/lol/static-data/{}/v1.2/languages".format(region)
     languages = merakikernel.requests.get(region, url, params, True)
 
     # Cache results
@@ -316,10 +318,10 @@ def languages(region, params={}):
 
     return languages
 
+
 ################
 # Map Endpoint #
 ################
-
 def _get_maps_meta(region, params):
     return "|".join([region.lower(), params.get("version", ""), params.get("locale", "")])
 
@@ -327,13 +329,13 @@ def _get_maps_meta(region, params):
 def maps(region, params={}):
     # See if we have the maps cached
     meta_data = _get_maps_meta(region, params)
-    maps      = merakikernel.rediscache.get_value(_maps_typename, "", meta_data)
+    maps = merakikernel.rediscache.get_value(_maps_typename, "", meta_data)
 
     if maps:
         return maps
 
     # Make request to Riot
-    url  = "/api/lol/static-data/{}/v1.2/map".format(region)
+    url = "/api/lol/static-data/{}/v1.2/map".format(region)
     maps = merakikernel.requests.get(region, url, params, True)
 
     # Cache results
@@ -341,10 +343,10 @@ def maps(region, params={}):
 
     return maps
 
+
 #####################
 # Mastery Endpoints #
 #####################
-
 _mastery_data_options = {
     "image",
     "masteryTree",
@@ -353,8 +355,10 @@ _mastery_data_options = {
     "sanitizedDescription"
 }
 
+
 def _get_mastery_meta(region, params):
     return "|".join([region.lower(), params.get("version", ""), params.get("locale", "")])
+
 
 def _wrap_masteries(masteries, version, tree=None):
     mastery_list = {
@@ -370,15 +374,15 @@ def _wrap_masteries(masteries, version, tree=None):
 def mastery(region, params={}):
     mastery_data = params.get("masteryListData", "")
     mastery_data = set(mastery_data.split(",")) if mastery_data else set()
-    add_tree     = "tree" in mastery_data or "all" in mastery_data
+    add_tree = "tree" in mastery_data or "all" in mastery_data
     if _mastery_data_options.issubset(mastery_data | {"tree"}) or "all" in mastery_data:
         mastery_data = {"all"}
 
     # See if we have the masteries cached with the required masteryListData fields
-    meta_data   = _get_mastery_meta(region, params)
+    meta_data = _get_mastery_meta(region, params)
     stored_data = merakikernel.rediscache.get_type_datum(_mastery_typename, "data", meta_data)
-    tree        = merakikernel.rediscache.get_type_datum(_mastery_typename, "tree", meta_data) if add_tree else None
-    masteries   = merakikernel.rediscache.get_all_values(_mastery_typename, meta_data)
+    tree = merakikernel.rediscache.get_type_datum(_mastery_typename, "tree", meta_data) if add_tree else None
+    masteries = merakikernel.rediscache.get_all_values(_mastery_typename, meta_data)
     try:
         version = params["version"]
     except KeyError:
@@ -386,7 +390,7 @@ def mastery(region, params={}):
     stored_data = set(stored_data) if stored_data is not None else stored_data
 
     if masteries and (not add_tree or tree):
-        all_stored = stored_data == {"all"} 
+        all_stored = stored_data == {"all"}
         if all_stored and mastery_data == {"all"}:
             return _wrap_masteries(masteries, version, tree)
         elif stored_data == {"all"} or mastery_data.issubset(stored_data):
@@ -400,11 +404,11 @@ def mastery(region, params={}):
             return _wrap_masteries(masteries, version, tree)
 
     # Make request to Riot
-    url       = "/api/lol/static-data/{}/v1.2/mastery".format(region)
+    url = "/api/lol/static-data/{}/v1.2/mastery".format(region)
     masteries = merakikernel.requests.get(region, url, params, True)
 
     # Cache results
-    keys   = []
+    keys = []
     values = []
     for mastery in masteries["data"].values():
         keys.append(mastery["id"])
@@ -429,13 +433,13 @@ def mastery_id(region, id, params={}):
         mastery_data = {"all"}
 
     # See if we have the mastery cached with the required masteryData fields
-    meta_data   = _get_mastery_meta(region, params)
+    meta_data = _get_mastery_meta(region, params)
     stored_data = merakikernel.rediscache.get_type_datum(_mastery_typename, id, meta_data)
-    mastery     = merakikernel.rediscache.get_value(_mastery_typename, id, meta_data)
+    mastery = merakikernel.rediscache.get_value(_mastery_typename, id, meta_data)
     stored_data = set(stored_data) if stored_data is not None else stored_data
 
     if mastery:
-        all_stored = stored_data == {"all"} 
+        all_stored = stored_data == {"all"}
         if all_stored and mastery_data == {"all"}:
             return mastery
         elif all_stored or mastery_data.issubset(stored_data):
@@ -448,7 +452,7 @@ def mastery_id(region, id, params={}):
             return mastery
 
     # Make request to Riot
-    url     = "/api/lol/static-data/{}/v1.2/mastery/{}".format(region, id)
+    url = "/api/lol/static-data/{}/v1.2/mastery/{}".format(region, id)
     mastery = merakikernel.requests.get(region, url, params, True)
 
     # Cache results
@@ -457,10 +461,10 @@ def mastery_id(region, id, params={}):
 
     return mastery
 
+
 ##################
 # Realm Endpoint #
 ##################
-
 def realm(region, params={}):
     region = region.lower()
 
@@ -471,7 +475,7 @@ def realm(region, params={}):
         return realm
 
     # Make request to Riot
-    url  = "/api/lol/static-data/{}/v1.2/realm".format(region)
+    url = "/api/lol/static-data/{}/v1.2/realm".format(region)
     realm = merakikernel.requests.get(region, url, params, True)
 
     # Cache results
@@ -479,10 +483,10 @@ def realm(region, params={}):
 
     return realm
 
+
 ##################
 # Rune Endpoints #
 ##################
-
 _rune_data_options = {
     "image",
     "sanitizedDescription",
@@ -490,8 +494,10 @@ _rune_data_options = {
     "tags"
 }
 
+
 def _get_rune_meta(region, params):
     return "|".join([region.lower(), params.get("version", ""), params.get("locale", "")])
+
 
 def _wrap_runes(runes, version, basic=None):
     rune_list = {
@@ -512,10 +518,10 @@ def rune(region, params={}):
         rune_data = {"all"}
 
     # See if we have the runes cached with the required runeListData fields
-    meta_data   = _get_rune_meta(region, params)
+    meta_data = _get_rune_meta(region, params)
     stored_data = merakikernel.rediscache.get_type_datum(_rune_typename, "data", meta_data)
-    basic       = merakikernel.rediscache.get_type_datum(_rune_typename, "basic", meta_data) if add_basic else None
-    runes       = merakikernel.rediscache.get_all_values(_rune_typename, meta_data)
+    basic = merakikernel.rediscache.get_type_datum(_rune_typename, "basic", meta_data) if add_basic else None
+    runes = merakikernel.rediscache.get_all_values(_rune_typename, meta_data)
     try:
         version = params["version"]
     except KeyError:
@@ -523,7 +529,7 @@ def rune(region, params={}):
     stored_data = set(stored_data) if stored_data is not None else stored_data
 
     if runes and (not add_basic or basic):
-        all_stored = stored_data == {"all"} 
+        all_stored = stored_data == {"all"}
         if all_stored and rune_data == {"all"}:
             return _wrap_runes(runes, version, basic)
         elif stored_data == {"all"} or rune_data.issubset(stored_data):
@@ -537,11 +543,11 @@ def rune(region, params={}):
             return _wrap_runes(runes, version, basic)
 
     # Make request to Riot
-    url   = "/api/lol/static-data/{}/v1.2/rune".format(region)
+    url = "/api/lol/static-data/{}/v1.2/rune".format(region)
     runes = merakikernel.requests.get(region, url, params, True)
 
     # Cache results
-    keys   = []
+    keys = []
     values = []
     for rune in runes["data"].values():
         keys.append(rune["id"])
@@ -566,13 +572,13 @@ def rune_id(region, id, params={}):
         rune_data = {"all"}
 
     # See if we have the rune cached with the required runeData fields
-    meta_data   = _get_rune_meta(region, params)
+    meta_data = _get_rune_meta(region, params)
     stored_data = merakikernel.rediscache.get_type_datum(_rune_typename, id, meta_data)
-    rune        = merakikernel.rediscache.get_value(_rune_typename, id, meta_data)
+    rune = merakikernel.rediscache.get_value(_rune_typename, id, meta_data)
     stored_data = set(stored_data) if stored_data is not None else stored_data
 
     if rune:
-        all_stored = stored_data == {"all"} 
+        all_stored = stored_data == {"all"}
         if all_stored and rune_data == {"all"}:
             return rune
         elif all_stored or rune_data.issubset(stored_data):
@@ -585,7 +591,7 @@ def rune_id(region, id, params={}):
             return rune
 
     # Make request to Riot
-    url  = "/api/lol/static-data/{}/v1.2/rune/{}".format(region, id)
+    url = "/api/lol/static-data/{}/v1.2/rune/{}".format(region, id)
     rune = merakikernel.requests.get(region, url, params, True)
 
     # Cache results
@@ -594,10 +600,10 @@ def rune_id(region, id, params={}):
 
     return rune
 
+
 ############################
 # Summoner Spell Endpoints #
 ############################
-
 _spell_data_options = {
     "cooldown",
     "cooldownBurn",
@@ -620,8 +626,10 @@ _spell_data_options = {
     "vars"
 }
 
+
 def _get_summoner_spell_meta(region, params):
     return "|".join([region.lower(), params.get("version", ""), params.get("locale", "")])
+
 
 def _wrap_summoner_spells(summoner_spells, data_by_id, version):
     summoner_spell_list = {
@@ -640,8 +648,8 @@ def summoner_spell(region, params={}):
         spell_data = {"all"}
 
     # See if we have the summoner spells cached with the required spellData fields
-    meta_data       = _get_summoner_spell_meta(region, params)
-    stored_data     = merakikernel.rediscache.get_type_datum(_summoner_spell_typename, "data", meta_data)
+    meta_data = _get_summoner_spell_meta(region, params)
+    stored_data = merakikernel.rediscache.get_type_datum(_summoner_spell_typename, "data", meta_data)
     summoner_spells = merakikernel.rediscache.get_all_values(_summoner_spell_typename, meta_data)
     try:
         version = params["version"]
@@ -650,7 +658,7 @@ def summoner_spell(region, params={}):
     stored_data = set(stored_data) if stored_data is not None else stored_data
 
     if summoner_spells:
-        all_stored = stored_data == {"all"} 
+        all_stored = stored_data == {"all"}
         if all_stored and spell_data == {"all"}:
             return _wrap_summoner_spells(summoner_spells, data_by_id, version)
         elif stored_data == {"all"} or spell_data.issubset(stored_data):
@@ -664,11 +672,11 @@ def summoner_spell(region, params={}):
             return _wrap_summoner_spells(summoner_spells, data_by_id, version)
 
     # Make request to Riot
-    url             = "/api/lol/static-data/{}/v1.2/summoner-spell".format(region)
+    url = "/api/lol/static-data/{}/v1.2/summoner-spell".format(region)
     summoner_spells = merakikernel.requests.get(region, url, params, True)
 
     # Cache results
-    keys   = []
+    keys = []
     values = []
     for summoner_spell in summoner_spells["data"].values():
         keys.append(summoner_spell["id"])
@@ -691,13 +699,13 @@ def summoner_spell_id(region, id, params={}):
         spell_data = {"all"}
 
     # See if we have the summoner spell cached with the required spellData fields
-    meta_data      = _get_summoner_spell_meta(region, params)
-    stored_data    = merakikernel.rediscache.get_type_datum(_summoner_spell_typename, id, meta_data)
+    meta_data = _get_summoner_spell_meta(region, params)
+    stored_data = merakikernel.rediscache.get_type_datum(_summoner_spell_typename, id, meta_data)
     summoner_spell = merakikernel.rediscache.get_value(_summoner_spell_typename, id, meta_data)
-    stored_data    = set(stored_data) if stored_data is not None else stored_data
+    stored_data = set(stored_data) if stored_data is not None else stored_data
 
     if summoner_spell:
-        all_stored = stored_data == {"all"} 
+        all_stored = stored_data == {"all"}
         if all_stored and spell_data == {"all"}:
             return summoner_spell
         elif all_stored or spell_data.issubset(stored_data):
@@ -710,7 +718,7 @@ def summoner_spell_id(region, id, params={}):
             return summoner_spell
 
     # Make request to Riot
-    url      = "/api/lol/static-data/{}/v1.2/summoner-spell/{}".format(region, id)
+    url = "/api/lol/static-data/{}/v1.2/summoner-spell/{}".format(region, id)
     summoner_spell = merakikernel.requests.get(region, url, params, True)
 
     # Cache results
@@ -719,10 +727,10 @@ def summoner_spell_id(region, id, params={}):
 
     return summoner_spell
 
+
 #####################
 # Versions Endpoint #
 #####################
-
 def versions(region, params={}):
     region = region.lower()
 
@@ -733,7 +741,7 @@ def versions(region, params={}):
         return versions
 
     # Make request to Riot
-    url      = "/api/lol/static-data/{}/v1.2/versions".format(region)
+    url = "/api/lol/static-data/{}/v1.2/versions".format(region)
     versions = merakikernel.requests.get(region, url, params, True)
 
     # Cache results

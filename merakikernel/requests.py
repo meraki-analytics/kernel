@@ -4,11 +4,11 @@ import urllib.request
 import ujson
 import zlib
 
-import merakikernel.rates
 
-api_key      = ""
+api_key = ""
 rate_limiter = None
-print_calls  = False
+print_calls = False
+
 
 def _executeRequest(url):
     """Executes an HTTP GET request and returns the result in a string
@@ -27,8 +27,9 @@ def _executeRequest(url):
         content = zlib.decompress(content, zlib.MAX_WBITS | 16)
         return ujson.loads(content)
     finally:
-        if(response): 
+        if(response):
             response.close()
+
 
 def get(region, url, params, global_server=False, status_endpoint=False):
     if not status_endpoint:
@@ -46,8 +47,8 @@ def get(region, url, params, global_server=False, status_endpoint=False):
             retry_after = 1
             if e.headers["Retry-After"]:
                 retry_after += int(e.headers["Retry-After"])
-                
+
             rate_limiter.reset_in(retry_after)
-            return get(request, params, static)
+            return get(region, url, params, global_server, status_endpoint)
         else:
             raise e
