@@ -5,6 +5,7 @@ import zlib
 
 
 def riot_endpoint(function):
+    """A decorator that applies response headers to a request function."""
     def wrapped(*args, **kwargs):
         bottle.response.headers["Access-Control-Allow-Origin"] = bottle.request.headers.get("Origin", "*")
         bottle.response.headers["Access-Control-Allow-Methods"] = "PUT, GET, POST, DELETE, OPTIONS"
@@ -28,6 +29,7 @@ def riot_endpoint(function):
 
 
 def compressed_json(function):
+    """A decorator that enables a request function to handle compressed json in its response."""
     def wrapped(*args, **kwargs):
         response = function(*args, **kwargs)
         response = ujson.dumps(response) if not isinstance(response, str) else response
@@ -43,6 +45,7 @@ def compressed_json(function):
 
 
 def enable_cors(function, origin="*"):
+    """Enables CORS for a request function."""
     def _enable_cors(*args, **kwargs):
         bottle.response.headers["Access-Control-Allow-Origin"] = bottle.request.headers.get("Origin", "*") if origin == "*" else origin
         bottle.response.headers["Access-Control-Allow-Methods"] = "PUT, GET, POST, DELETE, OPTIONS"
@@ -55,4 +58,5 @@ def enable_cors(function, origin="*"):
 
 
 def standardize_name(name):
+    """Replaces spaces with empty strings."""
     return name.replace(" ", "").lower()

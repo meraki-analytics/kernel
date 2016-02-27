@@ -32,6 +32,15 @@ class Server(object):
         self.conf = config_file_path
 
     def run(self):
+        """Reads the config file provided during instantiation.
+        If provided in the config file:
+            Sets api key
+            Initializes rate limiters
+            Imports required modules
+            Sets cache timeouts
+            Connects to a redis cache
+            Starts bottle
+        """
         # Read config file
         config = configparser.ConfigParser()
         config.optionxform = str  # Preserve config file case
@@ -73,6 +82,7 @@ def main():
     parser.add_argument("-config", type=str, required=True, help="path to the kernel configuration file")
     args = parser.parse_args()
 
+    # Start the server
     server = Server(args.config)
     server.run()
 

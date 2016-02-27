@@ -6,6 +6,7 @@ timeouts = {}
 
 
 def connect(*args, **kwargs):
+    """Connects to a Redis session."""
     global session
     session = redis.StrictRedis(*args, **kwargs)
 
