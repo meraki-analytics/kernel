@@ -5,7 +5,7 @@ Overview
 ========
 
 .. toctree::
-    :maxdepth: 6
+    :maxdepth: 1
 
     whatis
     setup
