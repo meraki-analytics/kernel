@@ -14,7 +14,7 @@ Next, add the newly downloaded kernel source directory to your ``PYTHONPATH`` en
 
 On Windows, follow the instructions `here <https://www.microsoft.com/resources/documentation/windows/xp/all/proddocs/en-us/sysdm_advancd_environmnt_addchange_variable.mspx?mfr=true>`_. Note that if you need multiple paths on your ``PYTHONPATH``, you can separate them by a ``;``.
 
-On Mac or Linux, add ``export PYTHONPATH=$PYTHONPATH:<CASSIOPEIA PATH>`` to the end of your shell rc file (this should be ``~/.bashrc`` for most), where ``<CASSIOPEIA PATH>`` is the path of the directory you cloned, or the cassiopeia.zip file you downloaded.
+On Mac or Linux, add ``export PYTHONPATH=$PYTHONPATH:<KERNEL PATH>`` to the end of your shell rc file (this should be ``~/.bashrc`` for most), where ``<KERNEL PATH>`` is the path of the directory you cloned, or the kernel.zip file you downloaded.
 
 Restart your terminal.
 

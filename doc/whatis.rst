@@ -23,7 +23,7 @@ By using a server with Kernel as an intermediary between your application and th
 Updating Data
 """""""""""""
 
-As mentioned above, when a user requests data that is not stored in the Redis cache, that data is pulled from the appropriate microservice and is stored in the Redis cache. Any future calls that request the same data will load it from the Redis cache rather than making a call to the appropriate microservice (which may be time consuming). However, you or the user may wish to force the data to be updated by querying the microservice rather than getting old data from the cache. In order to refresh this data, you can include ``force_update=True`` in any function call within Kernel and the Redis cache will not be queried; instead, the call will be made to the appropriate microservice and the results in the Redis cache will be updated.
+As mentioned above, when a user requests data that is not stored in the Redis cache, that data is pulled from the appropriate microservice and is stored in the Redis cache. Any future calls that request the same data will load it from the Redis cache rather than making a call to the appropriate microservice (which may be time consuming). However, you or the user may wish to force the data to be updated by querying the microservice rather than getting old data from the cache. In order to do so, you can include ``force_update=True`` in any function call within Kernel and the Redis cache will not be queried; instead, the call will be made to the appropriate microservice and the results in the Redis cache will be updated.
 
 
 Redis
