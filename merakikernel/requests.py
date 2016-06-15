@@ -25,7 +25,8 @@ def _executeRequest(url):
         response = urllib.request.urlopen(request)
         content = response.read()
         if content:
-            content = zlib.decompress(content, zlib.MAX_WBITS | 16)
+            if "gzip" == response.getheader("Content-Encoding"):
+                content = zlib.decompress(content, zlib.MAX_WBITS | 16)
             return ujson.loads(content)
         else:
             return None
