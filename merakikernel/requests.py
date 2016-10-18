@@ -48,14 +48,14 @@ def get(region, url, params, global_server=False, status_endpoint=False):
         return rate_limiter.call(_executeRequest, request) if rate_limiter and not global_server else _executeRequest(request)
     except urllib.error.HTTPError as e:
         # Reset rate limiter and retry on 429 (rate limit exceeded)
-        if e.code == 429 and limiter:
+        if e.code == 429 and rate_limiter:
             if "X-Rate-Limit-Type" not in e.headers or e.headers["X-Rate-Limit-Type"] == "service":
                 time.sleep(1)  # Backoff for 1 second before retrying
             else:
                 retry_after = 1
                 if e.headers["Retry-After"]:
                     retry_after += int(e.headers["Retry-After"])
-                limiter.reset_in(retry_after)
-            return make_request(request, method, params, payload, static, include_base, tournament)
+                rate_limiter.reset_in(retry_after)
+            return get(request, url, params, global_server, status_endpoint)
         else:
             raise e
