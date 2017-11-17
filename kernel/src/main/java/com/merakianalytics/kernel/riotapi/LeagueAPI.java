@@ -13,9 +13,9 @@ import com.google.common.collect.ImmutableMap;
 import com.merakianalytics.orianna.types.common.Platform;
 import com.merakianalytics.orianna.types.common.Queue;
 import com.merakianalytics.orianna.types.common.Tier;
-import com.merakianalytics.orianna.types.dto.league.SummonerPositions;
 import com.merakianalytics.orianna.types.dto.league.LeagueList;
 import com.merakianalytics.orianna.types.dto.league.SummonerLeagues;
+import com.merakianalytics.orianna.types.dto.league.SummonerPositions;
 
 @Path("/league/v3")
 public class LeagueAPI extends RiotAPIService {

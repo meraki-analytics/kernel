@@ -12,10 +12,6 @@
 
 	<artifactId>kernel-wildfly</artifactId>
 
-	<properties>
-		<docker.tag>wildfly</docker.tag>
-	</properties>
-
 	<build>
 		<finalName>lol</finalName>
 	</build>
@@ -40,7 +36,6 @@
 						</executions>
 						<configuration>
 							<repository>${docker.image}</repository>
-							<tag>${docker.tag}</tag>
 							<pullNewerImage>false</pullNewerImage>
 						</configuration>
 					</plugin>
