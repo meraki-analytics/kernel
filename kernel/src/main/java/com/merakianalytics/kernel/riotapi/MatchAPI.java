@@ -11,7 +11,7 @@ import javax.ws.rs.QueryParam;
 
 import com.google.common.collect.ImmutableMap;
 import com.merakianalytics.orianna.types.common.Platform;
-import com.merakianalytics.orianna.types.data.match.MatchList;
+import com.merakianalytics.orianna.types.dto.match.Matchlist;
 import com.merakianalytics.orianna.types.dto.match.Match;
 import com.merakianalytics.orianna.types.dto.match.MatchTimeline;
 import com.merakianalytics.orianna.types.dto.match.TournamentMatches;
@@ -52,7 +52,7 @@ public class MatchAPI extends RiotAPIService {
 
     @Path("/matchlists/by-account/{accountId}")
     @GET
-    public MatchList matchlistByAccount(@QueryParam("platform") Platform platform, @PathParam("accountId") final long accountId,
+    public Matchlist matchlistByAccount(@QueryParam("platform") Platform platform, @PathParam("accountId") final long accountId,
         @QueryParam("queue") final Set<Integer> queue, @QueryParam("endTime") @DefaultValue("-1") final long endTime,
         @QueryParam("beginIndex") @DefaultValue("-1") final int beginIndex, @QueryParam("beginTime") @DefaultValue("-1") final long beginTime,
         @QueryParam("season") final Set<Integer> season, @QueryParam("champion") final Set<Integer> champion,
@@ -93,12 +93,12 @@ public class MatchAPI extends RiotAPIService {
             builder.put("endIndex", endIndex);
         }
 
-        return context.getPipeline().get(MatchList.class, builder.build());
+        return context.getPipeline().get(Matchlist.class, builder.build());
     }
 
     @Path("/matchlists/by-account/{accountId}/recent")
     @GET
-    public MatchList recent(@QueryParam("platform") Platform platform, @PathParam("accountId") final long accountId) {
+    public Matchlist recent(@QueryParam("platform") Platform platform, @PathParam("accountId") final long accountId) {
         if(platform == null) {
             platform = context.getDefaultPlatform();
         }
@@ -109,7 +109,7 @@ public class MatchAPI extends RiotAPIService {
             .put("recent", true)
             .build();
 
-        return context.getPipeline().get(MatchList.class, query);
+        return context.getPipeline().get(Matchlist.class, query);
     }
 
     @Path("/timelines/by-match/{matchId}")
