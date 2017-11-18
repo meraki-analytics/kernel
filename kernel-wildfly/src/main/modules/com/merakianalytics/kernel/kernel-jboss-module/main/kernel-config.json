@@ -5,44 +5,25 @@
       "className": "com.merakianalytics.orianna.datapipeline.riotapi.RiotAPI",
       "config": {
         "http404Strategy": {
-          "backoff": 0,
-          "backoffUnit": null,
-          "backupStrategy": null,
-          "maxAttempts": 0,
-          "backoffFactor": 0,
           "type": "RETURN_NULL"
         },
         "http429Strategy": {
-          "backoff": 0,
-          "backoffUnit": null,
           "backupStrategy": {
             "backoff": 1,
             "backoffUnit": "SECONDS",
             "backupStrategy": {
-              "backoff": 0,
-              "backoffUnit": null,
-              "backupStrategy": null,
-              "maxAttempts": 0,
-              "backoffFactor": 0,
               "type": "THROW_EXCEPTION"
             },
             "maxAttempts": 4,
             "backoffFactor": 2,
             "type": "EXPONENTIAL_BACKOFF"
           },
-          "maxAttempts": 0,
-          "backoffFactor": 0,
           "type": "RETRY_FROM_HEADERS"
         },
         "http500Strategy": {
           "backoff": 1,
           "backoffUnit": "SECONDS",
           "backupStrategy": {
-            "backoff": 0,
-            "backoffUnit": null,
-            "backupStrategy": null,
-            "maxAttempts": 0,
-            "backoffFactor": 0,
             "type": "THROW_EXCEPTION"
           },
           "maxAttempts": 4,
@@ -50,22 +31,12 @@
           "type": "EXPONENTIAL_BACKOFF"
         },
         "http503Strategy": {
-          "backoff": 0,
-          "backoffUnit": null,
-          "backupStrategy": null,
-          "maxAttempts": 0,
-          "backoffFactor": 0,
           "type": "THROW_EXCEPTION"
         },
         "httpTimeoutStrategy": {
           "backoff": 1,
           "backoffUnit": "SECONDS",
           "backupStrategy": {
-            "backoff": 0,
-            "backoffUnit": null,
-            "backupStrategy": null,
-            "maxAttempts": 0,
-            "backoffFactor": 0,
             "type": "THROW_EXCEPTION"
           },
           "maxAttempts": 4,
@@ -75,11 +46,6 @@
         "limitingShare": 1.0,
         "limitingType": "BURST",
         "rateLimiterTimeoutStrategy": {
-          "backoff": 0,
-          "backoffUnit": null,
-          "backupStrategy": null,
-          "maxAttempts": 0,
-          "backoffFactor": 0,
           "type": "THROW_EXCEPTION"
         },
         "requests": {
@@ -90,7 +56,8 @@
           "readTimeout": 3,
           "readTimeoutUnit": "SECONDS"
         },
-        "services": ["com.merakianalytics.orianna.datapipeline.riotapi.ChampionAPI",
+        "services": [
+          "com.merakianalytics.orianna.datapipeline.riotapi.ChampionAPI",
           "com.merakianalytics.orianna.datapipeline.riotapi.ChampionMasteryAPI",
           "com.merakianalytics.orianna.datapipeline.riotapi.LeagueAPI",
           "com.merakianalytics.orianna.datapipeline.riotapi.MasteriesAPI",
@@ -102,9 +69,8 @@
           "com.merakianalytics.orianna.datapipeline.riotapi.SummonerAPI"
         ]
       },
-      "configClassName": "com.merakianalytics.orianna.datapipeline.riotapi.RiotAPI$Configuration"
-    }],
-    "transformers": []
+      "configClassName": "com.merakianalytics.orianna.datapipeline.riotapi.RiotAPI.Configuration"
+    }]
   },
   "cors": {
     "allowCredentials": "true",

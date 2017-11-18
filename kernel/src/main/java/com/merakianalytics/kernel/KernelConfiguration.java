@@ -2,6 +2,7 @@ package com.merakianalytics.kernel;
 
 import org.apache.deltaspike.core.api.exclude.Exclude;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.merakianalytics.kernel.filters.CORSFilter;
 import com.merakianalytics.orianna.datapipeline.PipelineConfiguration;
@@ -16,7 +17,7 @@ public class KernelConfiguration {
         final PipelineConfiguration.PipelineElementConfiguration riotAPI = new PipelineConfiguration.PipelineElementConfiguration();
         riotAPI.setClassName(RiotAPI.class.getCanonicalName());
         riotAPI.setConfigClassName(RiotAPI.Configuration.class.getCanonicalName());
-        riotAPI.setConfig(new ObjectMapper().valueToTree(new RiotAPI.Configuration()));
+        riotAPI.setConfig(new ObjectMapper().setSerializationInclusion(Include.NON_DEFAULT).valueToTree(new RiotAPI.Configuration()));
         config.getElements().add(riotAPI);
 
         return config;
