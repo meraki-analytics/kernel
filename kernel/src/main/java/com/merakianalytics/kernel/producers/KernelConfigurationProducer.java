@@ -9,6 +9,7 @@ import javax.enterprise.inject.Produces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.merakianalytics.kernel.KernelConfiguration;
 
@@ -21,7 +22,8 @@ public class KernelConfigurationProducer {
     @Produces
     @ApplicationScoped
     public static KernelConfiguration produceKernelConfiguration() {
-        final ObjectMapper mapper = new ObjectMapper();
+        final ObjectMapper mapper = new ObjectMapper().enable(Feature.ALLOW_COMMENTS);
+
         try(InputStream inputStream = KernelConfigurationProducer.class.getClassLoader().getResourceAsStream(CONFIGURATION_RESOURCE)) {
             return mapper.readValue(inputStream, KernelConfiguration.class);
         } catch(final IOException e) {
