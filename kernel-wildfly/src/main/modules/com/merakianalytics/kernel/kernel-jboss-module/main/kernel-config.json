@@ -69,7 +69,7 @@
           "com.merakianalytics.orianna.datapipeline.riotapi.SummonerAPI"
         ]
       },
-      "configClassName": "com.merakianalytics.orianna.datapipeline.riotapi.RiotAPI.Configuration"
+      "configClassName": "com.merakianalytics.orianna.datapipeline.riotapi.RiotAPI$Configuration"
     }]
   },
   "cors": {
