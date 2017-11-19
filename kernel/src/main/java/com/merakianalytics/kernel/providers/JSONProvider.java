@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Exclude
 @Provider
 public class JSONProvider implements ContextResolver<ObjectMapper> {
-    private final ObjectMapper mapper = new ObjectMapper().setSerializationInclusion(Include.NON_NULL);
+    private final ObjectMapper mapper = new ObjectMapper().setSerializationInclusion(Include.NON_DEFAULT);
 
     @Override
     public ObjectMapper getContext(final Class<?> type) {
