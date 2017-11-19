@@ -2,6 +2,7 @@ package com.merakianalytics.kernel.riotapi;
 
 import java.util.Map;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
@@ -14,6 +15,7 @@ import com.merakianalytics.orianna.types.dto.spectator.FeaturedGames;
 @Path("/spectator/v3")
 public class SpectatorAPI extends RiotAPIService {
     @Path("/active-games/by-summoner/{summonerId}")
+    @GET
     public CurrentGameInfo current(@QueryParam("platform") Platform platform, @PathParam("summonerId") final long summonerId) {
         if(platform == null) {
             platform = context.getDefaultPlatform();
@@ -28,6 +30,7 @@ public class SpectatorAPI extends RiotAPIService {
     }
 
     @Path("/featured-games")
+    @GET
     public FeaturedGames featured(@QueryParam("platform") Platform platform) {
         if(platform == null) {
             platform = context.getDefaultPlatform();

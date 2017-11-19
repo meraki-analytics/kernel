@@ -20,7 +20,7 @@ import com.merakianalytics.orianna.types.dto.match.TournamentMatches;
 public class MatchAPI extends RiotAPIService {
     @Path("/matches/{matchId}/by-tournament-code/{tournamentCode}")
     @GET
-    public Match byTournamentCode(@QueryParam("platform") Platform platform, @PathParam("matchId") final String matchId,
+    public Match byTournamentCode(@QueryParam("platform") Platform platform, @PathParam("matchId") final long matchId,
         @PathParam("tournamentCode") final String tournamentCode) {
         if(platform == null) {
             platform = context.getDefaultPlatform();
@@ -37,7 +37,7 @@ public class MatchAPI extends RiotAPIService {
 
     @Path("/matches/{matchId}")
     @GET
-    public Match match(@QueryParam("platform") Platform platform, @PathParam("matchId") final String matchId) {
+    public Match match(@QueryParam("platform") Platform platform, @PathParam("matchId") final long matchId) {
         if(platform == null) {
             platform = context.getDefaultPlatform();
         }
