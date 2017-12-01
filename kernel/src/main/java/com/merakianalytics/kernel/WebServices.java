@@ -12,9 +12,7 @@ import com.merakianalytics.kernel.providers.MessagePackProvider;
 import com.merakianalytics.kernel.riotapi.ChampionAPI;
 import com.merakianalytics.kernel.riotapi.ChampionMasteryAPI;
 import com.merakianalytics.kernel.riotapi.LeagueAPI;
-import com.merakianalytics.kernel.riotapi.MasteriesAPI;
 import com.merakianalytics.kernel.riotapi.MatchAPI;
-import com.merakianalytics.kernel.riotapi.RunesAPI;
 import com.merakianalytics.kernel.riotapi.SpectatorAPI;
 import com.merakianalytics.kernel.riotapi.StaticDataAPI;
 import com.merakianalytics.kernel.riotapi.StatusAPI;
@@ -37,9 +35,7 @@ public class WebServices extends Application {
         services.add(LeagueAPI.class);
         services.add(StaticDataAPI.class);
         services.add(StatusAPI.class);
-        services.add(MasteriesAPI.class);
         services.add(MatchAPI.class);
-        services.add(RunesAPI.class);
         services.add(SpectatorAPI.class);
         services.add(SummonerAPI.class);
 
