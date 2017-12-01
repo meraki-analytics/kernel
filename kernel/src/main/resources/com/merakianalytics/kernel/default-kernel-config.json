@@ -64,7 +64,8 @@
           "com.merakianalytics.orianna.datapipeline.riotapi.SpectatorAPI",
           "com.merakianalytics.orianna.datapipeline.riotapi.StaticDataAPI",
           "com.merakianalytics.orianna.datapipeline.riotapi.StatusAPI",
-          "com.merakianalytics.orianna.datapipeline.riotapi.SummonerAPI"
+          "com.merakianalytics.orianna.datapipeline.riotapi.SummonerAPI",
+          "com.merakianalytics.orianna.datapipeline.riotapi.ThirdPartyCodeAPI"
         ]
       },
       "configClassName": "com.merakianalytics.orianna.datapipeline.riotapi.RiotAPI$Configuration"

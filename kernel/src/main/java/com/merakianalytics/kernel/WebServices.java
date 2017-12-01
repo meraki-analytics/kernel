@@ -17,6 +17,7 @@ import com.merakianalytics.kernel.riotapi.SpectatorAPI;
 import com.merakianalytics.kernel.riotapi.StaticDataAPI;
 import com.merakianalytics.kernel.riotapi.StatusAPI;
 import com.merakianalytics.kernel.riotapi.SummonerAPI;
+import com.merakianalytics.kernel.riotapi.ThirdPartyCodeAPI;
 
 @ApplicationPath("/")
 public class WebServices extends Application {
@@ -38,6 +39,7 @@ public class WebServices extends Application {
         services.add(MatchAPI.class);
         services.add(SpectatorAPI.class);
         services.add(SummonerAPI.class);
+        services.add(ThirdPartyCodeAPI.class);
 
         return services;
     }
