@@ -14,26 +14,10 @@ import com.merakianalytics.orianna.types.common.Platform;
 import com.merakianalytics.orianna.types.common.Queue;
 import com.merakianalytics.orianna.types.common.Tier;
 import com.merakianalytics.orianna.types.dto.league.LeagueList;
-import com.merakianalytics.orianna.types.dto.league.SummonerLeagues;
 import com.merakianalytics.orianna.types.dto.league.SummonerPositions;
 
 @Path("/league/v3")
 public class LeagueAPI extends RiotAPIService {
-    @Path("/leagues/by-summoner/{summonerId}")
-    @GET
-    public SummonerLeagues bySummoner(@QueryParam("platform") Platform platform, @PathParam("summonerId") final long summonerId) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
-
-        final Map<String, Object> query = ImmutableMap.<String, Object> builder()
-            .put("platform", platform)
-            .put("summonerId", summonerId)
-            .build();
-
-        return context.getPipeline().get(SummonerLeagues.class, query);
-    }
-
     @Path("/challengerleagues/by-queue/{queue}")
     @GET
     public LeagueList challenger(@QueryParam("platform") Platform platform, @PathParam("queue") final Queue queue) {
