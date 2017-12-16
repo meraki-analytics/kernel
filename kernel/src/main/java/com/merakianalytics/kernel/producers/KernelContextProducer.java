@@ -8,13 +8,13 @@ import com.merakianalytics.kernel.KernelConfiguration;
 import com.merakianalytics.kernel.KernelContext;
 import com.merakianalytics.orianna.datapipeline.PipelineConfiguration;
 
-public class KernelContextProvider {
+public class KernelContextProducer {   
     @Inject
     private KernelConfiguration config;
 
     @Produces
     @ApplicationScoped
-    public KernelContext provideKernelContext() {
+    public KernelContext produceKernelContext() {
         final KernelContext context = new KernelContext();
         context.setCORS(config.getCORS());
         context.setDefaultPlatform(config.getDefaultPlatform());

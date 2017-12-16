@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  kernel:
+    container_name: kernel
+    image: merakianalytics/kernel:mongo
+    ports:
+      - 80:8080
+    environment:
+      - RIOT_API_KEY=${RIOT_API_KEY}
+    restart: always
+    depends_on:
+      - mongo
+    networks:
+      - kernel
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always
+    networks:
+      - kernel
+
+networks:
+  kernel:
+    driver: bridge

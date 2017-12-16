@@ -7,18 +7,58 @@
 	<parent>
 		<groupId>com.merakianalytics.kernel</groupId>
 		<artifactId>kernel-parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>kernel-wildfly</artifactId>
 
+	<properties>
+		<docker.tag>base</docker.tag>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.merakianalytics.kernel</groupId>
+			<artifactId>kernel</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
 	<build>
 		<finalName>lol</finalName>
+
+		<plugins>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.0.2</version>
+				<executions>
+					<execution>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/src/main/modules/com/merakianalytics/kernel/kernel-jboss-module/main</outputDirectory>
+							<overwrite>true</overwrite>
+							<resources>
+								<resource>
+									<directory>${basedir}/src/configurations/base</directory>
+									<includes>
+										<include>kernel-config.json</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 	</build>
 
 	<profiles>
 		<profile>
 			<id>docker</id>
+
 			<build>
 				<plugins>
 					<plugin>
@@ -36,6 +76,7 @@
 						</executions>
 						<configuration>
 							<repository>${docker.image}</repository>
+							<tag>${docker.tag}</tag>
 							<pullNewerImage>false</pullNewerImage>
 						</configuration>
 					</plugin>
@@ -50,13 +91,50 @@
 				</plugins>
 			</build>
 		</profile>
-	</profiles>
+		<profile>
+			<id>mongo</id>
 
-	<dependencies>
-		<dependency>
-			<groupId>com.merakianalytics.kernel</groupId>
-			<artifactId>kernel</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-	</dependencies>
+			<properties>
+				<orianna.mongo.version>1.0.0-SNAPSHOT</orianna.mongo.version>
+				<docker.tag>mongo</docker.tag>
+			</properties>
+
+			<dependencies>
+				<dependency>
+					<groupId>com.merakianalytics.orianna.datastores</groupId>
+					<artifactId>mongo</artifactId>
+					<version>${orianna.mongo.version}</version>
+				</dependency>
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-resources-plugin</artifactId>
+						<version>3.0.2</version>
+						<executions>
+							<execution>
+								<phase>process-resources</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${basedir}/src/main/modules/com/merakianalytics/kernel/kernel-jboss-module/main</outputDirectory>
+									<overwrite>true</overwrite>
+									<resources>
+										<resource>
+											<directory>${basedir}/src/configurations/mongo</directory>
+											<includes>
+												<include>kernel-config.json</include>
+											</includes>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
