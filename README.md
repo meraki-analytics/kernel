@@ -15,6 +15,7 @@ Kernel also includes the following built-in features:
 
 ## API Differences from Riot API
 Kernel is intended to mirror the Riot API exactly. The Riot API, however, is distributed accross regional platform domains to split computation load and localize content distribution (e.g. na1.api.riotgames.com or euw1.api.riotgames.com). Kernel supports serving _all_ platforms from a single server instance using the `platform` query parameter, which is available for every API endpoint in Kernel. All Riot API platforms are supported by this feature. A default platform can be configured to direct requests without a `platform` query parameter to that platform.
+
 Example: the Riot API call `https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/FatalElement` becomes `http://localhost/lol/summoner/v3/summoners/by-name/FatalElement?platform=NA1` for Kernel.
 
 ## How to get it
@@ -43,6 +44,7 @@ Kernel docker images are available on [Docker Hub](https://hub.docker.com/r/mera
 - The default `docker-compose.yml` files will start Kernel on port 80, as well as launching a [Swagger UI](https://hub.docker.com/r/swaggerapi/swagger-ui/) on port 12357 to explore the API.
 
 If you want to change some configuration settings in Kernel, you can edit the `kernel-config.json` file from the configuration you chose, then add a volume entry to the `docker-comopse.yml` file to load your config into the container.
+
 Example: [original compose file](https://github.com/meraki-analytics/kernel/blob/master/kernel-wildfly/src/configurations/base/docker-compose.yml) | [compose file with custom kernel-config.json](https://gist.github.com/robrua/9a89b908e2a6c3848cc4ab3ec5a0638e)
 
 ### Maven & Wildfly
