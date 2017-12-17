@@ -20,6 +20,8 @@ Kernel is intended to mirror the Riot API exactly. The Riot API, however, is dis
 Kernel can be obtained and installed either through [Docker](https://www.docker.com/) or by building the application locally using [Maven](https://maven.apache.org/) and deploying it to a local [Wildfly](http://www.wildfly.org/) application server.
 
 ### Docker
+Kernel docker images are available on [Docker Hub](https://hub.docker.com/r/merakianalytics/kernel/). If you're unfamiliar with docker, here's how to run them on your local machine:
+
 - Install & Configure Docker
   - [Windows 10 Professional](https://docs.docker.com/docker-for-windows/install/) (or other windows version with Hyper-V support)
   - [Other Windows](https://docs.docker.com/toolbox/toolbox_install_windows/)
