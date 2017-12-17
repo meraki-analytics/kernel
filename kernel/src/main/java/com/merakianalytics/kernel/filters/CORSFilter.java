@@ -7,6 +7,9 @@ import javax.ws.rs.container.ContainerResponseFilter;
 
 import com.merakianalytics.kernel.KernelContext;
 
+/**
+ * Adds CORS headers to responses from the server
+ */
 public class CORSFilter implements ContainerResponseFilter {
     public static class Configuration {
         private String allowCredentials = "true";

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 import org.apache.deltaspike.core.api.exclude.Exclude;
 import org.slf4j.Logger;
@@ -24,6 +23,9 @@ import com.merakianalytics.orianna.datapipeline.riotapi.RiotAPI;
 import com.merakianalytics.orianna.datapipeline.riotapi.RiotAPIService;
 import com.merakianalytics.orianna.types.common.Platform;
 
+/**
+ * The application configuration
+ */
 @Exclude
 public class KernelConfiguration {
     private static final String CONFIGURATION_RESOURCE = "kernel-config.json";
@@ -45,6 +47,11 @@ public class KernelConfiguration {
         return config;
     }
 
+    /**
+     * Loads the application configuration from standard resource locations, or falls back on the default configuration
+     *
+     * @return the application configuration
+     */
     public static KernelConfiguration load() {
         final ObjectMapper mapper = new ObjectMapper().enable(Feature.ALLOW_COMMENTS);
 
@@ -72,14 +79,12 @@ public class KernelConfiguration {
         }
 
         LOGGER.info("Loaded new Kernel Configuration" + message + "!");
-        LOGGER.info("New Kernel administration secret is: " + config.getSecret());
         return config;
     }
 
     private CORSFilter.Configuration CORS = new CORSFilter.Configuration();
     private Platform defaultPlatform = Platform.NORTH_AMERICA;
     private PipelineConfiguration pipeline = defaultPipelineConfiguration();
-    private String secret = UUID.randomUUID().toString();
 
     /**
      * @return the CORS
@@ -100,13 +105,6 @@ public class KernelConfiguration {
      */
     public PipelineConfiguration getPipeline() {
         return pipeline;
-    }
-
-    /**
-     * @return the secret
-     */
-    public String getSecret() {
-        return secret;
     }
 
     /**
@@ -131,13 +129,5 @@ public class KernelConfiguration {
      */
     public void setPipeline(final PipelineConfiguration pipeline) {
         this.pipeline = pipeline;
-    }
-
-    /**
-     * @param secret
-     *        the secret to set
-     */
-    public void setSecret(final String secret) {
-        this.secret = secret;
     }
 }

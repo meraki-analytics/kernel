@@ -14,11 +14,55 @@ import com.merakianalytics.orianna.types.common.Tier;
 import com.merakianalytics.orianna.types.dto.league.LeagueList;
 import com.merakianalytics.orianna.types.dto.league.SummonerPositions;
 
+/**
+ * The League API proxy for the Riot API
+ * 
+ * @see https://developer.riotgames.com/api-methods/#league-v3
+ */
 @Path("/league/v3")
 public class LeagueAPI extends RiotAPIService {
+    /**
+     * /lol/league/v3/positions/by-summoner/{summonerId}
+     *
+     * @see https://developer.riotgames.com/api-methods/#league-v3/GET_getAllLeaguePositionsForSummoner
+     *
+     * @param platform
+     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
+     * @param summonerId
+     *        the summoner's id
+     * @return {@link com.merakianalytics.orianna.types.dto.league.SummonerPositions}
+     */
+    @Path("/positions/by-summoner/{summonerId}")
+    @GET
+    public SummonerPositions getAllLeaguePositionsForSummoner(@QueryParam("platform") Platform platform, @PathParam("summonerId") final long summonerId) {
+        if(platform == null) {
+            platform = context.getDefaultPlatform();
+        }
+
+        final Map<String, Object> query = ImmutableMap.<String, Object> builder()
+            .put("platform", platform)
+            .put("summonerId", summonerId)
+            .build();
+
+        return context.getPipeline().get(SummonerPositions.class, query);
+    }
+
+    /**
+     * /lol/league/v3/challengerleagues/by-queue/{queue}
+     *
+     * @see https://developer.riotgames.com/api-methods/#league-v3/GET_getChallengerLeague
+     *
+     * @param platform
+     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
+     * @param queue
+     *        the {@link com.merakianalytics.orianna.types.common.Queue}
+     * @return {@link com.merakianalytics.orianna.types.dto.league.LeagueList}
+     */
     @Path("/challengerleagues/by-queue/{queue}")
     @GET
-    public LeagueList challenger(@QueryParam("platform") Platform platform, @PathParam("queue") final Queue queue) {
+    public LeagueList getChallengerLeague(@QueryParam("platform") Platform platform, @PathParam("queue") final Queue queue) {
         if(platform == null) {
             platform = context.getDefaultPlatform();
         }
@@ -32,9 +76,21 @@ public class LeagueAPI extends RiotAPIService {
         return context.getPipeline().get(LeagueList.class, query);
     }
 
+    /**
+     * /lol/league/v3/leagues/{leagueId}
+     *
+     * @see https://developer.riotgames.com/api-methods/#league-v3/GET_getLeagueById
+     *
+     * @param platform
+     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
+     * @param leagueId
+     *        the league's id
+     * @return {@link com.merakianalytics.orianna.types.dto.league.LeagueList}
+     */
     @Path("/leagues/{leagueId}")
     @GET
-    public LeagueList league(@QueryParam("platform") Platform platform, @PathParam("leagueId") final String leagueId) {
+    public LeagueList getLeagueById(@QueryParam("platform") Platform platform, @PathParam("leagueId") final String leagueId) {
         if(platform == null) {
             platform = context.getDefaultPlatform();
         }
@@ -47,9 +103,21 @@ public class LeagueAPI extends RiotAPIService {
         return context.getPipeline().get(LeagueList.class, query);
     }
 
+    /**
+     * /lol/league/v3/masterleagues/by-queue/{queue}
+     *
+     * @see https://developer.riotgames.com/api-methods/#league-v3/GET_getMasterLeague
+     *
+     * @param platform
+     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
+     * @param queue
+     *        the {@link com.merakianalytics.orianna.types.common.Queue}
+     * @return {@link com.merakianalytics.orianna.types.dto.league.LeagueList}
+     */
     @Path("/masterleagues/by-queue/{queue}")
     @GET
-    public LeagueList master(@QueryParam("platform") Platform platform, @PathParam("queue") final Queue queue) {
+    public LeagueList getMasterLeague(@QueryParam("platform") Platform platform, @PathParam("queue") final Queue queue) {
         if(platform == null) {
             platform = context.getDefaultPlatform();
         }
@@ -61,20 +129,5 @@ public class LeagueAPI extends RiotAPIService {
             .build();
 
         return context.getPipeline().get(LeagueList.class, query);
-    }
-
-    @Path("/positions/by-summoner/{summonerId}")
-    @GET
-    public SummonerPositions positionsBySummoner(@QueryParam("platform") Platform platform, @PathParam("summonerId") final long summonerId) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
-
-        final Map<String, Object> query = ImmutableMap.<String, Object> builder()
-            .put("platform", platform)
-            .put("summonerId", summonerId)
-            .build();
-
-        return context.getPipeline().get(SummonerPositions.class, query);
     }
 }

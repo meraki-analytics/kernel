@@ -7,6 +7,9 @@ import javax.inject.Inject;
 import com.merakianalytics.kernel.KernelConfiguration;
 import com.merakianalytics.kernel.KernelContext;
 
+/**
+ * Produces the application context
+ */
 public class KernelContextProducer {
     @Inject
     private KernelConfiguration config;

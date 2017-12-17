@@ -13,11 +13,28 @@ import com.merakianalytics.orianna.types.common.Platform;
 import com.merakianalytics.orianna.types.dto.champion.Champion;
 import com.merakianalytics.orianna.types.dto.champion.ChampionList;
 
+/**
+ * The Champion Status API proxy for the Riot API
+ * 
+ * @see https://developer.riotgames.com/api-methods/#champion-v3
+ */
 @Path("/platform/v3")
 public class ChampionAPI extends RiotAPIService {
+    /**
+     * /lol/platform/v3/champions
+     *
+     * @see https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampions
+     *
+     * @param platform
+     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
+     * @param freeToPlay
+     *        whether to only get free to play champions (default: false)
+     * @return {@link com.merakianalytics.orianna.types.dto.champion.ChampionList}
+     */
     @Path("/champions")
     @GET
-    public ChampionList all(@QueryParam("platform") Platform platform, @QueryParam("freeToPlay") @DefaultValue("false") final boolean freeToPlay) {
+    public ChampionList getChampions(@QueryParam("platform") Platform platform, @QueryParam("freeToPlay") @DefaultValue("false") final boolean freeToPlay) {
         if(platform == null) {
             platform = context.getDefaultPlatform();
         }
@@ -30,9 +47,21 @@ public class ChampionAPI extends RiotAPIService {
         return context.getPipeline().get(ChampionList.class, query);
     }
 
+    /**
+     * /lol/platform/v3/champions/{id}
+     *
+     * @see https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampionsById
+     *
+     * @param platform
+     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
+     * @param id
+     *        the champion's id
+     * @return {@link com.merakianalytics.orianna.types.dto.champion.Champion}
+     */
     @Path("/champions/{id}")
     @GET
-    public Champion byId(@QueryParam("platform") Platform platform, @PathParam("id") final int id) {
+    public Champion getChampionsById(@QueryParam("platform") Platform platform, @PathParam("id") final int id) {
         if(platform == null) {
             platform = context.getDefaultPlatform();
         }

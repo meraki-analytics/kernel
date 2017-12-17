@@ -21,6 +21,9 @@ import org.msgpack.jackson.dataformat.MessagePackFactory;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Allows MsgPack serialization. Excludes default values when serializing.
+ */
 @Exclude
 @Provider
 @Produces(MessagePackProvider.APPLICATION_MSGPACK)

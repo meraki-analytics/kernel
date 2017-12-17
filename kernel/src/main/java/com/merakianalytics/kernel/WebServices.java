@@ -21,6 +21,9 @@ import com.merakianalytics.kernel.riotapi.StatusAPI;
 import com.merakianalytics.kernel.riotapi.SummonerAPI;
 import com.merakianalytics.kernel.riotapi.ThirdPartyCodeAPI;
 
+/**
+ * The jax-rs application definition. This is the "main" of the kernel application.
+ */
 @ApplicationPath("/")
 public class WebServices extends Application {
     @Override

@@ -12,11 +12,28 @@ import com.merakianalytics.orianna.types.common.Platform;
 import com.merakianalytics.orianna.types.dto.spectator.CurrentGameInfo;
 import com.merakianalytics.orianna.types.dto.spectator.FeaturedGames;
 
+/**
+ * The Spectator API proxy for the Riot API
+ * 
+ * @see https://developer.riotgames.com/api-methods/#spectator-v3
+ */
 @Path("/spectator/v3")
 public class SpectatorAPI extends RiotAPIService {
+    /**
+     * /lol/spectator/v3/active-games/by-summoner/{summonerId}
+     *
+     * @see https://developer.riotgames.com/api-methods/#spectator-v3/GET_getCurrentGameInfoBySummoner
+     *
+     * @param platform
+     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
+     * @param summonerId
+     *        the summoner's id
+     * @return {@link com.merakianalytics.orianna.types.dto.spectator.CurrentGameInfo}
+     */
     @Path("/active-games/by-summoner/{summonerId}")
     @GET
-    public CurrentGameInfo current(@QueryParam("platform") Platform platform, @PathParam("summonerId") final long summonerId) {
+    public CurrentGameInfo getCurrentGameInfoBySummoner(@QueryParam("platform") Platform platform, @PathParam("summonerId") final long summonerId) {
         if(platform == null) {
             platform = context.getDefaultPlatform();
         }
@@ -29,9 +46,19 @@ public class SpectatorAPI extends RiotAPIService {
         return context.getPipeline().get(CurrentGameInfo.class, query);
     }
 
+    /**
+     * /lol/spectator/v3/featured-games
+     *
+     * @see https://developer.riotgames.com/api-methods/#spectator-v3/GET_getFeaturedGames
+     *
+     * @param platform
+     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
+     * @return {@link com.merakianalytics.orianna.types.dto.spectator.FeaturedGames}
+     */
     @Path("/featured-games")
     @GET
-    public FeaturedGames featured(@QueryParam("platform") Platform platform) {
+    public FeaturedGames getFeaturedGames(@QueryParam("platform") Platform platform) {
         if(platform == null) {
             platform = context.getDefaultPlatform();
         }

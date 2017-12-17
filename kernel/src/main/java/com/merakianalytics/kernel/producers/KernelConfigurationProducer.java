@@ -5,6 +5,9 @@ import javax.enterprise.inject.Produces;
 
 import com.merakianalytics.kernel.KernelConfiguration;
 
+/**
+ * Loads the configuration and produces it for the application
+ */
 public class KernelConfigurationProducer {
     @Produces
     @ApplicationScoped

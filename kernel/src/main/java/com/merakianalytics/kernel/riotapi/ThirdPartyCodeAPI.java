@@ -9,8 +9,25 @@ import com.google.common.collect.ImmutableMap;
 import com.merakianalytics.orianna.types.common.Platform;
 import com.merakianalytics.orianna.types.dto.thirdpartycode.VerificationString;
 
+/**
+ * The Third Party Code API proxy for the Riot API
+ * 
+ * @see https://developer.riotgames.com/api-methods/#third-party-code-v3
+ */
 @Path("/platform/v3")
 public class ThirdPartyCodeAPI extends RiotAPIService {
+    /**
+     * /lol/platform/v3/third-party-code/by-summoner/{summonerId}
+     *
+     * @see https://developer.riotgames.com/api-methods/#third-party-code-v3/GET_getThirdPartyCodeBySummonerId
+     *
+     * @param platform
+     *        platform the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
+     * @param summonerId
+     *        the summoner's id
+     * @return {@link com.merakianalytics.orianna.types.dto.thirdpartycode.VerificationString}
+     */
     @Path("/third-party-code/by-summoner/{summonerId}")
     @GET
     public VerificationString verificationString(@QueryParam("platform") Platform platform, @PathParam("summonerId") final long summonerId) {

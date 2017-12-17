@@ -8,6 +8,9 @@ import org.apache.deltaspike.core.api.exclude.Exclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Replaces the default JSON serialization to exclude default values when serializing
+ */
 @Exclude
 @Provider
 public class JSONProvider implements ContextResolver<ObjectMapper> {

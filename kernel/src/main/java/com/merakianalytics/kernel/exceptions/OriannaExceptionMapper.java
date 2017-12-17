@@ -16,9 +16,23 @@ import com.merakianalytics.orianna.datapipeline.riotapi.exceptions.ServiceUnavai
 import com.merakianalytics.orianna.datapipeline.riotapi.exceptions.UnsupportedMediaTypeException;
 import com.merakianalytics.orianna.types.common.OriannaException;
 
+/**
+ * Handles forwarding HTTP errors from orianna on to the user and proper HTTP 500 behavior on unhandled
+ * {@link com.merakianalytics.orianna.types.common.OriannaException}s
+ *
+ * @see com.merakianalytics.orianna.types.common.OriannaException
+ */
 public class OriannaExceptionMapper implements ExceptionMapper<OriannaException> {
     private static final Logger LOGGER = LoggerFactory.getLogger(OriannaExceptionMapper.class);
 
+    /**
+     * Handling logic for encountered {@link com.merakianalytics.orianna.types.common.OriannaException}s
+     *
+     * @param exception
+     *        the exception
+     * @return a {@link javax.ws.rs.core.Response} with the proper error code and headers set
+     * @see com.merakianalytics.orianna.types.common.OriannaException
+     */
     public static Response handle(final OriannaException exception) {
         if(exception instanceof TimeoutException) {
             final TimeoutException e = (TimeoutException)exception;

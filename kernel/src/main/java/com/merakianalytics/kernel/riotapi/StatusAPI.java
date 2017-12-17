@@ -10,11 +10,26 @@ import com.google.common.collect.ImmutableMap;
 import com.merakianalytics.orianna.types.common.Platform;
 import com.merakianalytics.orianna.types.dto.status.ShardStatus;
 
+/**
+ * The Status API proxy for the Riot API
+ * 
+ * @see https://developer.riotgames.com/api-methods/#spectator-v3
+ */
 @Path("/status/v3")
 public class StatusAPI extends RiotAPIService {
+    /**
+     * /lol/status/v3/shard-data
+     *
+     * @see https://developer.riotgames.com/api-methods/#lol-status-v3/GET_getShardData
+     *
+     * @param platform
+     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
+     * @return {@link com.merakianalytics.orianna.types.dto.status.ShardStatus}
+     */
     @Path("/shard-data")
     @GET
-    public ShardStatus status(@QueryParam("platform") Platform platform) {
+    public ShardStatus getShardData(@QueryParam("platform") Platform platform) {
         if(platform == null) {
             platform = context.getDefaultPlatform();
         }

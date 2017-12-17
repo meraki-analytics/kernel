@@ -11,11 +11,28 @@ import com.google.common.collect.ImmutableMap;
 import com.merakianalytics.orianna.types.common.Platform;
 import com.merakianalytics.orianna.types.dto.summoner.Summoner;
 
+/**
+ * The Summoner API proxy for the Riot API
+ * 
+ * @see https://developer.riotgames.com/api-methods/#summoner-v3
+ */
 @Path("/summoner/v3")
 public class SummonerAPI extends RiotAPIService {
+    /**
+     * /lol/summoner/v3/summoners/by-account/{accountId}
+     *
+     * @see https://developer.riotgames.com/api-methods/#summoner-v3/GET_getByAccountId
+     *
+     * @param platform
+     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
+     * @param accountId
+     *        the account's id
+     * @return {@link com.merakianalytics.orianna.types.dto.summoner.Summoner}
+     */
     @Path("/summoners/by-account/{accountId}")
     @GET
-    public Summoner byAccount(@QueryParam("platform") Platform platform, @PathParam("accountId") final long accountId) {
+    public Summoner getByAccountId(@QueryParam("platform") Platform platform, @PathParam("accountId") final long accountId) {
         if(platform == null) {
             platform = context.getDefaultPlatform();
         }
@@ -28,9 +45,21 @@ public class SummonerAPI extends RiotAPIService {
         return context.getPipeline().get(Summoner.class, query);
     }
 
+    /**
+     * /lol/summoner/v3/summoners/{summonerId}
+     *
+     * @see https://developer.riotgames.com/api-methods/#summoner-v3/GET_getBySummonerId
+     *
+     * @param platform
+     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
+     * @param summonerId
+     *        the summoner's id
+     * @return {@link com.merakianalytics.orianna.types.dto.summoner.Summoner}
+     */
     @Path("/summoners/{summonerId}")
     @GET
-    public Summoner byId(@QueryParam("platform") Platform platform, @PathParam("summonerId") final long summonerId) {
+    public Summoner getBySummonerId(@QueryParam("platform") Platform platform, @PathParam("summonerId") final long summonerId) {
         if(platform == null) {
             platform = context.getDefaultPlatform();
         }
@@ -43,9 +72,21 @@ public class SummonerAPI extends RiotAPIService {
         return context.getPipeline().get(Summoner.class, query);
     }
 
+    /**
+     * /lol/summoner/v3/summoners/by-name/{summonerName}
+     *
+     * @see https://developer.riotgames.com/api-methods/#summoner-v3/GET_getBySummonerName
+     *
+     * @param platform
+     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
+     * @param summonerName
+     *        the summoner's name
+     * @return {@link com.merakianalytics.orianna.types.dto.summoner.Summoner}
+     */
     @Path("/summoners/by-name/{summonerName}")
     @GET
-    public Summoner byName(@QueryParam("platform") Platform platform, @PathParam("summonerName") final String summonerName) {
+    public Summoner getBySummonerName(@QueryParam("platform") Platform platform, @PathParam("summonerName") final String summonerName) {
         if(platform == null) {
             platform = context.getDefaultPlatform();
         }
