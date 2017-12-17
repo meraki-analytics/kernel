@@ -11,12 +11,15 @@ import com.google.common.collect.ImmutableMap;
 import com.merakianalytics.orianna.types.common.Platform;
 import com.merakianalytics.orianna.types.dto.summoner.Summoner;
 
+import io.swagger.annotations.Api;
+
 /**
  * The Summoner API proxy for the Riot API
  * 
  * @see https://developer.riotgames.com/api-methods/#summoner-v3
  */
 @Path("/summoner/v3")
+@Api("Summoner API")
 public class SummonerAPI extends RiotAPIService {
     /**
      * /lol/summoner/v3/summoners/by-account/{accountId}

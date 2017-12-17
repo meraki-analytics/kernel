@@ -16,12 +16,15 @@ import com.merakianalytics.orianna.types.dto.match.MatchTimeline;
 import com.merakianalytics.orianna.types.dto.match.Matchlist;
 import com.merakianalytics.orianna.types.dto.match.TournamentMatches;
 
+import io.swagger.annotations.Api;
+
 /**
  * The Match API proxy for the Riot API
  * 
  * @see https://developer.riotgames.com/api-methods/#match-v3
  */
 @Path("/match/v3")
+@Api("Match API")
 public class MatchAPI extends RiotAPIService {
     /**
      * /lol/match/v3/matches/{matchId}

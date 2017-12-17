@@ -28,12 +28,15 @@ import com.merakianalytics.orianna.types.dto.staticdata.SummonerSpell;
 import com.merakianalytics.orianna.types.dto.staticdata.SummonerSpellList;
 import com.merakianalytics.orianna.types.dto.staticdata.Versions;
 
+import io.swagger.annotations.Api;
+
 /**
  * The Static Data API proxy for the Riot API
  * 
  * @see https://developer.riotgames.com/api-methods/#lol-static-data-v3
  */
 @Path("/static-data/v3")
+@Api("Static Data API")
 public class StaticDataAPI extends RiotAPIService {
     /**
      * /lol/static-data/v3/champions/{id}

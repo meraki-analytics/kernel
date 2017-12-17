@@ -13,12 +13,15 @@ import com.merakianalytics.orianna.types.dto.championmastery.ChampionMasteries;
 import com.merakianalytics.orianna.types.dto.championmastery.ChampionMastery;
 import com.merakianalytics.orianna.types.dto.championmastery.ChampionMasteryScore;
 
+import io.swagger.annotations.Api;
+
 /**
  * The Champion Mastery API proxy for the Riot API
  * 
  * @see https://developer.riotgames.com/api-methods/#champion-mastery-v3
  */
 @Path("/champion-mastery/v3")
+@Api("Champion Mastery API")
 public class ChampionMasteryAPI extends RiotAPIService {
     /**
      * /lol/champion-mastery/v3/champion-masteries/by-summoner/{summonerId}

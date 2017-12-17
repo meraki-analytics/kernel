@@ -12,12 +12,15 @@ import com.merakianalytics.orianna.types.common.Platform;
 import com.merakianalytics.orianna.types.dto.spectator.CurrentGameInfo;
 import com.merakianalytics.orianna.types.dto.spectator.FeaturedGames;
 
+import io.swagger.annotations.Api;
+
 /**
  * The Spectator API proxy for the Riot API
  * 
  * @see https://developer.riotgames.com/api-methods/#spectator-v3
  */
 @Path("/spectator/v3")
+@Api("Spectator API")
 public class SpectatorAPI extends RiotAPIService {
     /**
      * /lol/spectator/v3/active-games/by-summoner/{summonerId}

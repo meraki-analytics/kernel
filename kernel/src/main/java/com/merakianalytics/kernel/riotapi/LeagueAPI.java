@@ -14,12 +14,15 @@ import com.merakianalytics.orianna.types.common.Tier;
 import com.merakianalytics.orianna.types.dto.league.LeagueList;
 import com.merakianalytics.orianna.types.dto.league.SummonerPositions;
 
+import io.swagger.annotations.Api;
+
 /**
  * The League API proxy for the Riot API
  * 
  * @see https://developer.riotgames.com/api-methods/#league-v3
  */
 @Path("/league/v3")
+@Api("League API")
 public class LeagueAPI extends RiotAPIService {
     /**
      * /lol/league/v3/positions/by-summoner/{summonerId}

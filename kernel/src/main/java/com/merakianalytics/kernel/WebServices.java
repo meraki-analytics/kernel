@@ -21,11 +21,14 @@ import com.merakianalytics.kernel.riotapi.StatusAPI;
 import com.merakianalytics.kernel.riotapi.SummonerAPI;
 import com.merakianalytics.kernel.riotapi.ThirdPartyCodeAPI;
 
+import io.swagger.jaxrs.listing.ApiListingResource;
+import io.swagger.jaxrs.listing.SwaggerSerializers;
+
 /**
  * The jax-rs application definition. This is the "main" of the kernel application.
  */
 @ApplicationPath("/")
-public class WebServices extends Application {
+public class WebServices extends Application {   
     @Override
     public Set<Class<?>> getClasses() {
         final Set<Class<?>> services = new HashSet<>();
@@ -47,6 +50,10 @@ public class WebServices extends Application {
         services.add(SpectatorAPI.class);
         services.add(SummonerAPI.class);
         services.add(ThirdPartyCodeAPI.class);
+        
+        // Swagger Documentation
+        services.add(ApiListingResource.class);
+        services.add(SwaggerSerializers.class);
 
         return services;
     }

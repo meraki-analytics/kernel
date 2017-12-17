@@ -9,12 +9,15 @@ import com.google.common.collect.ImmutableMap;
 import com.merakianalytics.orianna.types.common.Platform;
 import com.merakianalytics.orianna.types.dto.thirdpartycode.VerificationString;
 
+import io.swagger.annotations.Api;
+
 /**
  * The Third Party Code API proxy for the Riot API
  * 
  * @see https://developer.riotgames.com/api-methods/#third-party-code-v3
  */
 @Path("/platform/v3")
+@Api("Third Party Code API")
 public class ThirdPartyCodeAPI extends RiotAPIService {
     /**
      * /lol/platform/v3/third-party-code/by-summoner/{summonerId}

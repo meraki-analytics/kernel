@@ -13,12 +13,15 @@ import com.merakianalytics.orianna.types.common.Platform;
 import com.merakianalytics.orianna.types.dto.champion.Champion;
 import com.merakianalytics.orianna.types.dto.champion.ChampionList;
 
+import io.swagger.annotations.Api;
+
 /**
  * The Champion Status API proxy for the Riot API
  * 
  * @see https://developer.riotgames.com/api-methods/#champion-v3
  */
 @Path("/platform/v3")
+@Api("Champion Status API")
 public class ChampionAPI extends RiotAPIService {
     /**
      * /lol/platform/v3/champions

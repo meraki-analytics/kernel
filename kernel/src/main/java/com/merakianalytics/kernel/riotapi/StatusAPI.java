@@ -10,12 +10,15 @@ import com.google.common.collect.ImmutableMap;
 import com.merakianalytics.orianna.types.common.Platform;
 import com.merakianalytics.orianna.types.dto.status.ShardStatus;
 
+import io.swagger.annotations.Api;
+
 /**
  * The Status API proxy for the Riot API
  * 
  * @see https://developer.riotgames.com/api-methods/#spectator-v3
  */
 @Path("/status/v3")
+@Api("Status API")
 public class StatusAPI extends RiotAPIService {
     /**
      * /lol/status/v3/shard-data
