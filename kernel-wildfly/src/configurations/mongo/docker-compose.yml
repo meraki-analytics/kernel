@@ -9,10 +9,10 @@ services:
     environment:
       - RIOT_API_KEY=${RIOT_API_KEY}
     restart: always
-    depends_on:
-      - mongo
     networks:
       - kernel
+    depends_on:
+      - mongo
   mongo:
     container_name: mongo
     image: mongo

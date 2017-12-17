@@ -5,7 +5,7 @@
       "className": "com.merakianalytics.orianna.datapipeline.riotapi.RiotAPI",
       "config": {
         "http404Strategy": {
-          "type": "RETURN_NULL"
+          "type": "THROW_EXCEPTION"
         },
         "http429Strategy": {
           "backupStrategy": {

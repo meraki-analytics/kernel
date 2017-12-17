@@ -6,19 +6,14 @@ import javax.inject.Inject;
 
 import com.merakianalytics.kernel.KernelConfiguration;
 import com.merakianalytics.kernel.KernelContext;
-import com.merakianalytics.orianna.datapipeline.PipelineConfiguration;
 
-public class KernelContextProducer {   
+public class KernelContextProducer {
     @Inject
     private KernelConfiguration config;
 
     @Produces
     @ApplicationScoped
     public KernelContext produceKernelContext() {
-        final KernelContext context = new KernelContext();
-        context.setCORS(config.getCORS());
-        context.setDefaultPlatform(config.getDefaultPlatform());
-        context.setPipeline(PipelineConfiguration.toPipeline(config.getPipeline()));
-        return context;
+        return KernelContext.fromConfiguration(config);
     }
 }
