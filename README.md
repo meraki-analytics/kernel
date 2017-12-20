@@ -57,6 +57,7 @@ Example: [original compose file](https://github.com/meraki-analytics/kernel/blob
   - [More configurations forthcoming as support for additional popular databases is completed for orianna](https://github.com/meraki-analytics/orianna-datastores)
 - From your Kernel source folder, copy `kernel-wildfly/target/lol.war` into the `standalone/deployments/` directory in your Wildfly folder
 - From your Kernel source folder, copy both files (`kernel-config.json` and `module.xml`) from `kernel-wildfly/src/main/modules/com/merakianalytics/kernel/kernel-jboss-module/main/` into the `modules/com/merakianalytics/kernel/kernel-jboss-module/main/` directory in your Wildfly folder. You will probably need to create all the directories beyond `modules/`.
+- Set your `RIOT_API_KEY` environment variable to your [Riot API Key](https://developer.riotgames.com/)
 - Run `bin/standalone.sh` (Unix) or `bin/standalone.bat` (Windows) in your Wildfly folder to launch Kernel.
 
 ## Questions & Contributions
