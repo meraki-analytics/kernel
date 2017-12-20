@@ -13,7 +13,7 @@
 	<artifactId>kernel-wildfly</artifactId>
 
 	<properties>
-		<docker.tag>base</docker.tag>
+		<docker.tag>latest</docker.tag>
 	</properties>
 
 	<dependencies>
@@ -86,10 +86,10 @@
 			</build>
 		</profile>
 		<profile>
-			<id>latest</id>
-			
+			<id>base</id>
+
 			<properties>
-				<docker.tag>latest</docker.tag>
+				<docker.tag>base</docker.tag>
 			</properties>
 		</profile>
 		<profile>
