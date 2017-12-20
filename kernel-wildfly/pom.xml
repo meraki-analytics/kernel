@@ -86,6 +86,13 @@
 			</build>
 		</profile>
 		<profile>
+			<id>latest</id>
+			
+			<properties>
+				<docker.tag>latest</docker.tag>
+			</properties>
+		</profile>
+		<profile>
 			<id>mongo</id>
 
 			<properties>
