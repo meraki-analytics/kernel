@@ -16,7 +16,7 @@ import io.swagger.annotations.Api;
 
 /**
  * The Spectator API proxy for the Riot API
- * 
+ *
  * @see https://developer.riotgames.com/api-methods/#spectator-v3
  */
 @Path("/spectator/v3")

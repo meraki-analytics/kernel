@@ -32,7 +32,7 @@ import io.swagger.annotations.Api;
 
 /**
  * The Static Data API proxy for the Riot API
- * 
+ *
  * @see https://developer.riotgames.com/api-methods/#lol-static-data-v3
  */
 @Path("/static-data/v3")

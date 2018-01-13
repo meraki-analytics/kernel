@@ -17,7 +17,7 @@ import io.swagger.annotations.Api;
 
 /**
  * The Champion Mastery API proxy for the Riot API
- * 
+ *
  * @see https://developer.riotgames.com/api-methods/#champion-mastery-v3
  */
 @Path("/champion-mastery/v3")

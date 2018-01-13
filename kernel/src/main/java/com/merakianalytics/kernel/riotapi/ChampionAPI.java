@@ -17,7 +17,7 @@ import io.swagger.annotations.Api;
 
 /**
  * The Champion Status API proxy for the Riot API
- * 
+ *
  * @see https://developer.riotgames.com/api-methods/#champion-v3
  */
 @Path("/platform/v3")

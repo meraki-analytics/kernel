@@ -20,7 +20,7 @@ import io.swagger.annotations.Api;
 
 /**
  * The Match API proxy for the Riot API
- * 
+ *
  * @see https://developer.riotgames.com/api-methods/#match-v3
  */
 @Path("/match/v3")

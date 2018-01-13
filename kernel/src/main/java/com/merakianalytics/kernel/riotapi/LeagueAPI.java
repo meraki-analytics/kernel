@@ -18,7 +18,7 @@ import io.swagger.annotations.Api;
 
 /**
  * The League API proxy for the Riot API
- * 
+ *
  * @see https://developer.riotgames.com/api-methods/#league-v3
  */
 @Path("/league/v3")

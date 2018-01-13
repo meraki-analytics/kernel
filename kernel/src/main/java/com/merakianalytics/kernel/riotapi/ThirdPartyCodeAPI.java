@@ -13,7 +13,7 @@ import io.swagger.annotations.Api;
 
 /**
  * The Third Party Code API proxy for the Riot API
- * 
+ *
  * @see https://developer.riotgames.com/api-methods/#third-party-code-v3
  */
 @Path("/platform/v3")

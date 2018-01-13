@@ -15,7 +15,7 @@ import io.swagger.annotations.Api;
 
 /**
  * The Summoner API proxy for the Riot API
- * 
+ *
  * @see https://developer.riotgames.com/api-methods/#summoner-v3
  */
 @Path("/summoner/v3")

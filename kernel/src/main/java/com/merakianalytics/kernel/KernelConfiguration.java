@@ -9,6 +9,7 @@ import org.apache.deltaspike.core.api.exclude.Exclude;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -20,7 +21,7 @@ import com.merakianalytics.orianna.datapipeline.PipelineConfiguration;
 import com.merakianalytics.orianna.datapipeline.PipelineConfiguration.PipelineElementConfiguration;
 import com.merakianalytics.orianna.datapipeline.PipelineConfiguration.TransformerConfiguration;
 import com.merakianalytics.orianna.datapipeline.riotapi.RiotAPI;
-import com.merakianalytics.orianna.datapipeline.riotapi.RiotAPIService;
+import com.merakianalytics.orianna.datapipeline.riotapi.RiotAPIService.FailedRequestStrategy;
 import com.merakianalytics.orianna.types.common.Platform;
 
 /**
@@ -38,10 +39,11 @@ public class KernelConfiguration {
         final Set<TransformerConfiguration> transformers = ImmutableSet.of();
         config.setTransformers(transformers);
 
+        final ObjectMapper mapper = new ObjectMapper().setSerializationInclusion(Include.NON_DEFAULT);
         final PipelineElementConfiguration riotAPI = PipelineElementConfiguration.defaultConfiguration(RiotAPI.class);
-        ((ObjectNode)riotAPI.getConfig().get("http429Strategy")).put("type", RiotAPIService.FailedRequestStrategy.Type.THROW_EXCEPTION.name());
+        ((ObjectNode)riotAPI.getConfig()).set("http404Strategy", mapper.valueToTree(new FailedRequestStrategy.ThrowException()));
 
-        final List<PipelineElementConfiguration> elements = ImmutableList.of();
+        final List<PipelineElementConfiguration> elements = ImmutableList.of(riotAPI);
         config.setElements(elements);
 
         return config;
