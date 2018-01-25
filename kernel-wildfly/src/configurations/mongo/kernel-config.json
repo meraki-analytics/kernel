@@ -73,8 +73,8 @@
             "unit": "DAYS"
           },
           "com.merakianalytics.orianna.types.dto.staticdata.Languages": {
-            "period": -1,
-            "unit": "DAYS"
+            "period": 6,
+            "unit": "HOURS"
           },
           "com.merakianalytics.orianna.types.dto.staticdata.LanguageStrings": {
             "period": -1,
