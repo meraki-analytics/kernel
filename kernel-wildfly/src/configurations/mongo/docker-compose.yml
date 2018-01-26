@@ -8,6 +8,7 @@ services:
       - 80:8080
     environment:
       - RIOT_API_KEY=${RIOT_API_KEY}
+      - JAVA_OPTS=-server -Xms64m -Xmx512m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Djava.net.preferIPv4Stack=true -Djava.net.preferIPv6Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true
     restart: always
     networks:
       - kernel
