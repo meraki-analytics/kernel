@@ -153,7 +153,7 @@ public class MatchAPI extends RiotAPIService {
         builder.put("accountId", accountId);
 
         if(queue != null) {
-            builder.put("queue", queue);
+            builder.put("queues", queue);
         }
 
         if(endTime != -1L) {
@@ -169,11 +169,11 @@ public class MatchAPI extends RiotAPIService {
         }
 
         if(season != null) {
-            builder.put("season", season);
+            builder.put("seasons", season);
         }
 
         if(champion != null) {
-            builder.put("champion", champion);
+            builder.put("champions", champion);
         }
 
         if(endIndex != -1) {
