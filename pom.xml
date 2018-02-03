@@ -56,16 +56,17 @@
 		<maven.resources.version>3.0.2</maven.resources.version>
 		<maven.dockerfile.version>1.3.7</maven.dockerfile.version>
 		<maven.deploy.version>2.8.2</maven.deploy.version>
+		<maven.license.version>1.14</maven.license.version>
 		<slf4j.version>1.7.25</slf4j.version>
 		<junit.version>4.12</junit.version>
 		<javaee.version>8.0</javaee.version>
 		<resteasy.version>3.1.4.Final</resteasy.version>
-		<deltaspike.version>1.8.0</deltaspike.version>
-		<orianna.version>3.0.0-SNAPSHOT</orianna.version>
-		<guava.version>23.5-jre</guava.version>
-		<jackson.version>2.9.3</jackson.version>
+		<deltaspike.version>1.8.1</deltaspike.version>
+		<orianna.version>3.0.1-SNAPSHOT</orianna.version>
+		<guava.version>24.0-jre</guava.version>
+		<jackson.version>2.9.4</jackson.version>
 		<msgpack.version>0.8.14</msgpack.version>
-		<swagger.version>1.5.17</swagger.version>
+		<swagger.version>1.5.18</swagger.version>
 		<docker.image>merakianalytics/kernel</docker.image>
 	</properties>
 
@@ -147,6 +148,22 @@
 					<target>1.8</target>
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>${maven.license.version}</version>
+				<configuration>
+					<excludedScopes>system,test</excludedScopes>
+				</configuration>
+				<executions>
+					<execution>
+						<id>add-third-party</id>
+						<goals>
+							<goal>add-third-party</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
