@@ -88,7 +88,7 @@
 			<id>mongo</id>
 
 			<properties>
-				<orianna.mongo.version>1.0.1-SNAPSHOT</orianna.mongo.version>
+				<orianna.mongo.version>1.0.2-SNAPSHOT</orianna.mongo.version>
 				<docker.tag>mongo</docker.tag>
 			</properties>
 
