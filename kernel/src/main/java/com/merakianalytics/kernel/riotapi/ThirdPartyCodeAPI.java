@@ -1,9 +1,12 @@
 package com.merakianalytics.kernel.riotapi;
 
+import java.net.HttpURLConnection;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 
 import com.google.common.collect.ImmutableMap;
 import com.merakianalytics.orianna.types.common.Platform;
@@ -35,6 +38,9 @@ public class ThirdPartyCodeAPI extends RiotAPIService {
     @GET
     public VerificationString verificationString(@QueryParam("platform") final String platformTag, @PathParam("summonerId") final long summonerId) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);

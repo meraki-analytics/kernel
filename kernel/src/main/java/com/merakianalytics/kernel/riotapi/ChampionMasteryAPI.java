@@ -1,11 +1,13 @@
 package com.merakianalytics.kernel.riotapi;
 
+import java.net.HttpURLConnection;
 import java.util.Map;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 
 import com.google.common.collect.ImmutableMap;
 import com.merakianalytics.orianna.types.common.Platform;
@@ -39,6 +41,9 @@ public class ChampionMasteryAPI extends RiotAPIService {
     @GET
     public ChampionMasteries getAllChampionMasteries(@QueryParam("platform") final String platformTag, @PathParam("summonerId") final long summonerId) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
@@ -67,6 +72,9 @@ public class ChampionMasteryAPI extends RiotAPIService {
     public ChampionMastery getChampionMastery(@QueryParam("platform") final String platformTag, @PathParam("summonerId") final long summonerId,
         @PathParam("championId") final int championId) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
@@ -93,6 +101,9 @@ public class ChampionMasteryAPI extends RiotAPIService {
     @GET
     public ChampionMasteryScore getChampionMasteryScore(@QueryParam("platform") final String platformTag, @PathParam("summonerId") final long summonerId) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)

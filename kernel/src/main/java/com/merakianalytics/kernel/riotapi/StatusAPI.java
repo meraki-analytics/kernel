@@ -1,10 +1,12 @@
 package com.merakianalytics.kernel.riotapi;
 
+import java.net.HttpURLConnection;
 import java.util.Map;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 
 import com.google.common.collect.ImmutableMap;
 import com.merakianalytics.orianna.types.common.Platform;
@@ -34,6 +36,9 @@ public class StatusAPI extends RiotAPIService {
     @GET
     public ShardStatus getShardData(@QueryParam("platform") final String platformTag) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)

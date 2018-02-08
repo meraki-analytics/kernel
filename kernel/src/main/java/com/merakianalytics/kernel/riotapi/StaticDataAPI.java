@@ -1,5 +1,6 @@
 package com.merakianalytics.kernel.riotapi;
 
+import java.net.HttpURLConnection;
 import java.util.Map;
 import java.util.Set;
 
@@ -8,6 +9,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 
 import com.google.common.collect.ImmutableMap;
 import com.merakianalytics.orianna.types.common.Platform;
@@ -61,6 +63,9 @@ public class StaticDataAPI extends RiotAPIService {
     public Champion getChampionList(@QueryParam("platform") final String platformTag, @PathParam("id") final int id, @QueryParam("locale") final String locale,
         @QueryParam("version") final String version, @QueryParam("tags") final Set<String> tags) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -105,6 +110,9 @@ public class StaticDataAPI extends RiotAPIService {
         @QueryParam("version") final String version, @QueryParam("tags") final Set<String> tags,
         @QueryParam("dataById") @DefaultValue("false") final boolean dataById) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -148,6 +156,9 @@ public class StaticDataAPI extends RiotAPIService {
     public Item getItemById(@QueryParam("platform") final String platformTag, @PathParam("id") final int id, @QueryParam("locale") final String locale,
         @QueryParam("version") final String version, @QueryParam("tags") final Set<String> tags) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -190,6 +201,9 @@ public class StaticDataAPI extends RiotAPIService {
         @QueryParam("version") final String version,
         @QueryParam("tags") final Set<String> tags) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -223,6 +237,9 @@ public class StaticDataAPI extends RiotAPIService {
     @GET
     public Languages getLanguages(@QueryParam("platform") final String platformTag) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
@@ -250,6 +267,9 @@ public class StaticDataAPI extends RiotAPIService {
     public LanguageStrings getLanguageStrings(@QueryParam("platform") final String platformTag, @QueryParam("locale") final String locale,
         @QueryParam("version") final String version) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -284,6 +304,9 @@ public class StaticDataAPI extends RiotAPIService {
     public MapData getMapData(@QueryParam("platform") final String platformTag, @QueryParam("locale") final String locale,
         @QueryParam("version") final String version) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -322,6 +345,9 @@ public class StaticDataAPI extends RiotAPIService {
     public Mastery getMasteryById(@QueryParam("platform") final String platformTag, @PathParam("id") final int id, @QueryParam("locale") final String locale,
         @QueryParam("version") final String version, @QueryParam("tags") final Set<String> tags) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -363,6 +389,9 @@ public class StaticDataAPI extends RiotAPIService {
     public MasteryList getMasteryList(@QueryParam("platform") final String platformTag, @QueryParam("locale") final String locale,
         @QueryParam("version") final String version, @QueryParam("tags") final Set<String> tags) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -401,6 +430,9 @@ public class StaticDataAPI extends RiotAPIService {
     public ProfileIconData getProfileIcons(@QueryParam("platform") final String platformTag, @QueryParam("locale") final String locale,
         @QueryParam("version") final String version) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -430,6 +462,9 @@ public class StaticDataAPI extends RiotAPIService {
     @GET
     public Realm getRealm(@QueryParam("platform") final String platformTag) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
@@ -461,6 +496,9 @@ public class StaticDataAPI extends RiotAPIService {
     public Rune getRuneById(@QueryParam("platform") final String platformTag, @PathParam("id") final int id, @QueryParam("locale") final String locale,
         @QueryParam("version") final String version, @QueryParam("tags") final Set<String> tags) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -503,6 +541,9 @@ public class StaticDataAPI extends RiotAPIService {
         @QueryParam("version") final String version,
         @QueryParam("tags") final Set<String> tags) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -546,6 +587,9 @@ public class StaticDataAPI extends RiotAPIService {
         @QueryParam("locale") final String locale,
         @QueryParam("version") final String version, @QueryParam("tags") final Set<String> tags) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -588,6 +632,9 @@ public class StaticDataAPI extends RiotAPIService {
         @QueryParam("version") final String version, @QueryParam("tags") final Set<String> tags,
         @QueryParam("dataById") @DefaultValue("false") final boolean dataById) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -622,6 +669,9 @@ public class StaticDataAPI extends RiotAPIService {
     @GET
     public Versions getVersions(@QueryParam("platform") final String platformTag) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
