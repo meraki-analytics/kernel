@@ -29,7 +29,7 @@ public class ChampionAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampions
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param freeToPlay
      *        whether to only get free to play champions (default: false)
@@ -37,10 +37,9 @@ public class ChampionAPI extends RiotAPIService {
      */
     @Path("/champions")
     @GET
-    public ChampionList getChampions(@QueryParam("platform") Platform platform, @QueryParam("freeToPlay") @DefaultValue("false") final boolean freeToPlay) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+    public ChampionList getChampions(@QueryParam("platform") final String platformTag,
+        @QueryParam("freeToPlay") @DefaultValue("false") final boolean freeToPlay) {
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
@@ -56,7 +55,7 @@ public class ChampionAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampionsById
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param id
      *        the champion's id
@@ -64,10 +63,8 @@ public class ChampionAPI extends RiotAPIService {
      */
     @Path("/champions/{id}")
     @GET
-    public Champion getChampionsById(@QueryParam("platform") Platform platform, @PathParam("id") final int id) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+    public Champion getChampionsById(@QueryParam("platform") final String platformTag, @PathParam("id") final int id) {
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)

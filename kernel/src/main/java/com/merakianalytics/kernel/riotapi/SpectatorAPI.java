@@ -28,7 +28,7 @@ public class SpectatorAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#spectator-v3/GET_getCurrentGameInfoBySummoner
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param summonerId
      *        the summoner's id
@@ -36,10 +36,8 @@ public class SpectatorAPI extends RiotAPIService {
      */
     @Path("/active-games/by-summoner/{summonerId}")
     @GET
-    public CurrentGameInfo getCurrentGameInfoBySummoner(@QueryParam("platform") Platform platform, @PathParam("summonerId") final long summonerId) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+    public CurrentGameInfo getCurrentGameInfoBySummoner(@QueryParam("platform") final String platformTag, @PathParam("summonerId") final long summonerId) {
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
@@ -55,16 +53,14 @@ public class SpectatorAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#spectator-v3/GET_getFeaturedGames
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @return {@link com.merakianalytics.orianna.types.dto.spectator.FeaturedGames}
      */
     @Path("/featured-games")
     @GET
-    public FeaturedGames getFeaturedGames(@QueryParam("platform") Platform platform) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+    public FeaturedGames getFeaturedGames(@QueryParam("platform") final String platformTag) {
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)

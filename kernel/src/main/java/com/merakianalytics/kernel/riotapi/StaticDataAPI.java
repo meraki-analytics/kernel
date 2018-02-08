@@ -44,7 +44,7 @@ public class StaticDataAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param id
      *        the champion's id
@@ -58,11 +58,9 @@ public class StaticDataAPI extends RiotAPIService {
      */
     @Path("/champions/{id}")
     @GET
-    public Champion getChampionList(@QueryParam("platform") Platform platform, @PathParam("id") final int id, @QueryParam("locale") final String locale,
+    public Champion getChampionList(@QueryParam("platform") final String platformTag, @PathParam("id") final int id, @QueryParam("locale") final String locale,
         @QueryParam("version") final String version, @QueryParam("tags") final Set<String> tags) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -89,7 +87,7 @@ public class StaticDataAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionList
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param locale
      *        the locale
@@ -103,12 +101,10 @@ public class StaticDataAPI extends RiotAPIService {
      */
     @Path("/champions")
     @GET
-    public ChampionList getChampionList(@QueryParam("platform") Platform platform, @QueryParam("locale") final String locale,
+    public ChampionList getChampionList(@QueryParam("platform") final String platformTag, @QueryParam("locale") final String locale,
         @QueryParam("version") final String version, @QueryParam("tags") final Set<String> tags,
         @QueryParam("dataById") @DefaultValue("false") final boolean dataById) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -135,7 +131,7 @@ public class StaticDataAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param id
      *        the item id
@@ -149,11 +145,9 @@ public class StaticDataAPI extends RiotAPIService {
      */
     @Path("/items/{id}")
     @GET
-    public Item getItemById(@QueryParam("platform") Platform platform, @PathParam("id") final int id, @QueryParam("locale") final String locale,
+    public Item getItemById(@QueryParam("platform") final String platformTag, @PathParam("id") final int id, @QueryParam("locale") final String locale,
         @QueryParam("version") final String version, @QueryParam("tags") final Set<String> tags) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -180,7 +174,7 @@ public class StaticDataAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemList
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param locale
      *        the locale
@@ -192,12 +186,10 @@ public class StaticDataAPI extends RiotAPIService {
      */
     @Path("/items")
     @GET
-    public ItemList getItemList(@QueryParam("platform") Platform platform, @QueryParam("locale") final String locale,
+    public ItemList getItemList(@QueryParam("platform") final String platformTag, @QueryParam("locale") final String locale,
         @QueryParam("version") final String version,
         @QueryParam("tags") final Set<String> tags) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -223,16 +215,14 @@ public class StaticDataAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguages
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @return {@link com.merakianalytics.orianna.types.dto.staticdata.Languages}
      */
     @Path("/languages")
     @GET
-    public Languages getLanguages(@QueryParam("platform") Platform platform) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+    public Languages getLanguages(@QueryParam("platform") final String platformTag) {
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
@@ -247,7 +237,7 @@ public class StaticDataAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguageStrings
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param locale
      *        the locale
@@ -257,11 +247,9 @@ public class StaticDataAPI extends RiotAPIService {
      */
     @Path("/language-strings")
     @GET
-    public LanguageStrings getLanguageStrings(@QueryParam("platform") Platform platform, @QueryParam("locale") final String locale,
+    public LanguageStrings getLanguageStrings(@QueryParam("platform") final String platformTag, @QueryParam("locale") final String locale,
         @QueryParam("version") final String version) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -283,7 +271,7 @@ public class StaticDataAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMapData
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param locale
      *        the locale
@@ -293,11 +281,9 @@ public class StaticDataAPI extends RiotAPIService {
      */
     @Path("/maps")
     @GET
-    public MapData getMapData(@QueryParam("platform") Platform platform, @QueryParam("locale") final String locale,
+    public MapData getMapData(@QueryParam("platform") final String platformTag, @QueryParam("locale") final String locale,
         @QueryParam("version") final String version) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -319,7 +305,7 @@ public class StaticDataAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMasteryById
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param id
      *        the item id
@@ -333,11 +319,9 @@ public class StaticDataAPI extends RiotAPIService {
      */
     @Path("/masteries/{id}")
     @GET
-    public Mastery getMasteryById(@QueryParam("platform") Platform platform, @PathParam("id") final int id, @QueryParam("locale") final String locale,
+    public Mastery getMasteryById(@QueryParam("platform") final String platformTag, @PathParam("id") final int id, @QueryParam("locale") final String locale,
         @QueryParam("version") final String version, @QueryParam("tags") final Set<String> tags) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -364,7 +348,7 @@ public class StaticDataAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMasteryList
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param locale
      *        the locale
@@ -376,11 +360,9 @@ public class StaticDataAPI extends RiotAPIService {
      */
     @Path("/masteries")
     @GET
-    public MasteryList getMasteryList(@QueryParam("platform") Platform platform, @QueryParam("locale") final String locale,
+    public MasteryList getMasteryList(@QueryParam("platform") final String platformTag, @QueryParam("locale") final String locale,
         @QueryParam("version") final String version, @QueryParam("tags") final Set<String> tags) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -406,7 +388,7 @@ public class StaticDataAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getProfileIcons
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param locale
      *        the locale
@@ -416,11 +398,9 @@ public class StaticDataAPI extends RiotAPIService {
      */
     @Path("/profile-icons")
     @GET
-    public ProfileIconData getProfileIcons(@QueryParam("platform") Platform platform, @QueryParam("locale") final String locale,
+    public ProfileIconData getProfileIcons(@QueryParam("platform") final String platformTag, @QueryParam("locale") final String locale,
         @QueryParam("version") final String version) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -442,16 +422,14 @@ public class StaticDataAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRealm
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @return {@link com.merakianalytics.orianna.types.dto.staticdata.Realm}
      */
     @Path("/realms")
     @GET
-    public Realm getRealm(@QueryParam("platform") Platform platform) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+    public Realm getRealm(@QueryParam("platform") final String platformTag) {
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
@@ -466,7 +444,7 @@ public class StaticDataAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneById
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param id
      *        the item id
@@ -480,11 +458,9 @@ public class StaticDataAPI extends RiotAPIService {
      */
     @Path("/runes/{id}")
     @GET
-    public Rune getRuneById(@QueryParam("platform") Platform platform, @PathParam("id") final int id, @QueryParam("locale") final String locale,
+    public Rune getRuneById(@QueryParam("platform") final String platformTag, @PathParam("id") final int id, @QueryParam("locale") final String locale,
         @QueryParam("version") final String version, @QueryParam("tags") final Set<String> tags) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -511,7 +487,7 @@ public class StaticDataAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param locale
      *        the locale
@@ -523,12 +499,10 @@ public class StaticDataAPI extends RiotAPIService {
      */
     @Path("/runes")
     @GET
-    public RuneList getRuneList(@QueryParam("platform") Platform platform, @QueryParam("locale") final String locale,
+    public RuneList getRuneList(@QueryParam("platform") final String platformTag, @QueryParam("locale") final String locale,
         @QueryParam("version") final String version,
         @QueryParam("tags") final Set<String> tags) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -554,7 +528,7 @@ public class StaticDataAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getSummonerSpellById
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param id
      *        the item id
@@ -568,12 +542,10 @@ public class StaticDataAPI extends RiotAPIService {
      */
     @Path("/summoner-spells/{id}")
     @GET
-    public SummonerSpell getSummonerSpellById(@QueryParam("platform") Platform platform, @PathParam("id") final int id,
+    public SummonerSpell getSummonerSpellById(@QueryParam("platform") final String platformTag, @PathParam("id") final int id,
         @QueryParam("locale") final String locale,
         @QueryParam("version") final String version, @QueryParam("tags") final Set<String> tags) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -600,7 +572,7 @@ public class StaticDataAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getSummonerSpellList
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param locale
      *        the locale
@@ -612,12 +584,10 @@ public class StaticDataAPI extends RiotAPIService {
      */
     @Path("/summoner-spells")
     @GET
-    public SummonerSpellList getSummonerSpellList(@QueryParam("platform") Platform platform, @QueryParam("locale") final String locale,
+    public SummonerSpellList getSummonerSpellList(@QueryParam("platform") final String platformTag, @QueryParam("locale") final String locale,
         @QueryParam("version") final String version, @QueryParam("tags") final Set<String> tags,
         @QueryParam("dataById") @DefaultValue("false") final boolean dataById) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -644,16 +614,14 @@ public class StaticDataAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getVersions
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @return {@link com.merakianalytics.orianna.types.dto.staticdata.Versions}
      */
     @Path("/versions")
     @GET
-    public Versions getVersions(@QueryParam("platform") Platform platform) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+    public Versions getVersions(@QueryParam("platform") final String platformTag) {
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)

@@ -26,16 +26,14 @@ public class StatusAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#lol-status-v3/GET_getShardData
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @return {@link com.merakianalytics.orianna.types.dto.status.ShardStatus}
      */
     @Path("/shard-data")
     @GET
-    public ShardStatus getShardData(@QueryParam("platform") Platform platform) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+    public ShardStatus getShardData(@QueryParam("platform") final String platformTag) {
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)

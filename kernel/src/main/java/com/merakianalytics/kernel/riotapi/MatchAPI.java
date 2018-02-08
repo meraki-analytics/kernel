@@ -32,7 +32,7 @@ public class MatchAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param matchId
      *        the match's id
@@ -40,10 +40,8 @@ public class MatchAPI extends RiotAPIService {
      */
     @Path("/matches/{matchId}")
     @GET
-    public Match getMatch(@QueryParam("platform") Platform platform, @PathParam("matchId") final long matchId) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+    public Match getMatch(@QueryParam("platform") final String platformTag, @PathParam("matchId") final long matchId) {
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
@@ -59,7 +57,7 @@ public class MatchAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchByTournamentCode
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param matchId
      *        the match's id
@@ -69,11 +67,9 @@ public class MatchAPI extends RiotAPIService {
      */
     @Path("/matches/{matchId}/by-tournament-code/{tournamentCode}")
     @GET
-    public Match getMatchByTournamentCode(@QueryParam("platform") Platform platform, @PathParam("matchId") final long matchId,
+    public Match getMatchByTournamentCode(@QueryParam("platform") final String platformTag, @PathParam("matchId") final long matchId,
         @PathParam("tournamentCode") final String tournamentCode) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
@@ -90,7 +86,7 @@ public class MatchAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchIdsByTournamentCode
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param tournamentCode
      *        the tournament code
@@ -98,10 +94,9 @@ public class MatchAPI extends RiotAPIService {
      */
     @Path("/matches/by-tournament-code/{tournamentCode}/ids")
     @GET
-    public TournamentMatches getMatchIdsByTournamentCode(@QueryParam("platform") Platform platform, @PathParam("tournamentCode") final String tournamentCode) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+    public TournamentMatches getMatchIdsByTournamentCode(@QueryParam("platform") final String platformTag,
+        @PathParam("tournamentCode") final String tournamentCode) {
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
@@ -117,7 +112,7 @@ public class MatchAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param accountId
      *        the account's id
@@ -139,14 +134,12 @@ public class MatchAPI extends RiotAPIService {
      */
     @Path("/matchlists/by-account/{accountId}")
     @GET
-    public Matchlist getMatchlist(@QueryParam("platform") Platform platform, @PathParam("accountId") final long accountId,
+    public Matchlist getMatchlist(@QueryParam("platform") final String platformTag, @PathParam("accountId") final long accountId,
         @QueryParam("queue") final Set<Integer> queue, @QueryParam("endTime") @DefaultValue("-1") final long endTime,
         @QueryParam("beginIndex") @DefaultValue("-1") final int beginIndex, @QueryParam("beginTime") @DefaultValue("-1") final long beginTime,
         @QueryParam("season") final Set<Integer> season, @QueryParam("champion") final Set<Integer> champion,
         @QueryParam("endIndex") @DefaultValue("-1") final int endIndex) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -189,7 +182,7 @@ public class MatchAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchTimeline
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param matchId
      *        the match's id
@@ -197,10 +190,8 @@ public class MatchAPI extends RiotAPIService {
      */
     @Path("/timelines/by-match/{matchId}")
     @GET
-    public MatchTimeline getMatchTimeline(@QueryParam("platform") Platform platform, @PathParam("matchId") final long matchId) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+    public MatchTimeline getMatchTimeline(@QueryParam("platform") final String platformTag, @PathParam("matchId") final long matchId) {
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
@@ -216,7 +207,7 @@ public class MatchAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#match-v3/GET_getRecentMatchlist
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param accountId
      *        the account's id
@@ -224,10 +215,8 @@ public class MatchAPI extends RiotAPIService {
      */
     @Path("/matchlists/by-account/{accountId}/recent")
     @GET
-    public Matchlist getRecentMatchlist(@QueryParam("platform") Platform platform, @PathParam("accountId") final long accountId) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+    public Matchlist getRecentMatchlist(@QueryParam("platform") final String platformTag, @PathParam("accountId") final long accountId) {
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)

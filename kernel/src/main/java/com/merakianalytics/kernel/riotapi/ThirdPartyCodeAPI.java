@@ -25,7 +25,7 @@ public class ThirdPartyCodeAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#third-party-code-v3/GET_getThirdPartyCodeBySummonerId
      *
      * @param platform
-     *        platform the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        platform the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param summonerId
      *        the summoner's id
@@ -33,10 +33,8 @@ public class ThirdPartyCodeAPI extends RiotAPIService {
      */
     @Path("/third-party-code/by-summoner/{summonerId}")
     @GET
-    public VerificationString verificationString(@QueryParam("platform") Platform platform, @PathParam("summonerId") final long summonerId) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+    public VerificationString verificationString(@QueryParam("platform") final String platformTag, @PathParam("summonerId") final long summonerId) {
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);

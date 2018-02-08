@@ -29,7 +29,7 @@ public class ChampionMasteryAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getAllChampionMasteries
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param summonerId
      *        the summoner's id
@@ -37,10 +37,8 @@ public class ChampionMasteryAPI extends RiotAPIService {
      */
     @Path("/champion-masteries/by-summoner/{summonerId}")
     @GET
-    public ChampionMasteries getAllChampionMasteries(@QueryParam("platform") Platform platform, @PathParam("summonerId") final long summonerId) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+    public ChampionMasteries getAllChampionMasteries(@QueryParam("platform") final String platformTag, @PathParam("summonerId") final long summonerId) {
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
@@ -56,7 +54,7 @@ public class ChampionMasteryAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getChampionMastery
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param summonerId
      *        the summoner's id
@@ -66,11 +64,9 @@ public class ChampionMasteryAPI extends RiotAPIService {
      */
     @Path("/champion-masteries/by-summoner/{summonerId}/by-champion/{championId}")
     @GET
-    public ChampionMastery getChampionMastery(@QueryParam("platform") Platform platform, @PathParam("summonerId") final long summonerId,
+    public ChampionMastery getChampionMastery(@QueryParam("platform") final String platformTag, @PathParam("summonerId") final long summonerId,
         @PathParam("championId") final int championId) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
@@ -87,7 +83,7 @@ public class ChampionMasteryAPI extends RiotAPIService {
      * @see https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getChampionMasteryScore
      *
      * @param platform
-     *        the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param summonerId
      *        the summoner's id
@@ -95,10 +91,8 @@ public class ChampionMasteryAPI extends RiotAPIService {
      */
     @Path("/scores/by-summoner/{summonerId}")
     @GET
-    public ChampionMasteryScore getChampionMasteryScore(@QueryParam("platform") Platform platform, @PathParam("summonerId") final long summonerId) {
-        if(platform == null) {
-            platform = context.getDefaultPlatform();
-        }
+    public ChampionMasteryScore getChampionMasteryScore(@QueryParam("platform") final String platformTag, @PathParam("summonerId") final long summonerId) {
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
