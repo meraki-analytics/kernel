@@ -62,7 +62,8 @@
 		<javaee.version>8.0</javaee.version>
 		<resteasy.version>3.1.4.Final</resteasy.version>
 		<deltaspike.version>1.8.1</deltaspike.version>
-		<orianna.version>3.0.2-SNAPSHOT</orianna.version>
+		<orianna.version>3.0.3-SNAPSHOT</orianna.version>
+		<orianna.datastores.version>1.0.2-SNAPSHOT</orianna.datastores.version>
 		<guava.version>24.0-jre</guava.version>
 		<jackson.version>2.9.4</jackson.version>
 		<msgpack.version>0.8.14</msgpack.version>
