@@ -25,12 +25,14 @@ public class KernelContext {
         context.setCORS(config.getCORS());
         context.setDefaultPlatform(config.getDefaultPlatform());
         context.setPipeline(PipelineConfiguration.toPipeline(config.getPipeline()));
+        context.setProduceCoreData(config.isProduceCoreData());
         return context;
     }
 
     private CORSFilter.Configuration CORS = new CORSFilter.Configuration();
     private Platform defaultPlatform = Platform.NORTH_AMERICA;
     private DataPipeline pipeline = new DataPipeline(new RiotAPI());
+    private boolean produceCoreData = false;
 
     /**
      * @return the cors
@@ -51,6 +53,13 @@ public class KernelContext {
      */
     public DataPipeline getPipeline() {
         return pipeline;
+    }
+
+    /**
+     * @return the produceCoreData
+     */
+    public boolean isProduceCoreData() {
+        return produceCoreData;
     }
 
     /**
@@ -75,5 +84,13 @@ public class KernelContext {
      */
     public void setPipeline(final DataPipeline pipeline) {
         this.pipeline = pipeline;
+    }
+
+    /**
+     * @param produceCoreData
+     *        the produceCoreData to set
+     */
+    public void setProduceCoreData(final boolean produceCoreData) {
+        this.produceCoreData = produceCoreData;
     }
 }

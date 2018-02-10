@@ -87,6 +87,7 @@ public class KernelConfiguration {
     private CORSFilter.Configuration CORS = new CORSFilter.Configuration();
     private Platform defaultPlatform = Platform.NORTH_AMERICA;
     private PipelineConfiguration pipeline = defaultPipelineConfiguration();
+    private boolean produceCoreData = false;
 
     /**
      * @return the CORS
@@ -107,6 +108,13 @@ public class KernelConfiguration {
      */
     public PipelineConfiguration getPipeline() {
         return pipeline;
+    }
+
+    /**
+     * @return the produceCoreData
+     */
+    public boolean isProduceCoreData() {
+        return produceCoreData;
     }
 
     /**
@@ -131,5 +139,13 @@ public class KernelConfiguration {
      */
     public void setPipeline(final PipelineConfiguration pipeline) {
         this.pipeline = pipeline;
+    }
+
+    /**
+     * @param produceCoreData
+     *        the produceCoreData to set
+     */
+    public void setProduceCoreData(final boolean produceCoreData) {
+        this.produceCoreData = produceCoreData;
     }
 }

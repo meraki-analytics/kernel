@@ -1,4 +1,4 @@
-package com.merakianalytics.kernel.riotapi;
+package com.merakianalytics.kernel.riotapi.data;
 
 import java.net.HttpURLConnection;
 
@@ -9,8 +9,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 
 import com.google.common.collect.ImmutableMap;
+import com.merakianalytics.kernel.riotapi.RiotAPIService;
 import com.merakianalytics.orianna.types.common.Platform;
-import com.merakianalytics.orianna.types.dto.thirdpartycode.VerificationString;
+import com.merakianalytics.orianna.types.data.thirdpartycode.VerificationString;
 
 import io.swagger.annotations.Api;
 
@@ -32,7 +33,7 @@ public class ThirdPartyCodeAPI extends RiotAPIService {
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param summonerId
      *        the summoner's id
-     * @return {@link com.merakianalytics.orianna.types.dto.thirdpartycode.VerificationString}
+     * @return {@link com.merakianalytics.orianna.types.data.thirdpartycode.VerificationString}
      */
     @Path("/third-party-code/by-summoner/{summonerId}")
     @GET

@@ -34,9 +34,9 @@ Kernel docker images are available on [Docker Hub](https://hub.docker.com/r/mera
   - [Mac](https://docs.docker.com/docker-for-mac/install/)
 - Install [Docker Compose](https://docs.docker.com/compose/install/)
 - Choose an off-the-shelf configuration of Kernel to use and download the `docker-compose.yml` file associated with it
-  - [Base Configuration (No Caching Included)](https://github.com/meraki-analytics/kernel/tree/master/kernel-wildfly/src/configurations/base)
-  - [JetBrains Xodus Configuration (Filesystem-based Embedded DB)](https://github.com/meraki-analytics/kernel/tree/master/kernel-wildfly/src/configurations/xodus)
-  - [MongoDB Configuration](https://github.com/meraki-analytics/kernel/tree/master/kernel-wildfly/src/configurations/mongo)
+  - [Base Configuration (No Caching Included)](https://github.com/meraki-analytics/kernel/tree/master/kernel-wildfly/src/configurations/dto/base)
+  - [JetBrains Xodus Configuration (Filesystem-based Embedded DB)](https://github.com/meraki-analytics/kernel/tree/master/kernel-wildfly/src/configurations/dto/xodus)
+  - [MongoDB Configuration](https://github.com/meraki-analytics/kernel/tree/master/kernel-wildfly/src/configurations/dto/mongo)
   - [More configurations forthcoming as support for additional popular databases is completed for orianna](https://github.com/meraki-analytics/orianna-datastores)
 - Set your `RIOT_API_KEY` environment variable to your [Riot API Key](https://developer.riotgames.com/)
 - Navigate to the directory where you downloaded `docker-compose.yml` on your local machine and open a terminal or command prompt

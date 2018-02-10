@@ -42,7 +42,7 @@
 							<overwrite>true</overwrite>
 							<resources>
 								<resource>
-									<directory>${basedir}/src/configurations/base</directory>
+									<directory>${basedir}/src/configurations/dto/base</directory>
 									<includes>
 										<include>kernel-config.json</include>
 									</includes>
@@ -115,7 +115,7 @@
 									<overwrite>true</overwrite>
 									<resources>
 										<resource>
-											<directory>${basedir}/src/configurations/mongo</directory>
+											<directory>${basedir}/src/configurations/dto/mongo</directory>
 											<includes>
 												<include>kernel-config.json</include>
 											</includes>
@@ -159,7 +159,7 @@
 									<overwrite>true</overwrite>
 									<resources>
 										<resource>
-											<directory>${basedir}/src/configurations/xodus</directory>
+											<directory>${basedir}/src/configurations/dto/xodus</directory>
 											<includes>
 												<include>kernel-config.json</include>
 											</includes>

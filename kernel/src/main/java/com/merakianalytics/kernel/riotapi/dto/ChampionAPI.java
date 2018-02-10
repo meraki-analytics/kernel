@@ -1,8 +1,9 @@
-package com.merakianalytics.kernel.riotapi;
+package com.merakianalytics.kernel.riotapi.dto;
 
 import java.net.HttpURLConnection;
 import java.util.Map;
 
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -10,35 +11,37 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 
 import com.google.common.collect.ImmutableMap;
+import com.merakianalytics.kernel.riotapi.RiotAPIService;
 import com.merakianalytics.orianna.types.common.Platform;
-import com.merakianalytics.orianna.types.dto.spectator.CurrentGameInfo;
-import com.merakianalytics.orianna.types.dto.spectator.FeaturedGames;
+import com.merakianalytics.orianna.types.dto.champion.Champion;
+import com.merakianalytics.orianna.types.dto.champion.ChampionList;
 
 import io.swagger.annotations.Api;
 
 /**
- * The Spectator API proxy for the Riot API
+ * The Champion Status API proxy for the Riot API
  *
- * @see https://developer.riotgames.com/api-methods/#spectator-v3
+ * @see https://developer.riotgames.com/api-methods/#champion-v3
  */
-@Path("/spectator/v3")
-@Api("Spectator API")
-public class SpectatorAPI extends RiotAPIService {
+@Path("/platform/v3")
+@Api("Champion Status API")
+public class ChampionAPI extends RiotAPIService {
     /**
-     * /lol/spectator/v3/active-games/by-summoner/{summonerId}
+     * /lol/platform/v3/champions
      *
-     * @see https://developer.riotgames.com/api-methods/#spectator-v3/GET_getCurrentGameInfoBySummoner
+     * @see https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampions
      *
      * @param platform
      *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
-     * @param summonerId
-     *        the summoner's id
-     * @return {@link com.merakianalytics.orianna.types.dto.spectator.CurrentGameInfo}
+     * @param freeToPlay
+     *        whether to only get free to play champions (default: false)
+     * @return {@link com.merakianalytics.orianna.types.dto.champion.ChampionList}
      */
-    @Path("/active-games/by-summoner/{summonerId}")
+    @Path("/champions")
     @GET
-    public CurrentGameInfo getCurrentGameInfoBySummoner(@QueryParam("platform") final String platformTag, @PathParam("summonerId") final long summonerId) {
+    public ChampionList getChampions(@QueryParam("platform") final String platformTag,
+        @QueryParam("freeToPlay") @DefaultValue("false") final boolean freeToPlay) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
@@ -46,25 +49,27 @@ public class SpectatorAPI extends RiotAPIService {
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
-            .put("summonerId", summonerId)
+            .put("freeToPlay", freeToPlay)
             .build();
 
-        return context.getPipeline().get(CurrentGameInfo.class, query);
+        return context.getPipeline().get(ChampionList.class, query);
     }
 
     /**
-     * /lol/spectator/v3/featured-games
+     * /lol/platform/v3/champions/{id}
      *
-     * @see https://developer.riotgames.com/api-methods/#spectator-v3/GET_getFeaturedGames
+     * @see https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampionsById
      *
      * @param platform
      *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
-     * @return {@link com.merakianalytics.orianna.types.dto.spectator.FeaturedGames}
+     * @param id
+     *        the champion's id
+     * @return {@link com.merakianalytics.orianna.types.dto.champion.Champion}
      */
-    @Path("/featured-games")
+    @Path("/champions/{id}")
     @GET
-    public FeaturedGames getFeaturedGames(@QueryParam("platform") final String platformTag) {
+    public Champion getChampionsById(@QueryParam("platform") final String platformTag, @PathParam("id") final int id) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
@@ -72,8 +77,9 @@ public class SpectatorAPI extends RiotAPIService {
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
+            .put("id", id)
             .build();
 
-        return context.getPipeline().get(FeaturedGames.class, query);
+        return context.getPipeline().get(Champion.class, query);
     }
 }

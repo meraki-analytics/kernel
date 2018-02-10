@@ -1,4 +1,4 @@
-package com.merakianalytics.kernel.riotapi;
+package com.merakianalytics.kernel.riotapi.dto;
 
 import java.net.HttpURLConnection;
 import java.util.Map;
@@ -12,6 +12,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 
 import com.google.common.collect.ImmutableMap;
+import com.merakianalytics.kernel.riotapi.RiotAPIService;
 import com.merakianalytics.orianna.types.common.Platform;
 import com.merakianalytics.orianna.types.dto.staticdata.Champion;
 import com.merakianalytics.orianna.types.dto.staticdata.ChampionList;

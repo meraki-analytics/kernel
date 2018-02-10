@@ -1,4 +1,4 @@
-package com.merakianalytics.kernel.riotapi;
+package com.merakianalytics.kernel.riotapi.data;
 
 import java.net.HttpURLConnection;
 import java.util.Map;
@@ -9,8 +9,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 
 import com.google.common.collect.ImmutableMap;
+import com.merakianalytics.kernel.riotapi.RiotAPIService;
 import com.merakianalytics.orianna.types.common.Platform;
-import com.merakianalytics.orianna.types.dto.status.ShardStatus;
+import com.merakianalytics.orianna.types.data.status.ShardStatus;
 
 import io.swagger.annotations.Api;
 
@@ -30,7 +31,7 @@ public class StatusAPI extends RiotAPIService {
      * @param platform
      *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
-     * @return {@link com.merakianalytics.orianna.types.dto.status.ShardStatus}
+     * @return {@link com.merakianalytics.orianna.types.data.status.ShardStatus}
      */
     @Path("/shard-data")
     @GET

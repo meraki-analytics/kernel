@@ -1,4 +1,4 @@
-package com.merakianalytics.kernel.riotapi;
+package com.merakianalytics.kernel.riotapi.data;
 
 import java.net.HttpURLConnection;
 import java.util.Map;
@@ -10,8 +10,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 
 import com.google.common.collect.ImmutableMap;
+import com.merakianalytics.kernel.riotapi.RiotAPIService;
 import com.merakianalytics.orianna.types.common.Platform;
-import com.merakianalytics.orianna.types.dto.summoner.Summoner;
+import com.merakianalytics.orianna.types.data.summoner.Summoner;
 
 import io.swagger.annotations.Api;
 
@@ -33,7 +34,7 @@ public class SummonerAPI extends RiotAPIService {
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param accountId
      *        the account's id
-     * @return {@link com.merakianalytics.orianna.types.dto.summoner.Summoner}
+     * @return {@link com.merakianalytics.orianna.types.data.summoner.Summoner}
      */
     @Path("/summoners/by-account/{accountId}")
     @GET
@@ -61,7 +62,7 @@ public class SummonerAPI extends RiotAPIService {
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param summonerId
      *        the summoner's id
-     * @return {@link com.merakianalytics.orianna.types.dto.summoner.Summoner}
+     * @return {@link com.merakianalytics.orianna.types.data.summoner.Summoner}
      */
     @Path("/summoners/{summonerId}")
     @GET
@@ -89,7 +90,7 @@ public class SummonerAPI extends RiotAPIService {
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
      * @param summonerName
      *        the summoner's name
-     * @return {@link com.merakianalytics.orianna.types.dto.summoner.Summoner}
+     * @return {@link com.merakianalytics.orianna.types.data.summoner.Summoner}
      */
     @Path("/summoners/by-name/{summonerName}")
     @GET
