@@ -35,6 +35,7 @@ Kernel docker images are available on [Docker Hub](https://hub.docker.com/r/mera
 - Install [Docker Compose](https://docs.docker.com/compose/install/)
 - Choose an off-the-shelf configuration of Kernel to use and download the `docker-compose.yml` file associated with it
   - [Base Configuration (No Caching Included)](https://github.com/meraki-analytics/kernel/tree/master/kernel-wildfly/src/configurations/base)
+  - [JetBrains Xodus Configuration (Filesystem-based Embedded DB)](https://github.com/meraki-analytics/kernel/tree/master/kernel-wildfly/src/configurations/xodus)
   - [MongoDB Configuration](https://github.com/meraki-analytics/kernel/tree/master/kernel-wildfly/src/configurations/mongo)
   - [More configurations forthcoming as support for additional popular databases is completed for orianna](https://github.com/meraki-analytics/orianna-datastores)
 - Set your `RIOT_API_KEY` environment variable to your [Riot API Key](https://developer.riotgames.com/)
@@ -53,7 +54,8 @@ Example: [original compose file](https://github.com/meraki-analytics/kernel/blob
 - Download and unpack [Wildfly](http://wildfly.org/downloads/)
 - Clone the Kernel source code locally & navigate to the folder
 - Run `mvn clean install` to build the application. Some maven profiles are available to bundle datastore dependencies in with the application. Use `mvn clean install -P some,profile,names` to activate them
-  - [mongo](https://github.com/meraki-analytics/kernel/blob/master/kernel-wildfly/pom.xml#L94-L138)
+  - [mongo](https://github.com/meraki-analytics/kernel/blob/master/kernel-wildfly/pom.xml#L87-L130)
+  - [xodus](https://github.com/meraki-analytics/kernel/blob/master/kernel-wildfly/pom.xml#L131-L174)
   - [More configurations forthcoming as support for additional popular databases is completed for orianna](https://github.com/meraki-analytics/orianna-datastores)
 - From your Kernel source folder, copy `kernel-wildfly/target/lol.war` into the `standalone/deployments/` directory in your Wildfly folder
 - From your Kernel source folder, copy both files (`kernel-config.json` and `module.xml`) from `kernel-wildfly/src/main/modules/com/merakianalytics/kernel/kernel-jboss-module/main/` into the `modules/com/merakianalytics/kernel/kernel-jboss-module/main/` directory in your Wildfly folder. You will probably need to create all the directories beyond `modules/`.
