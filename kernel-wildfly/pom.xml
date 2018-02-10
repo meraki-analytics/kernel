@@ -128,5 +128,49 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>xodus</id>
+
+			<properties>
+				<docker.tag>xodus</docker.tag>
+			</properties>
+
+			<dependencies>
+				<dependency>
+					<groupId>com.merakianalytics.orianna.datastores</groupId>
+					<artifactId>xodus</artifactId>
+					<version>${orianna.datastores.version}</version>
+				</dependency>
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-resources-plugin</artifactId>
+						<version>${maven.resources.version}</version>
+						<executions>
+							<execution>
+								<phase>process-resources</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${basedir}/src/main/modules/com/merakianalytics/kernel/kernel-jboss-module/main</outputDirectory>
+									<overwrite>true</overwrite>
+									<resources>
+										<resource>
+											<directory>${basedir}/src/configurations/xodus</directory>
+											<includes>
+												<include>kernel-config.json</include>
+											</includes>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 </project>
