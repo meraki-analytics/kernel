@@ -9,6 +9,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 
+import org.jboss.resteasy.annotations.GZIP;
+
 import com.google.common.collect.ImmutableMap;
 import com.merakianalytics.kernel.riotapi.RiotAPIService;
 import com.merakianalytics.orianna.types.common.Platform;
@@ -26,6 +28,7 @@ import io.swagger.annotations.Api;
  */
 @Path("/league/v3")
 @Api("League API")
+@GZIP
 public class LeagueAPI extends RiotAPIService {
     /**
      * /lol/league/v3/positions/by-summoner/{summonerId}

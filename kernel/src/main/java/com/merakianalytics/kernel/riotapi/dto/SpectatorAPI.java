@@ -9,6 +9,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 
+import org.jboss.resteasy.annotations.GZIP;
+
 import com.google.common.collect.ImmutableMap;
 import com.merakianalytics.kernel.riotapi.RiotAPIService;
 import com.merakianalytics.orianna.types.common.Platform;
@@ -24,6 +26,7 @@ import io.swagger.annotations.Api;
  */
 @Path("/spectator/v3")
 @Api("Spectator API")
+@GZIP
 public class SpectatorAPI extends RiotAPIService {
     /**
      * /lol/spectator/v3/active-games/by-summoner/{summonerId}

@@ -8,6 +8,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 
+import org.jboss.resteasy.annotations.GZIP;
+
 import com.google.common.collect.ImmutableMap;
 import com.merakianalytics.kernel.riotapi.RiotAPIService;
 import com.merakianalytics.orianna.types.common.Platform;
@@ -22,6 +24,7 @@ import io.swagger.annotations.Api;
  */
 @Path("/status/v3")
 @Api("Status API")
+@GZIP
 public class StatusAPI extends RiotAPIService {
     /**
      * /lol/status/v3/shard-data

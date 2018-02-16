@@ -9,6 +9,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 
+import org.jboss.resteasy.annotations.GZIP;
+
 import com.google.common.collect.ImmutableMap;
 import com.merakianalytics.kernel.riotapi.RiotAPIService;
 import com.merakianalytics.orianna.types.common.Platform;
@@ -23,6 +25,7 @@ import io.swagger.annotations.Api;
  */
 @Path("/summoner/v3")
 @Api("Summoner API")
+@GZIP
 public class SummonerAPI extends RiotAPIService {
     /**
      * /lol/summoner/v3/summoners/by-account/{accountId}
