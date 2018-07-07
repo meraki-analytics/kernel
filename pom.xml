@@ -62,11 +62,11 @@
 		<javaee.version>8.0</javaee.version>
 		<resteasy.version>3.0.24.Final</resteasy.version>
 		<deltaspike.version>1.8.1</deltaspike.version>
-		<orianna.version>3.0.4-SNAPSHOT</orianna.version>
-		<orianna.datastores.version>1.0.3-SNAPSHOT</orianna.datastores.version>
+		<orianna.version>3.0.5-SNAPSHOT</orianna.version>
+		<orianna.datastores.version>1.0.4-SNAPSHOT</orianna.datastores.version>
 		<guava.version>24.0-jre</guava.version>
-		<jackson.version>2.9.4</jackson.version>
-		<msgpack.version>0.8.14</msgpack.version>
+		<jackson.version>2.9.6</jackson.version>
+		<msgpack.version>0.8.16</msgpack.version>
 		<swagger.version>1.5.18</swagger.version>
 		<docker.image>merakianalytics/kernel</docker.image>
 	</properties>
