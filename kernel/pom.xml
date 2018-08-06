@@ -43,6 +43,10 @@
 			<artifactId>deltaspike-core-api</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.merakianalytics.datapipelines</groupId>
+			<artifactId>datapipelines</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.merakianalytics.orianna</groupId>
 			<artifactId>orianna</artifactId>
 		</dependency>

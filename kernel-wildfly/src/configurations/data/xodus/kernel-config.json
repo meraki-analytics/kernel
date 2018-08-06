@@ -95,6 +95,14 @@
             "period": -1,
             "unit": "DAYS"
           },
+          "com.merakianalytics.orianna.types.data.staticdata.Patch": {
+            "period": -1,
+            "unit": "DAYS"
+          },
+          "com.merakianalytics.orianna.types.data.staticdata.Patches": {
+            "period": 6,
+            "unit": "HOURS"
+          },
           "com.merakianalytics.orianna.types.data.staticdata.ProfileIcons": {
             "period": -1,
             "unit": "DAYS"

@@ -61,13 +61,14 @@
 		<junit.version>4.12</junit.version>
 		<javaee.version>8.0</javaee.version>
 		<resteasy.version>3.0.24.Final</resteasy.version>
-		<deltaspike.version>1.8.1</deltaspike.version>
+		<deltaspike.version>1.8.2</deltaspike.version>
+		<datapipelines.version>1.0.3</datapipelines.version>
 		<orianna.version>3.1.0-SNAPSHOT</orianna.version>
-		<orianna.datastores.version>1.0.4-SNAPSHOT</orianna.datastores.version>
-		<guava.version>24.0-jre</guava.version>
+		<orianna.datastores.version>1.1.0-SNAPSHOT</orianna.datastores.version>
+		<guava.version>26.0-jre</guava.version>
 		<jackson.version>2.9.6</jackson.version>
 		<msgpack.version>0.8.16</msgpack.version>
-		<swagger.version>1.5.18</swagger.version>
+		<swagger.version>1.5.20</swagger.version>
 		<docker.image>merakianalytics/kernel</docker.image>
 	</properties>
 
@@ -110,6 +111,11 @@
 				<groupId>org.apache.deltaspike.core</groupId>
 				<artifactId>deltaspike-core-api</artifactId>
 				<version>${deltaspike.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.merakianalytics.datapipelines</groupId>
+				<artifactId>datapipelines</artifactId>
+				<version>${datapipelines.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.merakianalytics.orianna</groupId>
