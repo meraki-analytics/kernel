@@ -24,28 +24,28 @@ import io.swagger.annotations.Api;
 /**
  * The League API proxy for the Riot API
  *
- * @see https://developer.riotgames.com/api-methods/#league-v3
+ * @see https://developer.riotgames.com/api-methods/#league-v4
  */
-@Path("/league/v3")
+@Path("/league/v4")
 @Api("League API")
 @GZIP
 public class LeagueAPI extends RiotAPIService {
     /**
-     * /lol/league/v3/positions/by-summoner/{summonerId}
+     * /lol/league/v4/positions/by-summoner/{encryptedSummonerId}
      *
-     * @see https://developer.riotgames.com/api-methods/#league-v3/GET_getAllLeaguePositionsForSummoner
+     * @see https://developer.riotgames.com/api-methods/#league-v4/GET_getAllLeaguePositionsForSummoner
      *
      * @param platform
      *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
-     * @param summonerId
-     *        the summoner's id
+     * @param encryptedSummonerId
+     *        the summoner's encrypted id
      * @return {@link com.merakianalytics.orianna.types.data.league.LeaguePositions}
      */
-    @Path("/positions/by-summoner/{summonerId}")
+    @Path("/positions/by-summoner/{encryptedSummonerId}")
     @GET
     public LeaguePositions getAllLeaguePositionsForSummoner(@QueryParam("platform") final String platformTag,
-        @PathParam("summonerId") final long summonerId) {
+        @PathParam("encryptedSummonerId") final long encryptedSummonerId) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
@@ -53,16 +53,16 @@ public class LeagueAPI extends RiotAPIService {
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
-            .put("summonerId", summonerId)
+            .put("encryptedSummonerId", encryptedSummonerId)
             .build();
 
         return context.getPipeline().get(LeaguePositions.class, query);
     }
 
     /**
-     * /lol/league/v3/challengerleagues/by-queue/{queue}
+     * /lol/league/v4/challengerleagues/by-queue/{queue}
      *
-     * @see https://developer.riotgames.com/api-methods/#league-v3/GET_getChallengerLeague
+     * @see https://developer.riotgames.com/api-methods/#league-v4/GET_getChallengerLeague
      *
      * @param platform
      *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
@@ -89,9 +89,9 @@ public class LeagueAPI extends RiotAPIService {
     }
 
     /**
-     * /lol/league/v3/leagues/{leagueId}
+     * /lol/league/v4/leagues/{leagueId}
      *
-     * @see https://developer.riotgames.com/api-methods/#league-v3/GET_getLeagueById
+     * @see https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueById
      *
      * @param platform
      *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
@@ -117,9 +117,9 @@ public class LeagueAPI extends RiotAPIService {
     }
 
     /**
-     * /lol/league/v3/masterleagues/by-queue/{queue}
+     * /lol/league/v4/masterleagues/by-queue/{queue}
      *
-     * @see https://developer.riotgames.com/api-methods/#league-v3/GET_getMasterLeague
+     * @see https://developer.riotgames.com/api-methods/#league-v4/GET_getMasterLeague
      *
      * @param platform
      *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
