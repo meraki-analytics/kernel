@@ -23,27 +23,27 @@ import io.swagger.annotations.Api;
 /**
  * The Champion Mastery API proxy for the Riot API
  *
- * @see https://developer.riotgames.com/api-methods/#champion-mastery-v3
+ * @see https://developer.riotgames.com/api-methods/#champion-mastery-v4
  */
-@Path("/champion-mastery/v3")
+@Path("/champion-mastery/v4")
 @Api("Champion Mastery API")
 @GZIP
 public class ChampionMasteryAPI extends RiotAPIService {
     /**
-     * /lol/champion-mastery/v3/champion-masteries/by-summoner/{summonerId}
+     * /lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerId}
      *
-     * @see https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getAllChampionMasteries
+     * @see https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getAllChampionMasteries
      *
      * @param platform
      *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
-     * @param summonerId
-     *        the summoner's id
+     * @param encryptedSummonerId
+     *        the summoner's encrypted id
      * @return {@link com.merakianalytics.orianna.types.dto.championmastery.ChampionMasteries}
      */
-    @Path("/champion-masteries/by-summoner/{summonerId}")
+    @Path("/champion-masteries/by-summoner/{encryptedSummonerId}")
     @GET
-    public ChampionMasteries getAllChampionMasteries(@QueryParam("platform") final String platformTag, @PathParam("summonerId") final long summonerId) {
+    public ChampionMasteries getAllChampionMasteries(@QueryParam("platform") final String platformTag, @PathParam("encryptedSummonerId") final long encryptedSummonerId) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
@@ -51,29 +51,29 @@ public class ChampionMasteryAPI extends RiotAPIService {
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
-            .put("summonerId", summonerId)
+            .put("encryptedSummonerId", encryptedSummonerId)
             .build();
 
         return context.getPipeline().get(ChampionMasteries.class, query);
     }
 
     /**
-     * /lol/champion-mastery/v3/champion-masteries/by-summoner/{summonerId}/by-champion/{championId}
+     * /lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerId}/by-champion/{championId}
      *
-     * @see https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getChampionMastery
+     * @see https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMastery
      *
      * @param platform
      *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
-     * @param summonerId
-     *        the summoner's id
+     * @param encryptedSummonerId
+     *        the summoner's encrypted id
      * @param championId
      *        the champion's id
      * @return {@link com.merakianalytics.orianna.types.dto.championmastery.ChampionMastery}
      */
-    @Path("/champion-masteries/by-summoner/{summonerId}/by-champion/{championId}")
+    @Path("/champion-masteries/by-summoner/{encryptedSummonerId}/by-champion/{championId}")
     @GET
-    public ChampionMastery getChampionMastery(@QueryParam("platform") final String platformTag, @PathParam("summonerId") final long summonerId,
+    public ChampionMastery getChampionMastery(@QueryParam("platform") final String platformTag, @PathParam("encryptedSummonerId") final long encryptedSummonerId,
         @PathParam("championId") final int championId) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
         if(platform == null) {
@@ -82,7 +82,7 @@ public class ChampionMasteryAPI extends RiotAPIService {
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
-            .put("summonerId", summonerId)
+            .put("encryptedSummonerId", encryptedSummonerId)
             .put("championId", championId)
             .build();
 
@@ -90,20 +90,20 @@ public class ChampionMasteryAPI extends RiotAPIService {
     }
 
     /**
-     * /lol/champion-mastery/v3/scores/by-summoner/{summonerId}
+     * /lol/champion-mastery/v4/scores/by-summoner/{encryptedSummonerId}
      *
-     * @see https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getChampionMasteryScore
+     * @see https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMasteryScore
      *
      * @param platform
      *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
-     * @param summonerId
-     *        the summoner's id
+     * @param encryptedSummonerId
+     *        the summoner's encrypted id
      * @return {@link com.merakianalytics.orianna.types.dto.championmastery.ChampionMasteryScore}
      */
-    @Path("/scores/by-summoner/{summonerId}")
+    @Path("/scores/by-summoner/{encryptedSummonerId}")
     @GET
-    public ChampionMasteryScore getChampionMasteryScore(@QueryParam("platform") final String platformTag, @PathParam("summonerId") final long summonerId) {
+    public ChampionMasteryScore getChampionMasteryScore(@QueryParam("platform") final String platformTag, @PathParam("encryptedSummonerId") final long encryptedSummonerId) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
@@ -111,7 +111,7 @@ public class ChampionMasteryAPI extends RiotAPIService {
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
-            .put("summonerId", summonerId)
+            .put("encryptedSummonerId", encryptedSummonerId)
             .build();
 
         return context.getPipeline().get(ChampionMasteryScore.class, query);

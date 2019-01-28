@@ -21,27 +21,27 @@ import io.swagger.annotations.Api;
 /**
  * The Summoner API proxy for the Riot API
  *
- * @see https://developer.riotgames.com/api-methods/#summoner-v3
+ * @see https://developer.riotgames.com/api-methods/#summoner-v4
  */
-@Path("/summoner/v3")
+@Path("/summoner/v4")
 @Api("Summoner API")
 @GZIP
 public class SummonerAPI extends RiotAPIService {
     /**
-     * /lol/summoner/v3/summoners/by-account/{accountId}
+     * /lol/summoner/v4/summoners/by-account/{encryptedAccountId}
      *
-     * @see https://developer.riotgames.com/api-methods/#summoner-v3/GET_getByAccountId
+     * @see https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByAccountId
      *
      * @param platform
      *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
-     * @param accountId
-     *        the account's id
+     * @param encryptedAccountId
+     *        the account's encrypted id
      * @return {@link com.merakianalytics.orianna.types.dto.summoner.Summoner}
      */
-    @Path("/summoners/by-account/{accountId}")
+    @Path("/summoners/by-account/{encryptedAccountId}")
     @GET
-    public Summoner getByAccountId(@QueryParam("platform") final String platformTag, @PathParam("accountId") final long accountId) {
+    public Summoner getByAccountId(@QueryParam("platform") final String platformTag, @PathParam("encryptedAccountId") final long encryptedAccountId) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
@@ -49,27 +49,27 @@ public class SummonerAPI extends RiotAPIService {
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
-            .put("accountId", accountId)
+            .put("encryptedAccountId", encryptedAccountId)
             .build();
 
         return context.getPipeline().get(Summoner.class, query);
     }
 
     /**
-     * /lol/summoner/v3/summoners/{summonerId}
+     * /lol/summoner/v4/summoners/{encryptedSummonerId}
      *
-     * @see https://developer.riotgames.com/api-methods/#summoner-v3/GET_getBySummonerId
+     * @see https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerId
      *
      * @param platform
      *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
-     * @param summonerId
-     *        the summoner's id
+     * @param encryptedSummonerId
+     *        the summoner's encrypted id
      * @return {@link com.merakianalytics.orianna.types.dto.summoner.Summoner}
      */
-    @Path("/summoners/{summonerId}")
+    @Path("/summoners/{encryptedSummonerId}")
     @GET
-    public Summoner getBySummonerId(@QueryParam("platform") final String platformTag, @PathParam("summonerId") final long summonerId) {
+    public Summoner getBySummonerId(@QueryParam("platform") final String platformTag, @PathParam("encryptedSummonerId") final long encryptedSummonerId) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
@@ -77,16 +77,16 @@ public class SummonerAPI extends RiotAPIService {
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
-            .put("id", summonerId)
+            .put("encryptedSummonerId", encryptedSummonerId)
             .build();
 
         return context.getPipeline().get(Summoner.class, query);
     }
 
     /**
-     * /lol/summoner/v3/summoners/by-name/{summonerName}
+     * /lol/summoner/v4/summoners/by-name/{summonerName}
      *
-     * @see https://developer.riotgames.com/api-methods/#summoner-v3/GET_getBySummonerName
+     * @see https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerName
      *
      * @param platform
      *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
@@ -105,7 +105,35 @@ public class SummonerAPI extends RiotAPIService {
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
-            .put("name", summonerName)
+            .put("summonerName", summonerName)
+            .build();
+
+        return context.getPipeline().get(Summoner.class, query);
+    }
+
+    /**
+     * /lol/summoner/v4/summoners/{encryptedPUUID}
+     *
+     * @see https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByPUUID
+     *
+     * @param platform
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
+     * @param encryptedPUUID
+     *        the person's encrypted id
+     * @return {@link com.merakianalytics.orianna.types.dto.summoner.Summoner}
+     */
+    @Path("/summoners/{encryptedPUUID}")
+    @GET
+    public Summoner getByPUUID(@QueryParam("platform") final String platformTag, @PathParam("encryptedPUUID") final long encryptedPUUID) {
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
+
+        final Map<String, Object> query = ImmutableMap.<String, Object> builder()
+            .put("platform", platform)
+            .put("encryptedPUUID", encryptedPUUID)
             .build();
 
         return context.getPipeline().get(Summoner.class, query);

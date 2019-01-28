@@ -26,16 +26,16 @@ import io.swagger.annotations.Api;
 /**
  * The Match API proxy for the Riot API
  *
- * @see https://developer.riotgames.com/api-methods/#match-v3
+ * @see https://developer.riotgames.com/api-methods/#match-v4
  */
-@Path("/match/v3")
+@Path("/match/v4")
 @Api("Match API")
 @GZIP
 public class MatchAPI extends RiotAPIService {
     /**
-     * /lol/match/v3/matches/{matchId}
+     * /lol/match/v4/matches/{matchId}
      *
-     * @see https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch
+     * @see https://developer.riotgames.com/api-methods/#match-v4/GET_getMatch
      *
      * @param platform
      *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
@@ -58,9 +58,9 @@ public class MatchAPI extends RiotAPIService {
     }
 
     /**
-     * /lol/match/v3/matches/{matchId}/by-tournament-code/{tournamentCode}
+     * /lol/match/v4/matches/{matchId}/by-tournament-code/{tournamentCode}
      *
-     * @see https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchByTournamentCode
+     * @see https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchByTournamentCode
      *
      * @param platform
      *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
@@ -87,9 +87,9 @@ public class MatchAPI extends RiotAPIService {
     }
 
     /**
-     * /lol/match/v3/matches/by-tournament-code/{tournamentCode}/ids
+     * /lol/match/v4/matches/by-tournament-code/{tournamentCode}/ids
      *
-     * @see https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchIdsByTournamentCode
+     * @see https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchIdsByTournamentCode
      *
      * @param platform
      *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
@@ -113,15 +113,15 @@ public class MatchAPI extends RiotAPIService {
     }
 
     /**
-     * /lol/match/v3/matchlists/by-account/{accountId}
+     * /lol/match/v4/matchlists/by-account/{encryptedAccountId}
      *
-     * @see https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist
+     * @see https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchlist
      *
      * @param platform
      *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
      *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
-     * @param accountId
-     *        the account's id
+     * @param encryptedAccountId
+     *        the account's encrypted id
      * @param queue
      *        the ids of the queues
      * @param endTime
@@ -138,9 +138,9 @@ public class MatchAPI extends RiotAPIService {
      *        the last result to return
      * @return {@link com.merakianalytics.orianna.types.dto.match.Matchlist}
      */
-    @Path("/matchlists/by-account/{accountId}")
+    @Path("/matchlists/by-account/{encryptedAccountId}")
     @GET
-    public Matchlist getMatchlist(@QueryParam("platform") final String platformTag, @PathParam("accountId") final long accountId,
+    public Matchlist getMatchlist(@QueryParam("platform") final String platformTag, @PathParam("encryptedAccountId") final long encryptedAccountId,
         @QueryParam("queue") final Set<Integer> queue, @QueryParam("endTime") @DefaultValue("-1") final long endTime,
         @QueryParam("beginIndex") @DefaultValue("-1") final int beginIndex, @QueryParam("beginTime") @DefaultValue("-1") final long beginTime,
         @QueryParam("season") final Set<Integer> season, @QueryParam("champion") final Set<Integer> champion,
@@ -149,7 +149,7 @@ public class MatchAPI extends RiotAPIService {
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
-        builder.put("accountId", accountId);
+        builder.put("encryptedAccountId", encryptedAccountId);
 
         if(queue != null) {
             builder.put("queues", queue);
@@ -183,9 +183,9 @@ public class MatchAPI extends RiotAPIService {
     }
 
     /**
-     * /lol/match/v3/timelines/by-match/{matchId}
+     * /lol/match/v4/timelines/by-match/{matchId}
      *
-     * @see https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchTimeline
+     * @see https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchTimeline
      *
      * @param platform
      *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
@@ -208,34 +208,5 @@ public class MatchAPI extends RiotAPIService {
             .build();
 
         return context.getPipeline().get(MatchTimeline.class, query);
-    }
-
-    /**
-     * /lol/match/v3/matchlists/by-account/{accountId}/recent
-     *
-     * @see https://developer.riotgames.com/api-methods/#match-v3/GET_getRecentMatchlist
-     *
-     * @param platform
-     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
-     *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
-     * @param accountId
-     *        the account's id
-     * @return {@link com.merakianalytics.orianna.types.dto.match.Matchlist}
-     */
-    @Path("/matchlists/by-account/{accountId}/recent")
-    @GET
-    public Matchlist getRecentMatchlist(@QueryParam("platform") final String platformTag, @PathParam("accountId") final long accountId) {
-        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
-        if(platform == null) {
-            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
-        }
-
-        final Map<String, Object> query = ImmutableMap.<String, Object> builder()
-            .put("platform", platform)
-            .put("accountId", accountId)
-            .put("recent", true)
-            .build();
-
-        return context.getPipeline().get(Matchlist.class, query);
     }
 }
