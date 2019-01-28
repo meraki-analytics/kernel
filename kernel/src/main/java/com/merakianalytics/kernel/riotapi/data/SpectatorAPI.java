@@ -43,7 +43,7 @@ public class SpectatorAPI extends RiotAPIService {
     @Path("/active-games/by-summoner/{encryptedSummonerId}")
     @GET
     public CurrentMatch getCurrentGameInfoBySummoner(@QueryParam("platform") final String platformTag,
-        @PathParam("encryptedSummonerId") final long encryptedSummonerId) {
+        @PathParam("encryptedSummonerId") final String encryptedSummonerId) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);

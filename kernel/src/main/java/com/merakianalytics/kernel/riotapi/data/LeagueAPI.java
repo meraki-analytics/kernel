@@ -46,7 +46,7 @@ public class LeagueAPI extends RiotAPIService {
     @Path("/positions/by-summoner/{encryptedSummonerId}")
     @GET
     public LeaguePositions getAllLeaguePositionsForSummoner(@QueryParam("platform") final String platformTag,
-        @PathParam("encryptedSummonerId") final long encryptedSummonerId) {
+        @PathParam("encryptedSummonerId") final String encryptedSummonerId) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);

@@ -140,7 +140,7 @@ public class MatchAPI extends RiotAPIService {
      */
     @Path("/matchlists/by-account/{encryptedAccountId}")
     @GET
-    public Matchlist getMatchlist(@QueryParam("platform") final String platformTag, @PathParam("encryptedAccountId") final long encryptedAccountId,
+    public Matchlist getMatchlist(@QueryParam("platform") final String platformTag, @PathParam("encryptedAccountId") final String encryptedAccountId,
         @QueryParam("queue") final Set<Integer> queue, @QueryParam("endTime") @DefaultValue("-1") final long endTime,
         @QueryParam("beginIndex") @DefaultValue("-1") final int beginIndex, @QueryParam("beginTime") @DefaultValue("-1") final long beginTime,
         @QueryParam("season") final Set<Integer> season, @QueryParam("champion") final Set<Integer> champion,
