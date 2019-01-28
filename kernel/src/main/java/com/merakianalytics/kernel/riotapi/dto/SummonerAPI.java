@@ -67,7 +67,7 @@ public class SummonerAPI extends RiotAPIService {
      *        the person's encrypted id
      * @return {@link com.merakianalytics.orianna.types.dto.summoner.Summoner}
      */
-    @Path("/summoners/{encryptedPUUID}")
+    @Path("/summoners/by-puuid/{encryptedPUUID}")
     @GET
     public Summoner getByPUUID(@QueryParam("platform") final String platformTag, @PathParam("encryptedPUUID") final String encryptedPUUID) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
