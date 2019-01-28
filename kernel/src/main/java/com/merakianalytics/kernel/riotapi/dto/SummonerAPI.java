@@ -105,7 +105,7 @@ public class SummonerAPI extends RiotAPIService {
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
-            .put("summonerId", encryptedSummonerId)
+            .put("id", encryptedSummonerId)
             .build();
 
         return context.getPipeline().get(Summoner.class, query);
@@ -133,7 +133,7 @@ public class SummonerAPI extends RiotAPIService {
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
-            .put("summonerName", summonerName)
+            .put("name", summonerName)
             .build();
 
         return context.getPipeline().get(Summoner.class, query);
