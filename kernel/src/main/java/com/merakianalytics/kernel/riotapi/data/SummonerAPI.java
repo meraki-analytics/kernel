@@ -41,7 +41,7 @@ public class SummonerAPI extends RiotAPIService {
      */
     @Path("/summoners/by-account/{encryptedAccountId}")
     @GET
-    public Summoner getByAccountId(@QueryParam("platform") final String platformTag, @PathParam("encryptedAccountId") final long encryptedAccountId) {
+    public Summoner getByAccountId(@QueryParam("platform") final String platformTag, @PathParam("encryptedAccountId") final String encryptedAccountId) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
@@ -69,7 +69,7 @@ public class SummonerAPI extends RiotAPIService {
      */
     @Path("/summoners/{encryptedPUUID}")
     @GET
-    public Summoner getByPUUID(@QueryParam("platform") final String platformTag, @PathParam("encryptedPUUID") final long encryptedPUUID) {
+    public Summoner getByPUUID(@QueryParam("platform") final String platformTag, @PathParam("encryptedPUUID") final String encryptedPUUID) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
@@ -97,7 +97,7 @@ public class SummonerAPI extends RiotAPIService {
      */
     @Path("/summoners/{encryptedSummonerId}")
     @GET
-    public Summoner getBySummonerId(@QueryParam("platform") final String platformTag, @PathParam("encryptedSummonerId") final long encryptedSummonerId) {
+    public Summoner getBySummonerId(@QueryParam("platform") final String platformTag, @PathParam("encryptedSummonerId") final String encryptedSummonerId) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
