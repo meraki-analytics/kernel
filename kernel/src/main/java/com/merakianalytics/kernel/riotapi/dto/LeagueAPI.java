@@ -17,6 +17,7 @@ import com.merakianalytics.orianna.types.common.Platform;
 import com.merakianalytics.orianna.types.common.Queue;
 import com.merakianalytics.orianna.types.common.Tier;
 import com.merakianalytics.orianna.types.dto.league.LeagueList;
+import com.merakianalytics.orianna.types.dto.league.PositionalQueuesList;
 import com.merakianalytics.orianna.types.dto.league.SummonerPositions;
 
 import io.swagger.annotations.Api;
@@ -53,7 +54,7 @@ public class LeagueAPI extends RiotAPIService {
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
-            .put("encryptedSummonerId", encryptedSummonerId)
+            .put("summonerId", encryptedSummonerId)
             .build();
 
         return context.getPipeline().get(SummonerPositions.class, query);
@@ -83,6 +84,35 @@ public class LeagueAPI extends RiotAPIService {
             .put("platform", platform)
             .put("queue", queue)
             .put("tier", Tier.CHALLENGER)
+            .build();
+
+        return context.getPipeline().get(LeagueList.class, query);
+    }
+
+    /**
+     * /lol/league/v4/grandmasterleagues/by-queue/{queue}
+     *
+     * @see https://developer.riotgames.com/api-methods/#league-v4/GET_getGrandmasterLeague
+     *
+     * @param platform
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
+     * @param queue
+     *        the {@link com.merakianalytics.orianna.types.common.Queue}
+     * @return {@link com.merakianalytics.orianna.types.dto.league.LeagueList}
+     */
+    @Path("/grandmasterleagues/by-queue/{queue}")
+    @GET
+    public LeagueList getGrandmasterLeague(@QueryParam("platform") final String platformTag, @PathParam("queue") final Queue queue) {
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
+
+        final Map<String, Object> query = ImmutableMap.<String, Object> builder()
+            .put("platform", platform)
+            .put("queue", queue)
+            .put("tier", Tier.GRANDMASTER)
             .build();
 
         return context.getPipeline().get(LeagueList.class, query);
@@ -143,5 +173,30 @@ public class LeagueAPI extends RiotAPIService {
             .build();
 
         return context.getPipeline().get(LeagueList.class, query);
+    }
+
+    /**
+     * /lol/league/v4/positional-rank-queues
+     *
+     * @see https://developer.riotgames.com/api-methods/#league-v4/GET_getQueuesWithPositionRanks
+     *
+     * @param platform
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
+     * @return {@link com.merakianalytics.orianna.types.dto.league.PositionalQueuesList}
+     */
+    @Path("/positional-rank-queues")
+    @GET
+    public PositionalQueuesList getPositionalQueues(@QueryParam("platform") final String platformTag) {
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
+
+        final Map<String, Object> query = ImmutableMap.<String, Object> builder()
+            .put("platform", platform)
+            .build();
+
+        return context.getPipeline().get(PositionalQueuesList.class, query);
     }
 }

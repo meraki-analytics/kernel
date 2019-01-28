@@ -42,7 +42,8 @@ public class SpectatorAPI extends RiotAPIService {
      */
     @Path("/active-games/by-summoner/{encryptedSummonerId}")
     @GET
-    public CurrentGameInfo getCurrentGameInfoBySummoner(@QueryParam("platform") final String platformTag, @PathParam("encryptedSummonerId") final long encryptedSummonerId) {
+    public CurrentGameInfo getCurrentGameInfoBySummoner(@QueryParam("platform") final String platformTag,
+        @PathParam("encryptedSummonerId") final long encryptedSummonerId) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
@@ -50,7 +51,7 @@ public class SpectatorAPI extends RiotAPIService {
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
-            .put("encryptedSummonerId", encryptedSummonerId)
+            .put("summonerId", encryptedSummonerId)
             .build();
 
         return context.getPipeline().get(CurrentGameInfo.class, query);

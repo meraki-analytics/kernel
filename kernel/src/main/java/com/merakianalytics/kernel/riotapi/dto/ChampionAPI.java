@@ -3,10 +3,8 @@ package com.merakianalytics.kernel.riotapi.dto;
 import java.net.HttpURLConnection;
 import java.util.Map;
 
-import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 
@@ -15,17 +13,17 @@ import org.jboss.resteasy.annotations.GZIP;
 import com.google.common.collect.ImmutableMap;
 import com.merakianalytics.kernel.riotapi.RiotAPIService;
 import com.merakianalytics.orianna.types.common.Platform;
-import com.merakianalytics.orianna.types.dto.champion.ChampionRotation;
+import com.merakianalytics.orianna.types.dto.champion.ChampionInfo;
 
 import io.swagger.annotations.Api;
 
 /**
- * The Champion Status API proxy for the Riot API
+ * The Champion API proxy for the Riot API
  *
  * @see https://developer.riotgames.com/api-methods/#champion-v3
  */
 @Path("/platform/v3")
-@Api("Champion Rotation API")
+@Api("Champion API")
 @GZIP
 public class ChampionAPI extends RiotAPIService {
     /**
@@ -40,7 +38,7 @@ public class ChampionAPI extends RiotAPIService {
      */
     @Path("/champion-rotations")
     @GET
-    public ChampionRotation getChampionRotation(@QueryParam("platform") final String platformTag) {
+    public ChampionInfo getChampionInfo(@QueryParam("platform") final String platformTag) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
@@ -50,6 +48,6 @@ public class ChampionAPI extends RiotAPIService {
             .put("platform", platform)
             .build();
 
-        return context.getPipeline().get(ChampionRotation.class, query);
+        return context.getPipeline().get(ChampionInfo.class, query);
     }
 }

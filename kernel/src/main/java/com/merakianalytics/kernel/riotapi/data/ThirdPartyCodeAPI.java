@@ -40,7 +40,8 @@ public class ThirdPartyCodeAPI extends RiotAPIService {
      */
     @Path("/third-party-code/by-summoner/{encryptedSummonerId}")
     @GET
-    public VerificationString verificationString(@QueryParam("platform") final String platformTag, @PathParam("encryptedSummonerId") final long encryptedSummonerId) {
+    public VerificationString verificationString(@QueryParam("platform") final String platformTag,
+        @PathParam("encryptedSummonerId") final long encryptedSummonerId) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
@@ -48,7 +49,7 @@ public class ThirdPartyCodeAPI extends RiotAPIService {
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
-        builder.put("encryptedSummonerId", encryptedSummonerId);
+        builder.put("summonerId", encryptedSummonerId);
 
         return context.getPipeline().get(VerificationString.class, builder.build());
     }

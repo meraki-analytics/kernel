@@ -49,7 +49,35 @@ public class SummonerAPI extends RiotAPIService {
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
-            .put("encryptedAccountId", encryptedAccountId)
+            .put("accountId", encryptedAccountId)
+            .build();
+
+        return context.getPipeline().get(Summoner.class, query);
+    }
+
+    /**
+     * /lol/summoner/v4/summoners/{encryptedPUUID}
+     *
+     * @see https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByPUUID
+     *
+     * @param platform
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
+     * @param encryptedPUUID
+     *        the person's encrypted id
+     * @return {@link com.merakianalytics.orianna.types.data.summoner.Summoner}
+     */
+    @Path("/summoners/{encryptedPUUID}")
+    @GET
+    public Summoner getByPUUID(@QueryParam("platform") final String platformTag, @PathParam("encryptedPUUID") final long encryptedPUUID) {
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
+
+        final Map<String, Object> query = ImmutableMap.<String, Object> builder()
+            .put("platform", platform)
+            .put("puuid", encryptedPUUID)
             .build();
 
         return context.getPipeline().get(Summoner.class, query);
@@ -77,7 +105,7 @@ public class SummonerAPI extends RiotAPIService {
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
-            .put("encryptedSummonerId", encryptedSummonerId)
+            .put("summonerId", encryptedSummonerId)
             .build();
 
         return context.getPipeline().get(Summoner.class, query);
@@ -106,34 +134,6 @@ public class SummonerAPI extends RiotAPIService {
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
             .put("name", summonerName)
-            .build();
-
-        return context.getPipeline().get(Summoner.class, query);
-    }
-
-    /**
-     * /lol/summoner/v4/summoners/{encryptedPUUID}
-     *
-     * @see https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByPUUID
-     *
-     * @param platform
-     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
-     *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
-     * @param encryptedPUUID
-     *        the person's encrypted id
-     * @return {@link com.merakianalytics.orianna.types.data.summoner.Summoner}
-     */
-    @Path("/summoners/{encryptedPUUID}")
-    @GET
-    public Summoner getByPUUID(@QueryParam("platform") final String platformTag, @PathParam("encryptedPUUID") final long encryptedPUUID) {
-        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
-        if(platform == null) {
-            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
-        }
-
-        final Map<String, Object> query = ImmutableMap.<String, Object> builder()
-            .put("platform", platform)
-            .put("encryptedPUUID", encryptedPUUID)
             .build();
 
         return context.getPipeline().get(Summoner.class, query);

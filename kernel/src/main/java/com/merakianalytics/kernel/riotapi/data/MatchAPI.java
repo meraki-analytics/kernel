@@ -149,7 +149,7 @@ public class MatchAPI extends RiotAPIService {
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
-        builder.put("encryptedAccountId", encryptedAccountId);
+        builder.put("accountId", encryptedAccountId);
 
         if(queue != null) {
             builder.put("queues", queue);

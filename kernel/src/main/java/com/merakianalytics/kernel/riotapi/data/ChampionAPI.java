@@ -3,10 +3,8 @@ package com.merakianalytics.kernel.riotapi.data;
 import java.net.HttpURLConnection;
 import java.util.Map;
 
-import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 
@@ -20,12 +18,12 @@ import com.merakianalytics.orianna.types.data.champion.ChampionRotation;
 import io.swagger.annotations.Api;
 
 /**
- * The Champion Status API proxy for the Riot API
+ * The Champion API proxy for the Riot API
  *
  * @see https://developer.riotgames.com/api-methods/#champion-v3
  */
 @Path("/platform/v3")
-@Api("Champion Rotation API")
+@Api("Champion API")
 @GZIP
 public class ChampionAPI extends RiotAPIService {
     /**

@@ -40,7 +40,6 @@ public class WebServices extends Application {
             services.add(com.merakianalytics.kernel.riotapi.data.ChampionMasteryAPI.class);
             services.add(com.merakianalytics.kernel.riotapi.data.ChampionAPI.class);
             services.add(com.merakianalytics.kernel.riotapi.data.LeagueAPI.class);
-            services.add(com.merakianalytics.kernel.riotapi.data.StaticDataAPI.class);
             services.add(com.merakianalytics.kernel.riotapi.data.StatusAPI.class);
             services.add(com.merakianalytics.kernel.riotapi.data.MatchAPI.class);
             services.add(com.merakianalytics.kernel.riotapi.data.SpectatorAPI.class);
@@ -50,7 +49,6 @@ public class WebServices extends Application {
             services.add(com.merakianalytics.kernel.riotapi.dto.ChampionMasteryAPI.class);
             services.add(com.merakianalytics.kernel.riotapi.dto.ChampionAPI.class);
             services.add(com.merakianalytics.kernel.riotapi.dto.LeagueAPI.class);
-            services.add(com.merakianalytics.kernel.riotapi.dto.StaticDataAPI.class);
             services.add(com.merakianalytics.kernel.riotapi.dto.StatusAPI.class);
             services.add(com.merakianalytics.kernel.riotapi.dto.MatchAPI.class);
             services.add(com.merakianalytics.kernel.riotapi.dto.SpectatorAPI.class);

@@ -43,7 +43,8 @@ public class ChampionMasteryAPI extends RiotAPIService {
      */
     @Path("/champion-masteries/by-summoner/{encryptedSummonerId}")
     @GET
-    public ChampionMasteries getAllChampionMasteries(@QueryParam("platform") final String platformTag, @PathParam("encryptedSummonerId") final long encryptedSummonerId) {
+    public ChampionMasteries getAllChampionMasteries(@QueryParam("platform") final String platformTag,
+        @PathParam("encryptedSummonerId") final long encryptedSummonerId) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
@@ -51,7 +52,7 @@ public class ChampionMasteryAPI extends RiotAPIService {
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
-            .put("encryptedSummonerId", encryptedSummonerId)
+            .put("summonerId", encryptedSummonerId)
             .build();
 
         return context.getPipeline().get(ChampionMasteries.class, query);
@@ -73,7 +74,8 @@ public class ChampionMasteryAPI extends RiotAPIService {
      */
     @Path("/champion-masteries/by-summoner/{encryptedSummonerId}/by-champion/{championId}")
     @GET
-    public ChampionMastery getChampionMastery(@QueryParam("platform") final String platformTag, @PathParam("encryptedSummonerId") final long encryptedSummonerId,
+    public ChampionMastery getChampionMastery(@QueryParam("platform") final String platformTag,
+        @PathParam("encryptedSummonerId") final long encryptedSummonerId,
         @PathParam("championId") final int championId) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
         if(platform == null) {
@@ -82,7 +84,7 @@ public class ChampionMasteryAPI extends RiotAPIService {
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
-            .put("encryptedSummonerId", encryptedSummonerId)
+            .put("summonerId", encryptedSummonerId)
             .put("championId", championId)
             .build();
 
@@ -103,7 +105,8 @@ public class ChampionMasteryAPI extends RiotAPIService {
      */
     @Path("/scores/by-summoner/{encryptedSummonerId}")
     @GET
-    public ChampionMasteryScore getChampionMasteryScore(@QueryParam("platform") final String platformTag, @PathParam("encryptedSummonerId") final long encryptedSummonerId) {
+    public ChampionMasteryScore getChampionMasteryScore(@QueryParam("platform") final String platformTag,
+        @PathParam("encryptedSummonerId") final long encryptedSummonerId) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
@@ -111,7 +114,7 @@ public class ChampionMasteryAPI extends RiotAPIService {
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
-            .put("encryptedSummonerId", encryptedSummonerId)
+            .put("summonerId", encryptedSummonerId)
             .build();
 
         return context.getPipeline().get(ChampionMasteryScore.class, query);
