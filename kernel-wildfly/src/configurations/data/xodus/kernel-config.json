@@ -7,11 +7,7 @@
       "config": {
         "dataDirectory": "/var/lib/orianna/data",
         "expirationPeriods": {
-          "com.merakianalytics.orianna.types.data.champion.ChampionStatus": {
-            "period": 6,
-            "unit": "HOURS"
-          },
-          "com.merakianalytics.orianna.types.data.champion.ChampionStatuses": {
+          "com.merakianalytics.orianna.types.data.champion.ChampionRotation": {
             "period": 6,
             "unit": "HOURS"
           },
@@ -33,6 +29,10 @@
           },
           "com.merakianalytics.orianna.types.data.league.LeaguePositions": {
             "period": 2,
+            "unit": "HOURS"
+          },
+          "com.merakianalytics.orianna.types.data.league.PositionalQueues": {
+            "period": 6,
             "unit": "HOURS"
           },
           "com.merakianalytics.orianna.types.data.match.Match": {

@@ -8,11 +8,7 @@
         "host": "mongo",
         "port": 27017,
         "expirationPeriods": {
-          "com.merakianalytics.orianna.types.dto.champion.Champion": {
-            "period": 6,
-            "unit": "HOURS"
-          },
-          "com.merakianalytics.orianna.types.dto.champion.ChampionList": {
+          "com.merakianalytics.orianna.types.dto.champion.ChampionInfo": {
             "period": 6,
             "unit": "HOURS"
           },
@@ -34,6 +30,10 @@
           },
           "com.merakianalytics.orianna.types.dto.league.SummonerPositions": {
             "period": 2,
+            "unit": "HOURS"
+          },
+          "com.merakianalytics.orianna.types.dto.league.PositionalQueuesList": {
+            "period": 6,
             "unit": "HOURS"
           },
           "com.merakianalytics.orianna.types.dto.match.Match": {
