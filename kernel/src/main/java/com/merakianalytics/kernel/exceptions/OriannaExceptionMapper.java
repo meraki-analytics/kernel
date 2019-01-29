@@ -53,7 +53,7 @@ public class OriannaExceptionMapper implements ExceptionMapper<OriannaException>
         if(exception instanceof BadRequestException) {
             final BadRequestException e = (BadRequestException)exception;
             LOGGER.error("Encountered a BadRequestException from orianna!", e);
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
         if(exception instanceof ForbiddenException) {
