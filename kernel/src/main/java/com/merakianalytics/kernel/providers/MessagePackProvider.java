@@ -20,6 +20,7 @@ import org.msgpack.jackson.dataformat.MessagePackFactory;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
 
 /**
  * Allows MsgPack serialization. Excludes default values when serializing.
@@ -32,7 +33,8 @@ public class MessagePackProvider<T> implements MessageBodyWriter<T>, MessageBody
     public static final String APPLICATION_MSGPACK = "application/msgpack";
     public static final MediaType MEDIA_TYPE = MediaType.valueOf(APPLICATION_MSGPACK);
 
-    private final ObjectMapper mapper = new ObjectMapper(new MessagePackFactory()).setSerializationInclusion(Include.NON_DEFAULT);
+    private final ObjectMapper mapper =
+        new ObjectMapper(new MessagePackFactory()).registerModule(new JodaModule()).setSerializationInclusion(Include.NON_DEFAULT);
 
     @Override
     public boolean isReadable(final Class<?> type, final Type genericType, final Annotation[] annotations, final MediaType mediaType) {
