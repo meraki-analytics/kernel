@@ -16,7 +16,7 @@ Kernel also includes the following built-in features:
 ## API Differences from Riot API
 Kernel is intended to mirror the Riot API exactly. The Riot API, however, is distributed accross regional platform domains to split computation load and localize content distribution (e.g. na1.api.riotgames.com or euw1.api.riotgames.com). Kernel supports serving _all_ platforms from a single server instance using the `platform` query parameter, which is available for every API endpoint in Kernel. All Riot API platforms are supported by this feature. A default platform can be configured to direct requests without a `platform` query parameter to that platform.
 
-Example: the Riot API call `https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/FatalElement` becomes `http://localhost/lol/summoner/v3/summoners/by-name/FatalElement?platform=NA1` for Kernel.
+Example: the Riot API call `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/FatalElement` becomes `http://localhost/lol/summoner/v4/summoners/by-name/FatalElement?platform=NA1` for Kernel.
 
 ## How to get it
 Kernel can be obtained and installed either through [Docker](https://www.docker.com/) or by building the application locally using [Maven](https://maven.apache.org/) and deploying it to a local [Wildfly](http://www.wildfly.org/) application server.
