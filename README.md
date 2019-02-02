@@ -34,7 +34,7 @@ Kernel docker images are available on [Docker Hub](https://hub.docker.com/r/mera
   - [Mac](https://docs.docker.com/docker-for-mac/install/)
 - Install [Docker Compose](https://docs.docker.com/compose/install/)
 - Choose an off-the-shelf configuration of Kernel to use and download the `docker-compose.yml` file associated with it
-  - [Base Configuration (No Caching Included)](https://github.com/meraki-analytics/kernel/tree/master/kernel/configurations/dto/base)
+  - [Base Configuration (No Caching Included)](https://github.com/meraki-analytics/kernel/tree/master/configurations/dto/base)
   - [JetBrains Xodus Configuration (Filesystem-based Embedded DB)](https://github.com/meraki-analytics/kernel/tree/master/configurations/dto/xodus)
   - [MongoDB Configuration](https://github.com/meraki-analytics/kernel/tree/master/configurations/dto/mongo)
   - [More configurations forthcoming as support for additional popular databases is completed for orianna](https://github.com/meraki-analytics/orianna-datastores)
@@ -46,15 +46,15 @@ Kernel docker images are available on [Docker Hub](https://hub.docker.com/r/mera
 
 If you want to change some configuration settings in Kernel, you can edit the `kernel-config.json` file from the configuration you chose, then add a volume entry to the `docker-comopse.yml` file to load your config into the container.
 
-Example: [original compose file](https://github.com/meraki-analytics/kernel/blob/master/kernel/configurations/dto/base/docker-compose.yml) | [compose file with custom kernel-config.json](https://gist.github.com/robrua/9a89b908e2a6c3848cc4ab3ec5a0638e)
+Example: [original compose file](https://github.com/meraki-analytics/kernel/blob/master/configurations/dto/base/docker-compose.yml) | [compose file with custom kernel-config.json](https://gist.github.com/robrua/9a89b908e2a6c3848cc4ab3ec5a0638e)
 
 ### Building Locally with Maven
-- Install [JDK 8 or higher](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+- Install [JDK 8 or higher](https://openjdk.java.net/install/)
 - Install [Maven](https://maven.apache.org/install.html)
 - Clone the Kernel source code locally & navigate to the folder
 - Run `mvn clean package` to build the application. Some maven profiles are available to bundle datastore dependencies in with the application. Use `mvn clean package -P some,profile,names` to activate them
-  - [mongo](https://github.com/meraki-analytics/kernel/blob/master/kernel/pom.xml#L295-L338)
-  - [xodus](https://github.com/meraki-analytics/kernel/blob/master/kernel/pom.xml#L339-L382)
+  - [mongo](https://github.com/meraki-analytics/kernel/blob/master/pom.xml#L295-L338)
+  - [xodus](https://github.com/meraki-analytics/kernel/blob/master/pom.xml#L339-L382)
   - [More configurations forthcoming as support for additional popular databases is completed for orianna](https://github.com/meraki-analytics/orianna-datastores)
 - From your Kernel source folder, copy `target/kernel-thorntail.jar` wherever you'd like to serve Kernel from
 - From your Kernel source folder, copy `target/kernel-config.json` wherever you'd like to serve Kernel from
