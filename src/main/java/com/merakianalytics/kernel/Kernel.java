@@ -13,14 +13,11 @@ import com.merakianalytics.kernel.filters.CORSFilter;
 import com.merakianalytics.kernel.providers.JSONProvider;
 import com.merakianalytics.kernel.providers.MessagePackProvider;
 
-import io.swagger.jaxrs.listing.ApiListingResource;
-import io.swagger.jaxrs.listing.SwaggerSerializers;
-
 /**
  * The jax-rs application definition. This is the "main" of the kernel application.
  */
-@ApplicationPath("/")
-public class WebServices extends Application {
+@ApplicationPath("/lol")
+public class Kernel extends Application {
     @Inject
     private KernelContext context;
 
@@ -55,10 +52,6 @@ public class WebServices extends Application {
             services.add(com.merakianalytics.kernel.riotapi.dto.SummonerAPI.class);
             services.add(com.merakianalytics.kernel.riotapi.dto.ThirdPartyCodeAPI.class);
         }
-
-        // Swagger Documentation
-        services.add(ApiListingResource.class);
-        services.add(SwaggerSerializers.class);
 
         return services;
     }

@@ -1,5 +1,6 @@
 package com.merakianalytics.kernel;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -29,7 +30,7 @@ import com.merakianalytics.orianna.types.common.Platform;
  */
 @Exclude
 public class KernelConfiguration {
-    private static final String CONFIGURATION_RESOURCE = "kernel-config.json";
+    private static final String CONFIGURATION_PATH_ENVIRONMENT_VARIABLE = "KERNEL_CONFIGURATION_PATH";
     private static final String DEFAULT_CONFIGURATION_RESOURCE = "com/merakianalytics/kernel/default-kernel-config.json";
     private static final Logger LOGGER = LoggerFactory.getLogger(KernelConfiguration.class);
 
@@ -59,11 +60,15 @@ public class KernelConfiguration {
 
         KernelConfiguration config = null;
         String message = null;
-        try(InputStream inputStream = KernelConfigurationProducer.class.getClassLoader().getResourceAsStream(CONFIGURATION_RESOURCE)) {
-            config = mapper.readValue(inputStream, KernelConfiguration.class);
-            message = " from non-default resource file " + CONFIGURATION_RESOURCE;
-        } catch(final IOException e) {
-            LOGGER.error("Failed to load Kernel Configuration! Attempting to load default configuration!", e);
+
+        final String configPath = System.getenv(CONFIGURATION_PATH_ENVIRONMENT_VARIABLE);
+        if(configPath != null) {
+            try {
+                config = mapper.readValue(new File(configPath), KernelConfiguration.class);
+                message = " from " + configPath + " as specified by " + CONFIGURATION_PATH_ENVIRONMENT_VARIABLE;
+            } catch(final IOException e) {
+                LOGGER.error("Failed to load Kernel Configuration! Attempting to load default configuration!", e);
+            }
         }
 
         if(config == null) {
