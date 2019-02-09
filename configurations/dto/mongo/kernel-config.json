@@ -152,23 +152,6 @@
       },
       "configClassName": "com.merakianalytics.orianna.datastores.mongo.dto.MongoDBDataStore$Configuration"
     }, {
-      "className": "com.merakianalytics.orianna.datapipeline.DataDragon",
-      "config": {
-        "cacheDuration": {
-          "period": 6,
-          "unit": "HOURS"
-        },
-        "requests": {
-          "connectTimeout": 3,
-          "connectTimeoutUnit": "SECONDS",
-          "rateLimiterTimeout": 30,
-          "rateLimiterTimeoutUnit": "SECONDS",
-          "readTimeout": 3,
-          "readTimeoutUnit": "SECONDS"
-        }
-      },
-      "configClassName": "com.merakianalytics.orianna.datapipeline.DataDragon$Configuration"
-    }, {
       "className": "com.merakianalytics.orianna.datapipeline.riotapi.RiotAPI",
       "config": {
         "http404Strategy": {
@@ -228,7 +211,8 @@
           "rateLimiterTimeout": 30,
           "rateLimiterTimeoutUnit": "SECONDS",
           "readTimeout": 3,
-          "readTimeoutUnit": "SECONDS"
+          "readTimeoutUnit": "SECONDS",
+          "https": true
         },
         "services": [
           "com.merakianalytics.orianna.datapipeline.riotapi.ChampionAPI",
