@@ -120,5 +120,6 @@
     "allowMethods": "*",
     "allowOrigin": "*",
     "maxAge": "3600"
-  }
+  },
+  "serializationInclusions": "NON_DEFAULT"
 }

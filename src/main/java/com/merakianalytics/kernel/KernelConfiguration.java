@@ -32,6 +32,8 @@ import com.merakianalytics.orianna.types.common.Platform;
 public class KernelConfiguration {
     private static final String CONFIGURATION_PATH_ENVIRONMENT_VARIABLE = "KERNEL_CONFIGURATION_PATH";
     private static final String DEFAULT_CONFIGURATION_RESOURCE = "com/merakianalytics/kernel/default-kernel-config.json";
+    private static final boolean DEFAULT_PRODUCE_CORE_DATA = false;
+    private static final Include DEFAULT_SERIALIZATION_INCLUSIONS = Include.NON_DEFAULT;
     private static final Logger LOGGER = LoggerFactory.getLogger(KernelConfiguration.class);
 
     private static PipelineConfiguration defaultPipelineConfiguration() {
@@ -92,7 +94,8 @@ public class KernelConfiguration {
     private CORSFilter.Configuration CORS = new CORSFilter.Configuration();
     private Platform defaultPlatform = Platform.NORTH_AMERICA;
     private PipelineConfiguration pipeline = defaultPipelineConfiguration();
-    private boolean produceCoreData = false;
+    private boolean produceCoreData = DEFAULT_PRODUCE_CORE_DATA;
+    private Include serializationInclusions = DEFAULT_SERIALIZATION_INCLUSIONS;
 
     /**
      * @return the CORS
@@ -113,6 +116,13 @@ public class KernelConfiguration {
      */
     public PipelineConfiguration getPipeline() {
         return pipeline;
+    }
+
+    /**
+     * @return the serializationInclusions
+     */
+    public Include getSerializationInclusions() {
+        return serializationInclusions;
     }
 
     /**
@@ -152,5 +162,13 @@ public class KernelConfiguration {
      */
     public void setProduceCoreData(final boolean produceCoreData) {
         this.produceCoreData = produceCoreData;
+    }
+
+    /**
+     * @param serializationInclusions
+     *        the serializationInclusions to set
+     */
+    public void setSerializationInclusions(final Include serializationInclusions) {
+        this.serializationInclusions = serializationInclusions;
     }
 }

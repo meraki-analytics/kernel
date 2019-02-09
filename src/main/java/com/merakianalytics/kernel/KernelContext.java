@@ -2,6 +2,7 @@ package com.merakianalytics.kernel;
 
 import org.apache.deltaspike.core.api.exclude.Exclude;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.merakianalytics.datapipelines.DataPipeline;
 import com.merakianalytics.kernel.filters.CORSFilter;
 import com.merakianalytics.orianna.datapipeline.PipelineConfiguration;
@@ -13,6 +14,9 @@ import com.merakianalytics.orianna.types.common.Platform;
  */
 @Exclude
 public class KernelContext {
+    private static final boolean DEFAULT_PRODUCE_CORE_DATA = false;
+    private static final Include DEFAULT_SERIALIZATION_INCLUSIONS = Include.NON_DEFAULT;
+
     /**
      * Creates a new applications state from a {@link com.merakianalytics.kernel.KernelConfiguration}
      *
@@ -32,7 +36,8 @@ public class KernelContext {
     private CORSFilter.Configuration CORS = new CORSFilter.Configuration();
     private Platform defaultPlatform = Platform.NORTH_AMERICA;
     private DataPipeline pipeline = new DataPipeline(new RiotAPI());
-    private boolean produceCoreData = false;
+    private boolean produceCoreData = DEFAULT_PRODUCE_CORE_DATA;
+    private Include serializationInclusions = DEFAULT_SERIALIZATION_INCLUSIONS;
 
     /**
      * @return the cors
@@ -53,6 +58,13 @@ public class KernelContext {
      */
     public DataPipeline getPipeline() {
         return pipeline;
+    }
+
+    /**
+     * @return the serializationInclusions
+     */
+    public Include getSerializationInclusions() {
+        return serializationInclusions;
     }
 
     /**
@@ -92,5 +104,13 @@ public class KernelContext {
      */
     public void setProduceCoreData(final boolean produceCoreData) {
         this.produceCoreData = produceCoreData;
+    }
+
+    /**
+     * @param serializationInclusions
+     *        the serializationInclusions to set
+     */
+    public void setSerializationInclusions(final Include serializationInclusions) {
+        this.serializationInclusions = serializationInclusions;
     }
 }
