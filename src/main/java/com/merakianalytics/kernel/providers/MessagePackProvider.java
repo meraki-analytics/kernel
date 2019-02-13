@@ -6,6 +6,9 @@ import java.io.OutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
@@ -15,17 +18,16 @@ import javax.ws.rs.ext.MessageBodyReader;
 import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.Provider;
 
-import org.apache.deltaspike.core.api.exclude.Exclude;
 import org.msgpack.jackson.dataformat.MessagePackFactory;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
+import com.merakianalytics.kernel.KernelContext;
 
 /**
  * Allows MsgPack serialization. Excludes default values when serializing.
  */
-@Exclude
+@Dependent
 @Provider
 @Produces(MessagePackProvider.APPLICATION_MSGPACK)
 @Consumes(MessagePackProvider.APPLICATION_MSGPACK)
@@ -33,8 +35,18 @@ public class MessagePackProvider<T> implements MessageBodyWriter<T>, MessageBody
     public static final String APPLICATION_MSGPACK = "application/msgpack";
     public static final MediaType MEDIA_TYPE = MediaType.valueOf(APPLICATION_MSGPACK);
 
-    private final ObjectMapper mapper =
-        new ObjectMapper(new MessagePackFactory()).registerModule(new JodaModule()).setSerializationInclusion(Include.NON_ABSENT);
+    @Inject
+    private KernelContext context;
+
+    private ObjectMapper mapper;
+
+    /**
+     * The KernelContext won't be injected until after construction so we initialize the mapper then
+     */
+    @PostConstruct
+    private void initializeMapper() {
+        mapper = new ObjectMapper(new MessagePackFactory()).registerModule(new JodaModule()).setSerializationInclusion(context.getSerializationInclusions());
+    }
 
     @Override
     public boolean isReadable(final Class<?> type, final Type genericType, final Annotation[] annotations, final MediaType mediaType) {

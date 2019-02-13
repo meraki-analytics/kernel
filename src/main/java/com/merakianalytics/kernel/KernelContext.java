@@ -30,6 +30,7 @@ public class KernelContext {
         context.setDefaultPlatform(config.getDefaultPlatform());
         context.setPipeline(PipelineConfiguration.toPipeline(config.getPipeline()));
         context.setProduceCoreData(config.isProduceCoreData());
+        context.setSerializationInclusions(config.getSerializationInclusions());
         return context;
     }
 
