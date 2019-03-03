@@ -74,7 +74,7 @@ public class KernelConfiguration {
         }
 
         if(config == null) {
-            try(InputStream inputStream = KernelConfigurationProducer.class.getClassLoader().getResourceAsStream(DEFAULT_CONFIGURATION_RESOURCE)) {
+            try(InputStream inputStream = KernelConfiguration.class.getClassLoader().getResourceAsStream(DEFAULT_CONFIGURATION_RESOURCE)) {
                 config = mapper.readValue(inputStream, KernelConfiguration.class);
                 message = " from default resource file " + DEFAULT_CONFIGURATION_RESOURCE;
             } catch(final IOException e) {
