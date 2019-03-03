@@ -17,7 +17,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.merakianalytics.kernel.filters.CORSFilter;
-import com.merakianalytics.kernel.producers.KernelConfigurationProducer;
 import com.merakianalytics.orianna.datapipeline.PipelineConfiguration;
 import com.merakianalytics.orianna.datapipeline.PipelineConfiguration.PipelineElementConfiguration;
 import com.merakianalytics.orianna.datapipeline.PipelineConfiguration.TransformerConfiguration;
