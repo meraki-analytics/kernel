@@ -40,7 +40,7 @@ Kernel docker images are available on [Docker Hub](https://hub.docker.com/r/mera
   - [More configurations forthcoming as support for additional popular databases is completed for orianna](https://github.com/meraki-analytics/orianna-datastores)
 - Set your `RIOT_API_KEY` environment variable to your [Riot API Key](https://developer.riotgames.com/)
 - Navigate to the directory where you downloaded `docker-compose.yml` on your local machine and open a terminal or command prompt
-  - Run `docker-compose up -d` to lanch Kernel in the background
+  - Run `docker-compose up -d --force-recreate` to lanch Kernel in the background
   - Run `docker-compose down` to shut down Kernel
 - The default `docker-compose.yml` files will start Kernel on port 80, as well as launching a [Swagger UI](https://hub.docker.com/r/swaggerapi/swagger-ui/) on port 12357 to explore the API.
 
