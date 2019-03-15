@@ -18,7 +18,6 @@ import com.merakianalytics.orianna.types.common.Queue;
 import com.merakianalytics.orianna.types.common.Tier;
 import com.merakianalytics.orianna.types.data.league.League;
 import com.merakianalytics.orianna.types.data.league.LeaguePositions;
-import com.merakianalytics.orianna.types.data.league.PositionalQueues;
 
 import io.swagger.annotations.Api;
 
@@ -173,30 +172,5 @@ public class LeagueAPI extends RiotAPIService {
             .build();
 
         return context.getPipeline().get(League.class, query);
-    }
-
-    /**
-     * /lol/league/v4/positional-rank-queues
-     *
-     * @see https://developer.riotgames.com/api-methods/#league-v4/GET_getQueuesWithPositionRanks
-     *
-     * @param platform
-     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
-     *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
-     * @return {@link com.merakianalytics.orianna.types.dto.league.PositionalQueuesList}
-     */
-    @Path("/positional-rank-queues")
-    @GET
-    public PositionalQueues getPositionalQueues(@QueryParam("platform") final String platformTag) {
-        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
-        if(platform == null) {
-            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
-        }
-
-        final Map<String, Object> query = ImmutableMap.<String, Object> builder()
-            .put("platform", platform)
-            .build();
-
-        return context.getPipeline().get(PositionalQueues.class, query);
     }
 }
