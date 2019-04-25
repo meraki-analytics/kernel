@@ -10,6 +10,7 @@ import javax.ws.rs.core.Application;
 import com.merakianalytics.kernel.exceptions.OriannaExceptionMapper;
 import com.merakianalytics.kernel.exceptions.QueryValidationExceptionMapper;
 import com.merakianalytics.kernel.filters.CORSFilter;
+import com.merakianalytics.kernel.filters.NullResponseFilter;
 import com.merakianalytics.kernel.providers.JSONProvider;
 import com.merakianalytics.kernel.providers.MessagePackProvider;
 
@@ -29,6 +30,7 @@ public class Kernel extends Application {
         services.add(OriannaExceptionMapper.class);
         services.add(QueryValidationExceptionMapper.class);
         services.add(CORSFilter.class);
+        services.add(NullResponseFilter.class);
         services.add(JSONProvider.class);
         services.add(MessagePackProvider.class);
 
