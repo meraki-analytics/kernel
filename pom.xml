@@ -68,7 +68,7 @@
 		<orianna.version>4.0.0-SNAPSHOT</orianna.version>
 		<orianna.datastores.version>1.1.0-SNAPSHOT</orianna.datastores.version>
 		<guava.version>27.0.1-jre</guava.version>
-		<jackson.version>2.9.8</jackson.version>
+		<jackson.version>2.9.9</jackson.version>
 		<msgpack.version>0.8.16</msgpack.version>
 		<docker.image>merakianalytics/kernel</docker.image>
 		<docker.tag>base</docker.tag>
