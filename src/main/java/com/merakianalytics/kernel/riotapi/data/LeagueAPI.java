@@ -31,35 +31,6 @@ import io.swagger.annotations.Api;
 @GZIP
 public class LeagueAPI extends RiotAPIService {
     /**
-     * /lol/league/v4/positions/by-summoner/{encryptedSummonerId}
-     *
-     * @see https://developer.riotgames.com/api-methods/#league-v4/GET_getAllLeaguePositionsForSummoner
-     *
-     * @param platform
-     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
-     *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
-     * @param encryptedSummonerId
-     *        the summoner's encrypted id
-     * @return {@link com.merakianalytics.orianna.types.data.league.LeaguePositions}
-     */
-    @Path("/positions/by-summoner/{encryptedSummonerId}")
-    @GET
-    public LeaguePositions getAllLeaguePositionsForSummoner(@QueryParam("platform") final String platformTag,
-        @PathParam("encryptedSummonerId") final String encryptedSummonerId) {
-        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
-        if(platform == null) {
-            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
-        }
-
-        final Map<String, Object> query = ImmutableMap.<String, Object> builder()
-            .put("platform", platform)
-            .put("summonerId", encryptedSummonerId)
-            .build();
-
-        return context.getPipeline().get(LeaguePositions.class, query);
-    }
-
-    /**
      * /lol/league/v4/challengerleagues/by-queue/{queue}
      *
      * @see https://developer.riotgames.com/api-methods/#league-v4/GET_getChallengerLeague
@@ -143,6 +114,35 @@ public class LeagueAPI extends RiotAPIService {
             .build();
 
         return context.getPipeline().get(League.class, query);
+    }
+
+    /**
+     * /lol/league/v4/entries/by-summoner/{encryptedSummonerId}
+     *
+     * @see https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntries
+     *
+     * @param platform
+     *        the tag for the {@link com.merakianalytics.orianna.types.common.Platform} to get data from. If null, the default
+     *        {@link com.merakianalytics.orianna.types.common.Platform} will be used.
+     * @param encryptedSummonerId
+     *        the summoner's encrypted id
+     * @return {@link com.merakianalytics.orianna.types.data.league.LeaguePositions}
+     */
+    @Path("/entries/by-summoner/{encryptedSummonerId}")
+    @GET
+    public LeaguePositions getLeagueEntries(@QueryParam("platform") final String platformTag,
+        @PathParam("encryptedSummonerId") final String encryptedSummonerId) {
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        if(platform == null) {
+            throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
+
+        final Map<String, Object> query = ImmutableMap.<String, Object> builder()
+            .put("platform", platform)
+            .put("summonerId", encryptedSummonerId)
+            .build();
+
+        return context.getPipeline().get(LeaguePositions.class, query);
     }
 
     /**

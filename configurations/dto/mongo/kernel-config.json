@@ -28,7 +28,7 @@
             "period": 30,
             "unit": "MINUTES"
           },
-          "com.merakianalytics.orianna.types.dto.league.SummonerPositions": {
+          "com.merakianalytics.orianna.types.dto.league.LeaguePositions": {
             "period": 2,
             "unit": "HOURS"
           },
