@@ -47,7 +47,7 @@ public class MatchAPI extends RiotAPIService {
     @Path("/matches/{matchId}")
     @GET
     public Match getMatch(@QueryParam("platform") final String platformTag, @PathParam("matchId") final long matchId) {
-        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag.toUpperCase()) : context.getDefaultPlatform();
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
@@ -75,7 +75,7 @@ public class MatchAPI extends RiotAPIService {
     @GET
     public Match getMatchByTournamentCode(@QueryParam("platform") final String platformTag, @PathParam("matchId") final long matchId,
         @PathParam("tournamentCode") final String tournamentCode) {
-        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag.toUpperCase()) : context.getDefaultPlatform();
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
@@ -102,7 +102,7 @@ public class MatchAPI extends RiotAPIService {
     @GET
     public TournamentMatches getMatchIdsByTournamentCode(@QueryParam("platform") final String platformTag,
         @PathParam("tournamentCode") final String tournamentCode) {
-        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag.toUpperCase()) : context.getDefaultPlatform();
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
             .put("platform", platform)
@@ -145,7 +145,7 @@ public class MatchAPI extends RiotAPIService {
         @QueryParam("beginIndex") @DefaultValue("-1") final int beginIndex, @QueryParam("beginTime") @DefaultValue("-1") final long beginTime,
         @QueryParam("season") final Set<Integer> season, @QueryParam("champion") final Set<Integer> champion,
         @QueryParam("endIndex") @DefaultValue("-1") final int endIndex) {
-        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag.toUpperCase()) : context.getDefaultPlatform();
 
         final ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
         builder.put("platform", platform);
@@ -197,7 +197,7 @@ public class MatchAPI extends RiotAPIService {
     @Path("/timelines/by-match/{matchId}")
     @GET
     public MatchTimeline getMatchTimeline(@QueryParam("platform") final String platformTag, @PathParam("matchId") final long matchId) {
-        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag.toUpperCase()) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
         }

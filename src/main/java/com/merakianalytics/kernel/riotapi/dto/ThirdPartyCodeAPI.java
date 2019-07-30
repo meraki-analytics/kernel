@@ -42,7 +42,7 @@ public class ThirdPartyCodeAPI extends RiotAPIService {
     @GET
     public VerificationString verificationString(@QueryParam("platform") final String platformTag,
         @PathParam("encryptedSummonerId") final String encryptedSummonerId) {
-        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag.toUpperCase()) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
         }

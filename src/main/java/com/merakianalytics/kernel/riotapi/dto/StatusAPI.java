@@ -39,7 +39,7 @@ public class StatusAPI extends RiotAPIService {
     @Path("/shard-data")
     @GET
     public ShardStatus getShardData(@QueryParam("platform") final String platformTag) {
-        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag.toUpperCase()) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
         }

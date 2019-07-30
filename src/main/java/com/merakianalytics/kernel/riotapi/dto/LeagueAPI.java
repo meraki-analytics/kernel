@@ -45,7 +45,7 @@ public class LeagueAPI extends RiotAPIService {
     @Path("/challengerleagues/by-queue/{queue}")
     @GET
     public LeagueList getChallengerLeague(@QueryParam("platform") final String platformTag, @PathParam("queue") final Queue queue) {
-        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag.toUpperCase()) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
         }
@@ -74,7 +74,7 @@ public class LeagueAPI extends RiotAPIService {
     @Path("/grandmasterleagues/by-queue/{queue}")
     @GET
     public LeagueList getGrandmasterLeague(@QueryParam("platform") final String platformTag, @PathParam("queue") final Queue queue) {
-        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag.toUpperCase()) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
         }
@@ -103,7 +103,7 @@ public class LeagueAPI extends RiotAPIService {
     @Path("/leagues/{leagueId}")
     @GET
     public LeagueList getLeagueById(@QueryParam("platform") final String platformTag, @PathParam("leagueId") final String leagueId) {
-        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag.toUpperCase()) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
         }
@@ -132,7 +132,7 @@ public class LeagueAPI extends RiotAPIService {
     @GET
     public LeaguePositions getLeagueEntries(@QueryParam("platform") final String platformTag,
         @PathParam("encryptedSummonerId") final String encryptedSummonerId) {
-        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag.toUpperCase()) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
         }
@@ -160,7 +160,7 @@ public class LeagueAPI extends RiotAPIService {
     @Path("/masterleagues/by-queue/{queue}")
     @GET
     public LeagueList getMasterLeague(@QueryParam("platform") final String platformTag, @PathParam("queue") final Queue queue) {
-        final Platform platform = platformTag != null ? Platform.withTag(platformTag) : context.getDefaultPlatform();
+        final Platform platform = platformTag != null ? Platform.withTag(platformTag.toUpperCase()) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
         }
