@@ -44,10 +44,15 @@ public class LeagueAPI extends RiotAPIService {
      */
     @Path("/challengerleagues/by-queue/{queue}")
     @GET
-    public LeagueList getChallengerLeague(@QueryParam("platform") final String platformTag, @PathParam("queue") final Queue queue) {
+    public LeagueList getChallengerLeague(@QueryParam("platform") final String platformTag, @PathParam("queue") final String queueTag) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag.toUpperCase()) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
+
+        final Queue queue = Queue.withTag(queueTag);
+        if(queue == null) {
+            throw new WebApplicationException(queueTag + " is not a valid queue!", HttpURLConnection.HTTP_BAD_REQUEST);
         }
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
@@ -73,10 +78,15 @@ public class LeagueAPI extends RiotAPIService {
      */
     @Path("/grandmasterleagues/by-queue/{queue}")
     @GET
-    public LeagueList getGrandmasterLeague(@QueryParam("platform") final String platformTag, @PathParam("queue") final Queue queue) {
+    public LeagueList getGrandmasterLeague(@QueryParam("platform") final String platformTag, @PathParam("queue") final String queueTag) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag.toUpperCase()) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
+
+        final Queue queue = Queue.withTag(queueTag);
+        if(queue == null) {
+            throw new WebApplicationException(queueTag + " is not a valid queue!", HttpURLConnection.HTTP_BAD_REQUEST);
         }
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
@@ -159,10 +169,15 @@ public class LeagueAPI extends RiotAPIService {
      */
     @Path("/masterleagues/by-queue/{queue}")
     @GET
-    public LeagueList getMasterLeague(@QueryParam("platform") final String platformTag, @PathParam("queue") final Queue queue) {
+    public LeagueList getMasterLeague(@QueryParam("platform") final String platformTag, @PathParam("queue") final String queueTag) {
         final Platform platform = platformTag != null ? Platform.withTag(platformTag.toUpperCase()) : context.getDefaultPlatform();
         if(platform == null) {
             throw new WebApplicationException(platformTag + " is not a valid platform!", HttpURLConnection.HTTP_BAD_REQUEST);
+        }
+
+        final Queue queue = Queue.withTag(queueTag);
+        if(queue == null) {
+            throw new WebApplicationException(queueTag + " is not a valid queue!", HttpURLConnection.HTTP_BAD_REQUEST);
         }
 
         final Map<String, Object> query = ImmutableMap.<String, Object> builder()
