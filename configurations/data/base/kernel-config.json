@@ -2,14 +2,27 @@
   "produceCoreData": true,
   "defaultPlatform": "NORTH_AMERICA",
   "pipeline": {
-    "elements": [{
-      "className": "com.merakianalytics.orianna.datapipeline.riotapi.RiotAPI",
-      "config": {
-        "http404Strategy": {
-          "type": "THROW_EXCEPTION"
-        },
-        "http429Strategy": {
-          "backupStrategy": {
+    "elements": [
+      {
+        "className": "com.merakianalytics.orianna.datapipeline.riotapi.RiotAPI",
+        "config": {
+          "http404Strategy": {
+            "type": "THROW_EXCEPTION"
+          },
+          "http429Strategy": {
+            "backupStrategy": {
+              "backoff": 1,
+              "backoffUnit": "SECONDS",
+              "backupStrategy": {
+                "type": "THROW_EXCEPTION"
+              },
+              "maxAttempts": 4,
+              "backoffFactor": 2,
+              "type": "EXPONENTIAL_BACKOFF"
+            },
+            "type": "RETRY_FROM_HEADERS"
+          },
+          "http500Strategy": {
             "backoff": 1,
             "backoffUnit": "SECONDS",
             "backupStrategy": {
@@ -19,84 +32,93 @@
             "backoffFactor": 2,
             "type": "EXPONENTIAL_BACKOFF"
           },
-          "type": "RETRY_FROM_HEADERS"
-        },
-        "http500Strategy": {
-          "backoff": 1,
-          "backoffUnit": "SECONDS",
-          "backupStrategy": {
+          "http503Strategy": {
+            "backoff": 1,
+            "backoffUnit": "SECONDS",
+            "backupStrategy": {
+              "type": "THROW_EXCEPTION"
+            },
+            "maxAttempts": 4,
+            "backoffFactor": 2,
+            "type": "EXPONENTIAL_BACKOFF"
+          },
+          "http504Strategy": {
+            "backoff": 1,
+            "backoffUnit": "SECONDS",
+            "backupStrategy": {
+              "type": "THROW_EXCEPTION"
+            },
+            "maxAttempts": 4,
+            "backoffFactor": 2,
+            "type": "EXPONENTIAL_BACKOFF"
+          },
+          "httpTimeoutStrategy": {
+            "backoff": 1,
+            "backoffUnit": "SECONDS",
+            "backupStrategy": {
+              "type": "THROW_EXCEPTION"
+            },
+            "maxAttempts": 4,
+            "backoffFactor": 2,
+            "type": "EXPONENTIAL_BACKOFF"
+          },
+          "limitingShare": 1.0,
+          "limitingType": "BURST",
+          "rateLimiterTimeoutStrategy": {
             "type": "THROW_EXCEPTION"
           },
-          "maxAttempts": 4,
-          "backoffFactor": 2,
-          "type": "EXPONENTIAL_BACKOFF"
-        },
-        "http503Strategy": {
-          "backoff": 1,
-          "backoffUnit": "SECONDS",
-          "backupStrategy": {
-            "type": "THROW_EXCEPTION"
+          "requests": {
+            "connectTimeout": 3,
+            "connectTimeoutUnit": "SECONDS",
+            "rateLimiterTimeout": 30,
+            "rateLimiterTimeoutUnit": "SECONDS",
+            "readTimeout": 3,
+            "readTimeoutUnit": "SECONDS",
+            "https": true
           },
-          "maxAttempts": 4,
-          "backoffFactor": 2,
-          "type": "EXPONENTIAL_BACKOFF"
+          "services": [
+            "com.merakianalytics.orianna.datapipeline.riotapi.ChampionAPI",
+            "com.merakianalytics.orianna.datapipeline.riotapi.ChampionMasteryAPI",
+            "com.merakianalytics.orianna.datapipeline.riotapi.LeagueAPI",
+            "com.merakianalytics.orianna.datapipeline.riotapi.MatchAPI",
+            "com.merakianalytics.orianna.datapipeline.riotapi.SpectatorAPI",
+            "com.merakianalytics.orianna.datapipeline.riotapi.StatusAPI",
+            "com.merakianalytics.orianna.datapipeline.riotapi.SummonerAPI",
+            "com.merakianalytics.orianna.datapipeline.riotapi.ThirdPartyCodeAPI"
+          ]
         },
-        "httpTimeoutStrategy": {
-          "backoff": 1,
-          "backoffUnit": "SECONDS",
-          "backupStrategy": {
-            "type": "THROW_EXCEPTION"
-          },
-          "maxAttempts": 4,
-          "backoffFactor": 2,
-          "type": "EXPONENTIAL_BACKOFF"
-        },
-        "limitingShare": 1.0,
-        "limitingType": "BURST",
-        "rateLimiterTimeoutStrategy": {
-          "type": "THROW_EXCEPTION"
-        },
-        "requests": {
-          "connectTimeout": 3,
-          "connectTimeoutUnit": "SECONDS",
-          "rateLimiterTimeout": 30,
-          "rateLimiterTimeoutUnit": "SECONDS",
-          "readTimeout": 3,
-          "readTimeoutUnit": "SECONDS",
-          "https": true
-        },
-        "services": [
-          "com.merakianalytics.orianna.datapipeline.riotapi.ChampionAPI",
-          "com.merakianalytics.orianna.datapipeline.riotapi.ChampionMasteryAPI",
-          "com.merakianalytics.orianna.datapipeline.riotapi.LeagueAPI",
-          "com.merakianalytics.orianna.datapipeline.riotapi.MatchAPI",
-          "com.merakianalytics.orianna.datapipeline.riotapi.SpectatorAPI",
-          "com.merakianalytics.orianna.datapipeline.riotapi.StatusAPI",
-          "com.merakianalytics.orianna.datapipeline.riotapi.SummonerAPI",
-          "com.merakianalytics.orianna.datapipeline.riotapi.ThirdPartyCodeAPI"
-        ]
+        "configClassName": "com.merakianalytics.orianna.datapipeline.riotapi.RiotAPI$Configuration"
+      }
+    ],
+    "transformers": [
+      {
+        "className": "com.merakianalytics.orianna.datapipeline.transformers.dtodata.ChampionMasteryTransformer"
       },
-      "configClassName": "com.merakianalytics.orianna.datapipeline.riotapi.RiotAPI$Configuration"
-    }],
-    "transformers": [{
-      "className": "com.merakianalytics.orianna.datapipeline.transformers.dtodata.ChampionMasteryTransformer"
-    }, {
-      "className": "com.merakianalytics.orianna.datapipeline.transformers.dtodata.ChampionTransformer"
-    }, {
-      "className": "com.merakianalytics.orianna.datapipeline.transformers.dtodata.LeagueTransformer"
-    }, {
-      "className": "com.merakianalytics.orianna.datapipeline.transformers.dtodata.MatchTransformer"
-    }, {
-      "className": "com.merakianalytics.orianna.datapipeline.transformers.dtodata.SpectatorTransformer"
-    }, {
-      "className": "com.merakianalytics.orianna.datapipeline.transformers.dtodata.StaticDataTransformer"
-    }, {
-      "className": "com.merakianalytics.orianna.datapipeline.transformers.dtodata.StatusTransformer"
-    }, {
-      "className": "com.merakianalytics.orianna.datapipeline.transformers.dtodata.SummonerTransformer"
-    }, {
-      "className": "com.merakianalytics.orianna.datapipeline.transformers.dtodata.ThirdPartyCodeTransformer"
-    }]
+      {
+        "className": "com.merakianalytics.orianna.datapipeline.transformers.dtodata.ChampionTransformer"
+      },
+      {
+        "className": "com.merakianalytics.orianna.datapipeline.transformers.dtodata.LeagueTransformer"
+      },
+      {
+        "className": "com.merakianalytics.orianna.datapipeline.transformers.dtodata.MatchTransformer"
+      },
+      {
+        "className": "com.merakianalytics.orianna.datapipeline.transformers.dtodata.SpectatorTransformer"
+      },
+      {
+        "className": "com.merakianalytics.orianna.datapipeline.transformers.dtodata.StaticDataTransformer"
+      },
+      {
+        "className": "com.merakianalytics.orianna.datapipeline.transformers.dtodata.StatusTransformer"
+      },
+      {
+        "className": "com.merakianalytics.orianna.datapipeline.transformers.dtodata.SummonerTransformer"
+      },
+      {
+        "className": "com.merakianalytics.orianna.datapipeline.transformers.dtodata.ThirdPartyCodeTransformer"
+      }
+    ]
   },
   "cors": {
     "allowCredentials": "true",
