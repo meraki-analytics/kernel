@@ -44,7 +44,7 @@ Kernel docker images are available on [Docker Hub](https://hub.docker.com/r/mera
   - Run `docker-compose down` to shut down Kernel
 - The default `docker-compose.yml` files will start Kernel on port 80, as well as launching a [Swagger UI](https://hub.docker.com/r/swaggerapi/swagger-ui/) on port 12357 to explore the API.
 
-If you want to change some configuration settings in Kernel, you can edit the `kernel-config.json` file from the configuration you chose, then add a volume entry to the `docker-comopse.yml` file to load your config into the container.
+If you want to change some configuration settings in Kernel, you can edit the `kernel-config.json` file from the configuration you chose, then add a volume entry to the `docker-compose.yml` file to load your config into the container.
 
 Example: [original compose file](https://github.com/meraki-analytics/kernel/blob/master/configurations/dto/base/docker-compose.yml) | [compose file with custom kernel-config.json](https://gist.github.com/robrua/9a89b908e2a6c3848cc4ab3ec5a0638e)
 
